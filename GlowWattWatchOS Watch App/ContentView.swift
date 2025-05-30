@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     
@@ -95,7 +96,7 @@ class PriceProvider: ObservableObject {
             } else {
                 self.lastUpdated = nil
             }
-//            WidgetCenter.shared.reloadAllTimelines()
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

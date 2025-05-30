@@ -10,6 +10,11 @@
 		9B07AE512DE932A600024AFD /* GlowWattWatchOS Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9B07AE442DE932A600024AFD /* GlowWattWatchOS Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9B07AE562DE9365700024AFD /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B9B2DE1541C00200C38 /* AppStorage.swift */; };
 		9B07AE572DE9365C00024AFD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B982DE149E100200C38 /* API.swift */; };
+		9B07AE5D2DE9429700024AFD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7D2DE1490200200C38 /* WidgetKit.framework */; };
+		9B07AE5E2DE9429700024AFD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7F2DE1490200200C38 /* SwiftUI.framework */; };
+		9B07AE692DE9429800024AFD /* GlowWattWatchOSWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9B07AE6F2DE9437100024AFD /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B9B2DE1541C00200C38 /* AppStorage.swift */; };
+		9B07AE702DE9437100024AFD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B982DE149E100200C38 /* API.swift */; };
 		9BB17B7E2DE1490200200C38 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7D2DE1490200200C38 /* WidgetKit.framework */; };
 		9BB17B802DE1490200200C38 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7F2DE1490200200C38 /* SwiftUI.framework */; };
 		9BB17B912DE1490400200C38 /* GlowWattWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -26,6 +31,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9B07AE432DE932A600024AFD;
 			remoteInfo = "GlowWattWatchOS Watch App";
+		};
+		9B07AE672DE9429800024AFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BB17B5E2DE148DA00200C38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B07AE5B2DE9429700024AFD;
+			remoteInfo = GlowWattWatchOSWidgetExtension;
 		};
 		9BB17B8F2DE1490400200C38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -48,6 +60,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B07AE6E2DE9429800024AFD /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9B07AE692DE9429800024AFD /* GlowWattWatchOSWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9BB17B962DE1490400200C38 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		9B07AE442DE932A600024AFD /* GlowWattWatchOS Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowWattWatchOS Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlowWattWatchOSWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B662DE148DA00200C38 /* GlowWatt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowWatt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlowWattWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7D2DE1490200200C38 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -72,6 +96,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B07AE6A2DE9429800024AFD /* Exceptions for "GlowWattWatchOSWidget" folder in "GlowWattWatchOSWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */;
+		};
 		9BB17B922DE1490400200C38 /* Exceptions for "GlowWattWidget" folder in "GlowWattWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -85,6 +116,14 @@
 		9B07AE452DE932A600024AFD /* GlowWattWatchOS Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "GlowWattWatchOS Watch App";
+			sourceTree = "<group>";
+		};
+		9B07AE5F2DE9429700024AFD /* GlowWattWatchOSWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B07AE6A2DE9429800024AFD /* Exceptions for "GlowWattWatchOSWidget" folder in "GlowWattWatchOSWidgetExtension" target */,
+			);
+			path = GlowWattWatchOSWidget;
 			sourceTree = "<group>";
 		};
 		9BB17B682DE148DA00200C38 /* GlowWatt */ = {
@@ -107,6 +146,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B07AE592DE9429700024AFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B07AE5E2DE9429700024AFD /* SwiftUI.framework in Frameworks */,
+				9B07AE5D2DE9429700024AFD /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +184,7 @@
 				9BB17B682DE148DA00200C38 /* GlowWatt */,
 				9BB17B812DE1490200200C38 /* GlowWattWidget */,
 				9B07AE452DE932A600024AFD /* GlowWattWatchOS Watch App */,
+				9B07AE5F2DE9429700024AFD /* GlowWattWatchOSWidget */,
 				9BB17B7C2DE1490200200C38 /* Frameworks */,
 				9BB17B672DE148DA00200C38 /* Products */,
 			);
@@ -147,6 +196,7 @@
 				9BB17B662DE148DA00200C38 /* GlowWatt.app */,
 				9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */,
 				9B07AE442DE932A600024AFD /* GlowWattWatchOS Watch App.app */,
+				9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,10 +229,12 @@
 				9B07AE402DE932A600024AFD /* Sources */,
 				9B07AE412DE932A600024AFD /* Frameworks */,
 				9B07AE422DE932A600024AFD /* Resources */,
+				9B07AE6E2DE9429800024AFD /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9B07AE682DE9429800024AFD /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				9B07AE452DE932A600024AFD /* GlowWattWatchOS Watch App */,
@@ -193,6 +245,28 @@
 			productName = "GlowWattWatchOS Watch App";
 			productReference = 9B07AE442DE932A600024AFD /* GlowWattWatchOS Watch App.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B07AE6B2DE9429800024AFD /* Build configuration list for PBXNativeTarget "GlowWattWatchOSWidgetExtension" */;
+			buildPhases = (
+				9B07AE582DE9429700024AFD /* Sources */,
+				9B07AE592DE9429700024AFD /* Frameworks */,
+				9B07AE5A2DE9429700024AFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B07AE5F2DE9429700024AFD /* GlowWattWatchOSWidget */,
+			);
+			name = GlowWattWatchOSWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = GlowWattWatchOSWidgetExtension;
+			productReference = 9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		9BB17B652DE148DA00200C38 /* GlowWatt */ = {
 			isa = PBXNativeTarget;
@@ -255,6 +329,9 @@
 					9B07AE432DE932A600024AFD = {
 						CreatedOnToolsVersion = 16.2;
 					};
+					9B07AE5B2DE9429700024AFD = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					9BB17B652DE148DA00200C38 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -280,12 +357,20 @@
 				9BB17B652DE148DA00200C38 /* GlowWatt */,
 				9BB17B7A2DE1490200200C38 /* GlowWattWidgetExtension */,
 				9B07AE432DE932A600024AFD /* GlowWattWatchOS Watch App */,
+				9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9B07AE422DE932A600024AFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B07AE5A2DE9429700024AFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -318,6 +403,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B07AE582DE9429700024AFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B07AE6F2DE9437100024AFD /* AppStorage.swift in Sources */,
+				9B07AE702DE9437100024AFD /* API.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9BB17B622DE148DA00200C38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +437,11 @@
 			isa = PBXTargetDependency;
 			target = 9B07AE432DE932A600024AFD /* GlowWattWatchOS Watch App */;
 			targetProxy = 9B07AE4F2DE932A600024AFD /* PBXContainerItemProxy */;
+		};
+		9B07AE682DE9429800024AFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */;
+			targetProxy = 9B07AE672DE9429800024AFD /* PBXContainerItemProxy */;
 		};
 		9BB17B902DE1490400200C38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -402,6 +501,66 @@
 				);
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		9B07AE6C2DE9429800024AFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B9P888266K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		9B07AE6D2DE9429800024AFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B9P888266K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -651,6 +810,15 @@
 			buildConfigurations = (
 				9B07AE532DE932A600024AFD /* Debug */,
 				9B07AE542DE932A600024AFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B07AE6B2DE9429800024AFD /* Build configuration list for PBXNativeTarget "GlowWattWatchOSWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B07AE6C2DE9429800024AFD /* Debug */,
+				9B07AE6D2DE9429800024AFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
