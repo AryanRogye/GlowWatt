@@ -38,12 +38,25 @@ struct SimpleEntry: TimelineEntry {
     let price: Double
 }
 
+struct AnyShape: Shape {
+    private let pathBuilder: (CGRect) -> Path
+    
+    init<S: Shape>(_ shape: S) {
+        self.pathBuilder = shape.path(in:)
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        pathBuilder(rect)
+    }
+}
+
 struct GlowWattWatchOSWidgetEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
     
     var priceColor: Color {
         switch entry.price {
-        case 0..<4:
+        case ..<4:
             return .green
         case 4..<8:
             return .yellow
@@ -60,29 +73,79 @@ struct GlowWattWatchOSWidgetEntryView : View {
         ZStack {
             priceColor.ignoresSafeArea(.all)
             VStack {
-                Text("Current Price: $\(entry.price, specifier: "%.2f")")
-                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 35, weight: .medium))
-                
-                Spacer()
-                
-                HStack {
-                    Text("Last updated")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(.white.opacity(0.8))
-                    Spacer()
-                }
-                
-                HStack {
-                    Text(formattedDate)
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(.white.opacity(0.6))
-                    Spacer()
+                switch family {
+                case .accessoryRectangular:
+                    accessoryRectangleView
+                case .accessoryInline:
+                    accessoryInlineView
+                case .accessoryCircular:
+                    accessoryCircularView
+                case .accessoryCorner:
+                    accessoryCornerView
+                default:
+                    EmptyView()
                 }
             }
             .padding()
+        }
+        .clipShape(
+            family == .accessoryCircular || family == .accessoryCorner
+                ? AnyShape(Circle())
+                : AnyShape(RoundedRectangle(cornerRadius: 10))
+        )
+        .padding(1)
+    }
+    
+    private var accessoryCornerView: some View {
+        Text("\(entry.price, specifier: "%.2f")¢")
+            .multilineTextAlignment(.center)
+            .foregroundStyle(.black)
+            .font(.system(size: 7))
+    }
+
+    private var accessoryCircularView: some View {
+        Text("\(entry.price, specifier: "%.2f")¢")
+            .multilineTextAlignment(.center)
+            .foregroundStyle(.black)
+            .font(.system(size: 8))
+    }
+    
+    private var accessoryInlineView: some View {
+        Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .minimumScaleFactor(0.5)
+            .foregroundStyle(.black)
+            .font(.system(size: 30, weight: .medium))
+    }
+    
+    private var accessoryRectangleView: some View {
+        VStack {
+            HStack {
+                Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 30, weight: .medium))
+                Spacer()
+            }
+            
+            Spacer()
+            
+            HStack {
+                Text("Last updated")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
+                Spacer()
+            }
+            
+            HStack {
+                Text(formattedDate)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(.white.opacity(0.6))
+                Spacer()
+            }
         }
     }
 }
@@ -101,7 +164,8 @@ struct GlowWattWatchOSWidget: Widget {
         .supportedFamilies([
             .accessoryRectangular,
             .accessoryInline,
-            .accessoryCircular
+            .accessoryCircular,
+            .accessoryCorner,
         ])
     }
 }
@@ -109,7 +173,31 @@ struct GlowWattWatchOSWidget: Widget {
 #Preview(as: .accessoryRectangular) {
     GlowWattWatchOSWidget()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
+    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
+}
+
+#Preview(as: .accessoryInline) {
+    GlowWattWatchOSWidget()
+} timeline: {
+    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
+}
+
+#Preview(as: .accessoryCircular) {
+    GlowWattWatchOSWidget()
+} timeline: {
+    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
+}
+
+#Preview(as: .accessoryCorner) {
+    GlowWattWatchOSWidget()
+} timeline: {
+    SimpleEntry(date: .now, price: 10.3634)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }

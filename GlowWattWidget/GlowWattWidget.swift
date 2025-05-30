@@ -49,7 +49,7 @@ struct GlowWattWidgetEntryView : View {
     
     var priceColor: Color {
         switch entry.price {
-        case 0..<4:
+        case ..<4:
             return .green
         case 4..<8:
             return .yellow
@@ -146,8 +146,8 @@ struct GlowWattWidgetHomeScreen: Widget {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             GlowWattWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
-                    entry.price <= 4 ? Color.green :
-                    entry.price <= 7 ? Color.yellow :
+                    entry.price < 4 ? Color.green :
+                    entry.price < 8 ? Color.yellow :
                     Color.red
                 }
         }
@@ -158,6 +158,7 @@ struct GlowWattWidgetHomeScreen: Widget {
     GlowWattWidgetHomeScreen()
 } timeline: {
     SimpleEntry(date: .now, price: 1.3)
+    SimpleEntry(date: .now, price: -1.10)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }

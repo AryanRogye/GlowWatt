@@ -15,7 +15,7 @@ struct ContentView: View {
     var priceColor: Color {
         if let price = priceProvider.price {
             switch price {
-            case 0..<4:
+            case ..<4:
                 return .green
             case 4..<8:
                 return .yellow
@@ -32,7 +32,7 @@ struct ContentView: View {
             ScrollView {
                 VStack {
                     if let price = priceProvider.price, let last = priceProvider.lastUpdated {
-                        Text("Current Price: $\(price, specifier: "%.2f")")
+                        Text("Current Price: \(price, specifier: "%.2f")¢")
                             .font(.largeTitle)
                         Text(last.formatted())
                     } else {
