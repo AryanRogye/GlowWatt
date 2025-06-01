@@ -82,28 +82,46 @@ struct GlowWattWidgetEntryView : View {
     var body: some View {
         ZStack {
             priceColor.ignoresSafeArea(.all)
+            
             VStack(alignment: .leading) {
                 Spacer()
                 
                 HStack {
-                    Text("\(entry.price, specifier: "%.2f")")
+                    Text("\(entry.price, specifier: "%.2f")¢")
                         .font(.system(size: fontSize, weight: .bold))
                         .foregroundColor(.white)
                         .padding(.horizontal, 2)
                     Spacer()
+                    
+                    if family == .accessoryRectangular {
+                        accessoryRectangularView
+                    }
                 }
                 
                 Spacer()
                 
                 if family == .systemSmall {
                     systemSmallView
-                } else {
+                } else if family == .accessoryRectangular {
+                    /// Do Nothing
+                }
+                else {
                     systemMediumView
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .widgetURL(URL(string: "glowwatt://refresh"))
+    }
+    
+    private var accessoryRectangularView: some View {
+        HStack {
+            VStack {
+                Text(formattedDate)
+                    .font(.system(size: fontSize * 0.6, weight: .medium))
+            }
+        }
+        .padding(.horizontal)
     }
     
     private var systemSmallView: some View {
@@ -154,6 +172,15 @@ struct GlowWattWidgetHomeScreen: Widget {
     }
 }
 
+#Preview(as: .accessoryRectangular) {
+    GlowWattWidgetHomeScreen()
+} timeline: {
+    SimpleEntry(date: .now, price: 1.3)
+    SimpleEntry(date: .now, price: -1.10)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
+}
+
 #Preview(as: .systemSmall) {
     GlowWattWidgetHomeScreen()
 } timeline: {
@@ -186,6 +213,3 @@ struct GlowWattWidgetHomeScreen: Widget {
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }
-
-
-

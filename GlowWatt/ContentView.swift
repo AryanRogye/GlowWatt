@@ -34,8 +34,8 @@ struct ContentView: View {
                     if let price = priceProvider.price, let last = priceProvider.lastUpdated, let timeLeft = priceProvider.timeLeftTillNextUpdate {
                         Text("Current Price: \(price, specifier: "%.2f")¢")
                             .font(.largeTitle)
-                        Text(last.formatted())
-                        
+                        Text("Last Updated: \(last.formatted(date: .omitted, time: .shortened))")
+
                         Text("Can refresh in:")
                             .font(.headline)
                             .padding(.top, 10)
