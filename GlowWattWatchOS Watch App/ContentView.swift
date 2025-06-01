@@ -28,6 +28,7 @@ struct ContentView: View {
     
     var body: some View {
         Button(action: {
+            WKInterfaceDevice.current().play(.success)
             priceProvider.refresh()
         }) {
             ZStack {
@@ -61,6 +62,7 @@ struct ContentView: View {
                 .padding()
             }
         }
+        .containerBackground(priceColor, for: .navigation)
         .buttonStyle(.plain)
         .contentShape(Rectangle())
         .onAppear {

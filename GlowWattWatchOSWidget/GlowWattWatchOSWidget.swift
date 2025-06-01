@@ -88,16 +88,20 @@ struct GlowWattWatchOSWidgetEntryView : View {
             }
             .padding()
         }
+        .containerBackground(priceColor, for: .widget)
         .clipShape(
             family == .accessoryCircular || family == .accessoryCorner
                 ? AnyShape(Circle())
                 : AnyShape(RoundedRectangle(cornerRadius: 10))
         )
         .padding(1)
+        .widgetURL(URL(string: "glowwatt://refresh"))
     }
     
     private var accessoryCornerView: some View {
         Text("\(entry.price, specifier: "%.2f")¢")
+            .widgetAccentable()
+            .foregroundColor(.primary)
             .multilineTextAlignment(.center)
             .foregroundStyle(.black)
             .font(.system(size: 7))
@@ -105,6 +109,8 @@ struct GlowWattWatchOSWidgetEntryView : View {
 
     private var accessoryCircularView: some View {
         Text("\(entry.price, specifier: "%.2f")¢")
+            .widgetAccentable()
+            .foregroundColor(.primary)
             .multilineTextAlignment(.center)
             .foregroundStyle(.black)
             .font(.system(size: 8))
@@ -112,10 +118,11 @@ struct GlowWattWatchOSWidgetEntryView : View {
     
     private var accessoryInlineView: some View {
         Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+            .widgetAccentable()
+            .foregroundColor(.primary)
             .multilineTextAlignment(.center)
             .lineLimit(2)
             .minimumScaleFactor(0.5)
-            .foregroundStyle(.black)
             .font(.system(size: 30, weight: .medium))
     }
     
@@ -123,6 +130,7 @@ struct GlowWattWatchOSWidgetEntryView : View {
         VStack {
             HStack {
                 Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+                    .widgetAccentable()
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .minimumScaleFactor(0.5)
@@ -135,6 +143,7 @@ struct GlowWattWatchOSWidgetEntryView : View {
             
             HStack {
                 Text("Last updated")
+                    .widgetAccentable()
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.white.opacity(0.8))
                 Spacer()
@@ -142,6 +151,7 @@ struct GlowWattWatchOSWidgetEntryView : View {
             
             HStack {
                 Text(formattedDate)
+                    .widgetAccentable()
                     .font(.system(size: 13, weight: .medium))
                     .foregroundColor(.white.opacity(0.6))
                 Spacer()

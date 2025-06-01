@@ -12,6 +12,13 @@ struct GlowWattWatchOS_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onOpenURL { url in
+                    if url.scheme == "glowwatt", url.host == "refresh" {
+                        Task {
+                            PriceProvider.shared.refresh()
+                        }
+                    }
+                }
         }
     }
 }
