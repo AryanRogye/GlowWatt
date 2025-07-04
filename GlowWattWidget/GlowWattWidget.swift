@@ -59,7 +59,7 @@ struct GlowWattWidgetEntryView : View {
     }
     
     private var formattedDate: String {
-        return AppStorage.getLastUpdated()?.formatted() ?? "Never"
+        return AppStorage.getLastUpdated()?.formatted() ?? "Nothing Saved Yet"
     }
     
     @Environment(\.widgetFamily) var family
@@ -184,10 +184,11 @@ struct GlowWattWidgetHomeScreen: Widget {
 #Preview(as: .systemSmall) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: -1.10)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    let now = Date()
+    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -3, to: now)!, price: 1.3)
+    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -2, to: now)!, price: 2.4)
+    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, price: 5.0)
+    SimpleEntry(date: now, price: 10.0)
 }
 
 #Preview(as: .systemMedium) {

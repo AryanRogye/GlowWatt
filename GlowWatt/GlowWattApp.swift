@@ -9,13 +9,17 @@ import SwiftUI
 
 @main
 struct GlowWattApp: App {
+    
+    @StateObject private var priceProvider = PriceProvider()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(priceProvider)
                 .onOpenURL { url in
                     if url.scheme == "glowwatt", url.host == "refresh" {
                         Task {
-                            PriceProvider.shared.refresh()
+                            priceProvider.refresh()
                         }
                     }
                 }

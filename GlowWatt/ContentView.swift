@@ -10,7 +10,7 @@ import WidgetKit
 
 struct ContentView: View {
     
-    @StateObject var priceProvider = PriceProvider.shared
+    @EnvironmentObject var priceProvider : PriceProvider
     
     var priceColor: Color {
         if let price = priceProvider.price {
@@ -66,9 +66,8 @@ struct ContentView: View {
     }
 }
 
+@MainActor
 class PriceProvider: ObservableObject {
-    
-    static let shared = PriceProvider()
     
     @Published var price: Double?
     @Published var lastUpdated: Date?
@@ -93,12 +92,16 @@ class PriceProvider: ObservableObject {
             AppStorage.setLastUpdated()
             
             if let price = AppStorage.getPrice() {
-                self.price = price
+                DispatchQueue.main.async {
+                    self.price = price
+                }
             } else {
                 self.price = nil
             }
             if let lastUpdated = AppStorage.getLastUpdated() {
-                self.lastUpdated = lastUpdated
+                DispatchQueue.main.async {
+                    self.lastUpdated = lastUpdated
+                }
             } else {
                 self.lastUpdated = nil
             }
@@ -110,9 +113,11 @@ class PriceProvider: ObservableObject {
         if !isTimerRunning() {
             timerStartDate = Date()
             timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: false) { [weak self] _ in
-                self?.timer = nil
-                self?.timerStartDate = nil
-                self?.refresh()
+                DispatchQueue.main.async {
+                    self?.timer = nil
+                    self?.timerStartDate = nil
+                    self?.refresh()
+                }
             }
         }
     }
@@ -137,4 +142,5 @@ class PriceProvider: ObservableObject {
 
 #Preview {
     ContentView()
+        .environmentObject(PriceProvider())
 }
