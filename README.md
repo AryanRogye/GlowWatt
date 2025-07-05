@@ -1,7 +1,23 @@
 # GlowWatt
 
-⚡ *GlowWatt is a lightweight, open-source iOS app for viewing live ComEd hourly energy prices in northern Illinois.*  
+⚡ *GlowWatt is a lightweight, open-source iOS app for viewing live ComEd hourly energy prices in northern Illinois.*
 
+
+## Screenshots
+
+### iOS
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/d2c33a55-12a8-47c3-8543-a3f041bcaecd" width="45%" />
+  <img src="https://github.com/user-attachments/assets/9adc044b-307a-4c18-bcd9-a0fce868acfe" width="45%" />
+</p>
+
+### watchOS
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/7ecaf8ba-a7e2-4086-bdf3-2e9058bcac99" width="45%" />
+  <img src="https://github.com/user-attachments/assets/f74da3b6-ff1a-4d8c-a09e-f1001b680c31" width="45%" />
+</p>
 
 ---
 
