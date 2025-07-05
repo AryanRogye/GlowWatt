@@ -74,6 +74,7 @@ struct ContentView: View {
     }
 }
 
+@MainActor
 class PriceProvider: ObservableObject {
     
     static let shared = PriceProvider()
@@ -100,10 +101,14 @@ class PriceProvider: ObservableObject {
             AppStorage.setPrice(fetchedPrice ?? 0.0)
             AppStorage.setLastUpdated()
             
-            if let price = AppStorage.getPrice() {
-                self.price = price
+            if let price = fetchedPrice {
+                DispatchQueue.main.async {
+                    self.price = price
+                }
             } else {
-                self.price = nil
+                DispatchQueue.main.async {
+                    self.price = nil
+                }
             }
             if let lastUpdated = AppStorage.getLastUpdated() {
                 self.lastUpdated = lastUpdated
@@ -118,9 +123,11 @@ class PriceProvider: ObservableObject {
         if !isTimerRunning() {
             timerStartDate = Date()
             timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: false) { [weak self] _ in
-                self?.timer = nil
-                self?.timerStartDate = nil
-                self?.refresh()
+                DispatchQueue.main.async {
+                    self?.timer = nil
+                    self?.timerStartDate = nil
+                    self?.refresh()
+                }
             }
         }
     }
