@@ -17,8 +17,23 @@ struct Settings: View {
             Form {
                 liveDisplayControlOption
                 historySection
+                issuesSection
                 aboutSection
             }
+        }
+    }
+    
+    private var issuesSection: some View {
+        Section("Issues") {
+            NavigationLink(destination: SubmitFeedbackView()) {
+                HStack {
+                    Label("Submit Feedback", systemImage: "bubble.left.and.bubble.right")
+                        .foregroundColor(.primary)
+                    Spacer()
+                }
+                .padding(.vertical, 8)
+            }
+            .buttonStyle(.plain)
         }
     }
     
@@ -33,6 +48,17 @@ struct Settings: View {
                 }
                 .padding(.vertical, 8)
             }
+            
+            Link(destination: URL(string: "https://github.com/aryanrogye/GlowWatt")!) {
+                HStack {
+                    Label("Source Code", systemImage: "chevron.left.slash.chevron.right")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+            }
+            
             HStack {
                 Label("Version", systemImage: "info.circle")
                 Spacer()
@@ -50,8 +76,6 @@ struct Settings: View {
                     Label("View History", systemImage: "clock.arrow.circlepath")
                         .foregroundColor(.primary)
                     Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 8)
                 .contentShape(Rectangle())
@@ -62,8 +86,6 @@ struct Settings: View {
                     Label("Max History Count", systemImage: "clock")
                         .foregroundColor(.primary)
                     Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 8)
                 .contentShape(Rectangle())
@@ -74,7 +96,7 @@ struct Settings: View {
     // Live Display Control
     private var liveDisplayControlOption: some View {
         Section("Appearance") {
-            Button(action: handleLivdeDisplayControl) {
+            Button(action: handleLiveDisplayControl) {
                 HStack {
                     Label("Live Display Control", systemImage: "slider.horizontal.3")
                         .foregroundColor(.primary)
@@ -89,7 +111,7 @@ struct Settings: View {
         }
     }
     
-    private func handleLivdeDisplayControl() {
+    private func handleLiveDisplayControl() {
         dismiss()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             uiManager.activatePriceHeightModal = true
