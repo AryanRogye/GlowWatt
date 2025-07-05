@@ -17,7 +17,29 @@ struct Settings: View {
             Form {
                 liveDisplayControlOption
                 historySection
+                aboutSection
             }
+        }
+    }
+    
+    private var aboutSection: some View {
+        Section("About") {
+            Link(destination: URL(string: "https://aryanrogye.github.io/GlowWatt/privacy-policy")!) {
+                HStack {
+                    Label("Privacy Policy", systemImage: "doc.text")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+            }
+            HStack {
+                Label("Version", systemImage: "info.circle")
+                Spacer()
+                Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                    .foregroundColor(.secondary)
+            }
+            .padding(.vertical, 8)
         }
     }
     

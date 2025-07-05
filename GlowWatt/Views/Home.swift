@@ -80,7 +80,7 @@ struct Home: View {
                 formattedPriceView(price, last, timeLeft)
             } else {
                 /// Loading state
-                Text("Fetching price...")
+                Text("No data available yet. Check your internet connection.")
                     .font(.largeTitle)
                     .padding()
             }
