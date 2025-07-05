@@ -32,7 +32,6 @@ struct ContentView: View {
     
     private var isNotUpToDateView: some View {
         VStack(spacing: 16) {
-            
             if let image = UIImage(named: "AppLogo") {
                 Image(uiImage: image)
                     .resizable()
@@ -71,6 +70,9 @@ struct ContentView: View {
             
         }
         .padding()
+        .refreshable {
+            versionChecker.fetchLatestVersion()
+        }
     }
 }
 
