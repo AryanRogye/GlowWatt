@@ -1,5 +1,5 @@
 //
-//  priceHeightModal.swift
+//  PriceHeightModal.swift
 //  GlowWatt
 //
 //  Created by Aryan Rogye on 7/4/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct priceHeightModal: View {
+struct PriceHeightModal: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var uiManager: UIManager
     
@@ -97,7 +97,7 @@ struct priceHeightModal: View {
         
     }
     .sheet(isPresented: .constant(true)) {
-        priceHeightModal()
+        PriceHeightModal()
             .environmentObject(UIManager())
             .presentationDetents([.fraction(0.2)])
             .presentationDragIndicator(.hidden)

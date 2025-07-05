@@ -23,7 +23,6 @@ class PriceProvider: ObservableObject {
     private var isRefreshing: Bool = false
     
     func refresh() {
-        
         if isRefreshing { return }
         
         Task {
@@ -37,14 +36,17 @@ class PriceProvider: ObservableObject {
                 return
             }
 
+            /// Get the fetched price
             let fetchedPrice = await API.fetchComEdPrice()
             
+            /// Store it in the settings
             AppStorage.setPrice(fetchedPrice ?? 0.0)
             AppStorage.setLastUpdated()
             
-            if let price = AppStorage.getPrice() {
+            if let price = fetchedPrice {
                 DispatchQueue.main.async {
                     self.price = price
+                    UserPricesManager.shared.addStorage(for: price)
                 }
             } else {
                 self.price = nil

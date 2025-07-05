@@ -12,14 +12,14 @@ struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), price: 0.0)
     }
-
+    
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         SimpleEntry(date: Date(), price: 0.0)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
-
+        
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
         AppStorage.setPrice(fetchedPrice)
@@ -30,13 +30,13 @@ struct Provider: AppIntentTimelineProvider {
             let entry = SimpleEntry(date: entryDate, price: fetchedPrice)
             entries.append(entry)
         }
-
+        
         return Timeline(entries: entries, policy: .after(currentDate.addingTimeInterval(1800)))
     }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+    
+    //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
+    //        // Generate a list containing the contexts this widget is relevant in.
+    //    }
 }
 
 struct SimpleEntry: TimelineEntry {
@@ -79,10 +79,15 @@ struct GlowWattWidgetEntryView : View {
         }
     }
     
+    @Environment(\.widgetRenderingMode) private var widgetRenderingMode
+    
     var body: some View {
         ZStack {
-            priceColor.ignoresSafeArea(.all)
-            
+            if widgetRenderingMode == .accented {
+                Color.clear.ignoresSafeArea(.all)
+            } else {
+                priceColor.ignoresSafeArea(.all)
+            }
             VStack(alignment: .leading) {
                 Spacer()
                 
@@ -91,6 +96,7 @@ struct GlowWattWidgetEntryView : View {
                         .font(.system(size: fontSize, weight: .bold))
                         .foregroundColor(.white)
                         .padding(.horizontal, 2)
+                        .widgetAccentable()
                     Spacer()
                     
                     if family == .accessoryRectangular {
@@ -116,12 +122,18 @@ struct GlowWattWidgetEntryView : View {
     
     private var accessoryRectangularView: some View {
         HStack {
-            VStack {
-                Text(formattedDate)
-                    .font(.system(size: fontSize * 0.6, weight: .medium))
+            if widgetRenderingMode == .accented {
+                switch priceColor {
+                case .green: Text("👍")
+                case .yellow: Text("👀")
+                case .red: Text("👎")
+                default: Text("Status: Cant Find")
+                }
+                Spacer()
             }
         }
-        .padding(.horizontal)
+        .font(.system(size: fontSize * 0.8, weight: .medium))
+        .foregroundColor(.white.opacity(0.6))
     }
     
     private var systemSmallView: some View {
@@ -132,34 +144,63 @@ struct GlowWattWidgetEntryView : View {
                     .foregroundColor(.white.opacity(0.8))
                 Spacer()
             }
-                
+            
             HStack {
                 Text(formattedDate)
                     .font(.system(size: fontSize * 0.6, weight: .medium))
                     .foregroundColor(.white.opacity(0.6))
                 Spacer()
             }
+            if widgetRenderingMode == .accented {
+                HStack {
+                    switch priceColor {
+                    case .green: Text("Status: Good")
+                    case .yellow: Text("Status: Medium")
+                    case .red: Text("Status: Bad")
+                    default: Text("Status: Cant Find")
+                    }
+                    Spacer()
+                }
+                .font(.system(size: fontSize * 0.8, weight: .medium))
+                .foregroundColor(.white.opacity(0.6))
+            }
         }
     }
     
     private var systemMediumView: some View {
-        HStack {
-            Text("Last updated")
-                .font(.system(size: fontSize * 0.5, weight: .medium))
-                .foregroundColor(.white.opacity(0.8))
-            
-            Spacer()
-            
-            Text(formattedDate)
-                .font(.system(size: fontSize * 0.5, weight: .medium))
+        VStack {
+            HStack {
+                Text("Last updated")
+                    .font(.system(size: fontSize * 0.5, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
+                
+                Spacer()
+                
+                Text(formattedDate)
+                    .font(.system(size: fontSize * 0.5, weight: .medium))
+                    .foregroundColor(.white.opacity(0.6))
+            }
+            if widgetRenderingMode == .accented {
+                HStack {
+                    Text("Status: ")
+                    Spacer()
+                    switch priceColor {
+                    case .green: Text("Good")
+                    case .yellow: Text("Medium")
+                    case .red: Text("Bad")
+                    default: Text("Cant Find")
+                    }
+                }
+                .font(.system(size: fontSize * 0.8, weight: .medium))
                 .foregroundColor(.white.opacity(0.6))
+            }
         }
     }
 }
 
 struct GlowWattWidgetHomeScreen: Widget {
     let kind: String = "GlowWattWidget"
-
+    
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             GlowWattWidgetEntryView(entry: entry)
@@ -169,6 +210,13 @@ struct GlowWattWidgetHomeScreen: Widget {
                     Color.red
                 }
         }
+        .supportedFamilies([
+            .accessoryRectangular,
+            .systemSmall,
+            .systemMedium,
+            .systemLarge,
+            .systemExtraLarge
+        ])
     }
 }
 

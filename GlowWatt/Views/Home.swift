@@ -51,16 +51,18 @@ struct Home: View {
             ToolbarItem(placement: .navigation) {
                 NavigationLink(destination: Settings()) {
                     Circle()
+                        .fill(Color.clear)
                         .overlay {
                             Image(systemName: "gearshape.fill")
-                                .foregroundStyle(.primary)
+                                .foregroundStyle(Color.primary)
                                 .font(.system(size: 20, weight: .bold))
                         }
                 }
+                .padding(.leading)
             }
         }
         .sheet(isPresented: $uiManager.activatePriceHeightModal) {
-            priceHeightModal()
+            PriceHeightModal()
                 .presentationDetents([.fraction(0.2)])
                 .presentationDragIndicator(.hidden)
         }

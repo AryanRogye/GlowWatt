@@ -22,6 +22,10 @@
 		9BB17B9A2DE149EB00200C38 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B982DE149E100200C38 /* API.swift */; };
 		9BB17B9C2DE1541E00200C38 /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B9B2DE1541C00200C38 /* AppStorage.swift */; };
 		9BB17B9D2DE1541E00200C38 /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B9B2DE1541C00200C38 /* AppStorage.swift */; };
+		9BB3B9B82E1918EA00B5F196 /* UserPricesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */; };
+		9BB3B9B92E1919A200B5F196 /* UserPricesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */; };
+		9BB3B9BA2E1919A200B5F196 /* UserPricesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */; };
+		9BB3B9BB2E1919A200B5F196 /* UserPricesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +97,7 @@
 		9BB17B7F2DE1490200200C38 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		9BB17B982DE149E100200C38 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9BB17B9B2DE1541C00200C38 /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
+		9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPricesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -213,6 +218,7 @@
 		9BB17B972DE149B600200C38 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */,
 				9BB17B9B2DE1541C00200C38 /* AppStorage.swift */,
 				9BB17B982DE149E100200C38 /* API.swift */,
 			);
@@ -400,6 +406,7 @@
 			files = (
 				9B07AE562DE9365700024AFD /* AppStorage.swift in Sources */,
 				9B07AE572DE9365C00024AFD /* API.swift in Sources */,
+				9BB3B9BA2E1919A200B5F196 /* UserPricesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +416,7 @@
 			files = (
 				9B07AE6F2DE9437100024AFD /* AppStorage.swift in Sources */,
 				9B07AE702DE9437100024AFD /* API.swift in Sources */,
+				9BB3B9BB2E1919A200B5F196 /* UserPricesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +426,7 @@
 			files = (
 				9BB17B9D2DE1541E00200C38 /* AppStorage.swift in Sources */,
 				9BB17B992DE149EB00200C38 /* API.swift in Sources */,
+				9BB3B9B82E1918EA00B5F196 /* UserPricesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +436,7 @@
 			files = (
 				9BB17B9C2DE1541E00200C38 /* AppStorage.swift in Sources */,
 				9BB17B9A2DE149EB00200C38 /* API.swift in Sources */,
+				9BB3B9B92E1919A200B5F196 /* UserPricesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

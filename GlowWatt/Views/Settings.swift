@@ -16,6 +16,35 @@ struct Settings: View {
         VStack {
             Form {
                 liveDisplayControlOption
+                historySection
+            }
+        }
+    }
+    
+    private var historySection: some View {
+        Section("History") {
+            NavigationLink(destination: HistoryView(for: HistoryViewState.currentHistory)) {
+                HStack {
+                    Label("View History", systemImage: "clock.arrow.circlepath")
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+                .contentShape(Rectangle())
+            }
+            
+            NavigationLink(destination: HistoryView(for: HistoryViewState.historyCount)) {
+                HStack {
+                    Label("Max History Count", systemImage: "clock")
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+                .contentShape(Rectangle())
             }
         }
     }
