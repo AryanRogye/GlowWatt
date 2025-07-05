@@ -20,6 +20,8 @@ struct SubmitFeedbackView: View {
     @State private var safariURL: URL?
     @State private var showSafari: Bool = false
     
+    @FocusState private var feedBackInFocus: Bool
+    
     enum FeedbackType: String, CaseIterable {
         case bug = "Bug Report"
         case feature = "Feature Request"
@@ -31,6 +33,17 @@ struct SubmitFeedbackView: View {
             case .feature: return "lightbulb"
             case .general: return "bubble.left.and.bubble.right"
             }
+        }
+    }
+    
+    private var placeholderText: String {
+        switch feedbackType {
+        case .bug:
+            return "Please describe the bug, including steps to reproduce it..."
+        case .feature:
+            return "Describe the feature you'd like to see added..."
+        case .general:
+            return "Share your thoughts, suggestions, or feedback..."
         }
     }
     
@@ -57,17 +70,38 @@ struct SubmitFeedbackView: View {
                 
                 Section(header: Text("Feedback")) {
                     TextEditor(text: $feedbackText)
+                        .focused($feedBackInFocus)
                         .frame(height: 200)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(8)
+                        .overlay{
+                            if !feedBackInFocus {
+                                // Placeholder text
+                                Text(placeholderText)
+                                    .foregroundColor(.secondary)
+                                    .padding()
+                                    .opacity(feedbackText.isEmpty ? 1 : 0)
+                            }
+                        }
                 }
                 
                 Section {
                     Button(action: {
                         let encodedLabel = feedbackType.rawValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "feedback"
                         let encodedTitle = feedbackDescription.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "Feedback"
-                        let encodedBody = feedbackText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                        
+                        // Replace this part:
+                        let deviceInfo = """
+                        Device Info:
+                                - iOS Version: \(UIDevice.current.systemVersion)
+                                - App Version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown")
+                                - Device: \(UIDevice.current.model)
+                            ---
+                                \(feedbackText)
+                        """
+                        
+                        let encodedBody = deviceInfo.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
                         
                         let urlString = "https://github.com/aryanrogye/GlowWatt/issues/new?labels=\(encodedLabel)&title=\(encodedTitle)&body=\(encodedBody)"
                         
@@ -82,6 +116,10 @@ struct SubmitFeedbackView: View {
                         }
                     }
                     .buttonStyle(.plain)
+                    .disabled(feedbackDescription.isEmpty || feedbackText.isEmpty)
+                }
+                
+                Section(footer: Text("You’ll be redirected to GitHub Issues to finish submitting feedback. A GitHub account is required to post. Sorry for any inconvenience!")) {
                 }
             }
             .navigationTitle("Submit Feedback")
