@@ -82,38 +82,31 @@ struct GlowWattWidgetEntryView : View {
     @Environment(\.widgetRenderingMode) private var widgetRenderingMode
     
     var body: some View {
-        ZStack {
-            if widgetRenderingMode == .accented {
-                Color.clear.ignoresSafeArea(.all)
-            } else {
-                priceColor.ignoresSafeArea(.all)
+        VStack(alignment: .leading) {
+            Spacer()
+            
+            HStack {
+                Text("\(entry.price, specifier: "%.2f")¢")
+                    .font(.system(size: fontSize, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 2)
+                    .widgetAccentable()
+                Spacer()
+                
+                if family == .accessoryRectangular {
+                    accessoryRectangularView
+                }
             }
-            VStack(alignment: .leading) {
-                Spacer()
-                
-                HStack {
-                    Text("\(entry.price, specifier: "%.2f")¢")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 2)
-                        .widgetAccentable()
-                    Spacer()
-                    
-                    if family == .accessoryRectangular {
-                        accessoryRectangularView
-                    }
-                }
-                
-                Spacer()
-                
-                if family == .systemSmall {
-                    systemSmallView
-                } else if family == .accessoryRectangular {
-                    /// Do Nothing
-                }
-                else {
-                    systemMediumView
-                }
+            
+            Spacer()
+            
+            if family == .systemSmall {
+                systemSmallView
+            } else if family == .accessoryRectangular {
+                /// Do Nothing
+            }
+            else {
+                systemMediumView
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -204,11 +197,14 @@ struct GlowWattWidgetHomeScreen: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             GlowWattWidgetEntryView(entry: entry)
+                .contentMargins(.zero)
                 .containerBackground(for: .widget) {
                     entry.price < 4 ? Color.green :
                     entry.price < 8 ? Color.yellow :
                     Color.red
                 }
+                .background(.clear)
+
         }
         .supportedFamilies([
             .accessoryRectangular,
