@@ -48,17 +48,11 @@ struct Home: View {
             priceColor.ignoresSafeArea(.all)
         }
         .toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .primaryAction) {
                 NavigationLink(destination: Settings()) {
-                    Circle()
-                        .fill(Color.clear)
-                        .overlay {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundStyle(Color.primary)
-                                .font(.system(size: 20, weight: .bold))
-                        }
+                    Image(systemName: "gearshape.fill")
+                        .foregroundStyle(Color.primary)
                 }
-                .padding(.leading)
             }
         }
         .sheet(isPresented: $uiManager.activatePriceHeightModal) {
