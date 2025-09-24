@@ -42,10 +42,14 @@ struct Home: View {
         }
         // MARK: - TapGesture/Refreshable
         .onTapGesture {
-            priceManager.refresh()
+            Task {
+                await priceManager.refresh()
+            }
         }
         .refreshable {
-            priceManager.refresh()
+            Task {
+                await priceManager.refresh()
+            }
         }
         // MARK: - Background
         .background {
@@ -116,15 +120,19 @@ struct Home: View {
 }
 
 
-#Preview {
-    @Previewable @StateObject var priceManager = PriceManager()
-    @Previewable @StateObject var uiManager = UIManager()
-    @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
-    
-    NavigationStack {
-        Home()
-            .environmentObject(priceManager)
-            .environmentObject(uiManager)
-            .environmentObject(liveActivitiesStart)
-    }
-}
+//#Preview {
+//    @Previewable @StateObject var priceManager = PriceManager()
+//    @Previewable @StateObject var uiManager = UIManager()
+//    @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager(onRefresh: {
+//        Task {
+//            await priceManager.refresh()
+//        }
+//    })
+//    
+//    NavigationStack {
+//        Home()
+//            .environmentObject(priceManager)
+//            .environmentObject(uiManager)
+//            .environmentObject(liveActivitiesStart)
+//    }
+//}

@@ -30,6 +30,9 @@ struct GlowWattLiveActivities: Widget {
             DynamicIslandExpandedRegion(.center) {
                 Text("\(context.state.price, specifier: "%.2f")")
             }
+            DynamicIslandExpandedRegion(.bottom) {
+                Text(context.state.lastUpdated.description)
+            }
         } compactLeading: {
             
         } compactTrailing: {

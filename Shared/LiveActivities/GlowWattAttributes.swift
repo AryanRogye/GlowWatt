@@ -11,6 +11,7 @@ import ActivityKit
 struct GlowWattAttributes: ActivityAttributes {
     
     public struct ContentState: Codable, Hashable {
+        var lastUpdated: Date
         var price: Double
     }
     
