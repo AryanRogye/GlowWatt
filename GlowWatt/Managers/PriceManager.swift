@@ -1,5 +1,5 @@
 //
-//  PriceProvider.swift
+//  PriceManager.swift
 //  GlowWatt
 //
 //  Created by Aryan Rogye on 7/4/25.
@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 @MainActor
-class PriceProvider: ObservableObject {
+class PriceManager: ObservableObject {
     
     @Published var price: Double?
     @Published var lastUpdated: Date?
@@ -21,6 +21,10 @@ class PriceProvider: ObservableObject {
     private var timer: Timer?
     
     private var isRefreshing: Bool = false
+    
+    init() {
+        
+    }
     
     func refresh() {
         if isRefreshing { return }
