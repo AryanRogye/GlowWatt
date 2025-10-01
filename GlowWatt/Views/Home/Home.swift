@@ -36,9 +36,9 @@ struct Home: View {
         .contentShape(Rectangle())
         // MARK: - On Appear
         .onAppear {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                priceManager.refresh()
-//            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                priceManager.refresh()
+            }
         }
         // MARK: - TapGesture/Refreshable
         .onTapGesture {
