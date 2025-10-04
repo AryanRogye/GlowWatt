@@ -86,11 +86,20 @@ struct GlowWattWidgetEntryView : View {
             Spacer()
             
             HStack {
-                Text("\(entry.price, specifier: "%.2f")¢")
-                    .font(.system(size: fontSize, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 2)
-                    .widgetAccentable()
+                if family != .accessoryCircular {
+                    Text("\(entry.price, specifier: "%.2f")¢")
+                        .font(.system(size: fontSize, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 2)
+                        .widgetAccentable()
+                } else {
+                    Text("\(entry.price, specifier: "%.2f")¢")
+                        .font(.system(size: fontSize, weight: .bold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.white)
+                        .widgetAccentable()
+                }
                 Spacer()
                 
                 if family == .accessoryRectangular {
@@ -98,14 +107,16 @@ struct GlowWattWidgetEntryView : View {
                 }
             }
             
-            Spacer()
+            if family != .accessoryCircular {
+                Spacer()
+            }
             
             if family == .systemSmall {
                 systemSmallView
             } else if family == .accessoryRectangular {
                 /// Do Nothing
             }
-            else {
+            if family != .accessoryCircular {
                 systemMediumView
             }
         }
@@ -207,13 +218,34 @@ struct GlowWattWidgetHomeScreen: Widget {
 
         }
         .supportedFamilies([
-            .accessoryRectangular,
             .systemSmall,
             .systemMedium,
             .systemLarge,
-            .systemExtraLarge
+            .systemExtraLarge,
+            .accessoryInline,
+            .accessoryCircular,
+            .accessoryRectangular,
         ])
     }
+}
+
+#Preview(as: .accessoryCircular) {
+    GlowWattWidgetHomeScreen()
+} timeline: {
+    SimpleEntry(date: .now, price: 1.3)
+    SimpleEntry(date: .now, price: -1.10)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
+}
+
+
+#Preview(as: .accessoryInline) {
+    GlowWattWidgetHomeScreen()
+} timeline: {
+    SimpleEntry(date: .now, price: 1.3)
+    SimpleEntry(date: .now, price: -1.10)
+    SimpleEntry(date: .now, price: 5.0)
+    SimpleEntry(date: .now, price: 10.0)
 }
 
 #Preview(as: .accessoryRectangular) {

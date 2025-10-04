@@ -70,25 +70,24 @@ struct Home: View {
                 }
             }
         }
-//        .toolbar {
-//            ToolbarItem(placement: .primaryAction) {
-//                if liveActivitesManager.hasStarted {
-//                    Button(action: {
-//                        liveActivitesManager.stopLiveActivity()
-//                    }) {
-//                        Text("Stop Live Activity")
-//                    }
-//                } else {
-//                    Button(action: {
-//                        uiManager.toggleLimiterModal(with: priceManager.price)
-//                    }) {
-//                        Image(systemName: "slider.horizontal.3")
-//                            .foregroundStyle(Color.primary)
-//                    }
-//                }
-//            }
-//            
-//        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                if liveActivitesManager.hasStarted {
+                    Button(action: {
+                        liveActivitesManager.stopLiveActivity()
+                    }) {
+                        Text("Stop Live Activity")
+                    }
+                } else {
+                    Button(action: {
+                        uiManager.toggleLimiterModal(with: priceManager.price)
+                    }) {
+                        Image(systemName: "slider.horizontal.3")
+                            .foregroundStyle(Color.primary)
+                    }
+                }
+            }
+        }
         
         //        .toolbar {
         //            ToolbarItem(placement: .primaryAction) {
