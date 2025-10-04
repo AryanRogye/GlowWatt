@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WidgetKit
+import Combine
 
 @MainActor
 class PriceManager: ObservableObject {
@@ -14,6 +15,7 @@ class PriceManager: ObservableObject {
     @Published var price: Double?
     @Published var lastUpdated: Date?
     @Published var timeLeftTillNextUpdate: String? = "2:00"
+    @Published var comEdPriceOption : ComdEdPriceOption = .instantHourlyPrice
     
     private var timerStartDate: Date?
     
@@ -21,15 +23,17 @@ class PriceManager: ObservableObject {
     private var timer: Timer?
     
     private var isRefreshing: Bool = false
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        
+        loadComEdPriceOption()
+        observeComEdPriceOption()
     }
     
     @discardableResult
     func refresh() async -> (Double?, Date?) {
-        if isRefreshing { return (price, lastUpdated) }
         
+        if isRefreshing { return (price, lastUpdated) }
         isRefreshing = true
         defer { isRefreshing = false }
         
@@ -41,7 +45,7 @@ class PriceManager: ObservableObject {
         }
         
         /// Get the fetched price
-        let fetchedPrice = await API.fetchComEdPrice()
+        let fetchedPrice = await API.fetchComEdPrice(option: comEdPriceOption)
         
         /// Store it in the settings
         AppStorage.setPrice(fetchedPrice ?? 0.0)
@@ -63,6 +67,7 @@ class PriceManager: ObservableObject {
             self.lastUpdated = nil
         }
         WidgetCenter.shared.reloadAllTimelines()
+        
         return (price, lastUpdated)
     }
     
@@ -97,4 +102,39 @@ class PriceManager: ObservableObject {
         
         return true
     }
+    
+    /// Cancel the current rate-limit timer so the next refresh can proceed immediately
+    private func resetRateLimitTimer() {
+        timer?.invalidate()
+        timer = nil
+        timerStartDate = nil
+    }
 }
+
+extension PriceManager {
+    private static let comEdPriceOptionKey = "comEdPriceOption"
+    
+    /// Load saved option from persistent storage on init
+    fileprivate func loadComEdPriceOption() {
+        if let raw = UserDefaults.standard.string(forKey: Self.comEdPriceOptionKey),
+           let saved = ComdEdPriceOption(rawValue: raw) {
+            self.comEdPriceOption = saved
+        }
+    }
+    
+    /// Observe changes and persist automatically
+    fileprivate func observeComEdPriceOption() {
+        $comEdPriceOption
+            .removeDuplicates()
+            .sink { [weak self] option in
+                guard let self = self else { return }
+                UserDefaults.standard.set(option.rawValue, forKey: Self.comEdPriceOptionKey)
+                self.resetRateLimitTimer()
+                Task {
+                    await self.refresh()
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+

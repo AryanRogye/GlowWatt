@@ -29,16 +29,24 @@ struct Home: View {
     
     
     var body: some View {
-        ScrollView {
-            PriceView()
+        ZStack {
+            ScrollView {
+                PriceView()
+            }
+            
+            if uiManager.showPriceOptionOnHome {
+                priceOptionsOnHome
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         // MARK: - On Appear
         .onAppear {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                priceManager.refresh()
-//            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Task {
+                    await priceManager.refresh()
+                }
+            }
         }
         // MARK: - TapGesture/Refreshable
         .onTapGesture {
@@ -58,7 +66,11 @@ struct Home: View {
         // MARK: - Toolbars
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: Settings()) {
+                NavigationLink(
+                    destination: Settings()
+                        .environmentObject(uiManager)
+                        .environmentObject(priceManager)
+                ) {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(Color.primary)
                 }
@@ -81,7 +93,6 @@ struct Home: View {
                     }
                 }
             }
-            
         }
         
         //        .toolbar {
@@ -115,6 +126,19 @@ struct Home: View {
                     selection: $uiManager.limiterDetent
                 )
                 .presentationDragIndicator(.visible)
+        }
+    }
+    
+    private var priceOptionsOnHome: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Text(priceManager.comEdPriceOption.rawValue)
+                    .font(.system(size: 14, design: .monospaced))
+                    .bold()
+            }
+            .padding(.horizontal)
         }
     }
 }

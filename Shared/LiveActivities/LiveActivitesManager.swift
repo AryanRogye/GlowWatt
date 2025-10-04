@@ -27,6 +27,7 @@ final class LiveActivitesManager: ObservableObject {
         self.onRefresh = onRefresh
         
         $hasStarted
+            .removeDuplicates()
             .sink { [weak self] started in
                 guard let self = self else { return }
                 if started {
@@ -38,15 +39,6 @@ final class LiveActivitesManager: ObservableObject {
             .store(in: &cancellables)
     }
     
-//    public func bind(to priceManager: PriceManager) {
-//        priceManager.$price
-//            .sink { [weak self] price in
-//                guard let self = self else { return }
-//                self.price = price
-//            }
-//            .store(in: &cancellables)
-//    }
-    
     
     private var refreshTimer: Timer?
     
@@ -56,6 +48,7 @@ final class LiveActivitesManager: ObservableObject {
         /// Every 5 Mins
         refreshTimer =  Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.updateLiveActivity), userInfo: nil, repeats: true)
     }
+    
     private func stopRefreshTimer() {
         refreshTimer?.invalidate()
     }
@@ -65,49 +58,49 @@ final class LiveActivitesManager: ObservableObject {
         if hasStarted {
             Task {
                 (self.price, self.lastUpdated) = await onRefresh()
-                startSimpleLiveActivity()
+                startSimpleLiveActivity(by: "update")
             }
         }
     }
     
-    func startSimpleLiveActivity() {
+    func startSimpleLiveActivity(by: String) {
         Task {
             (self.price, self.lastUpdated) = await onRefresh()
-            startSimpleLiveActivity()
-        }
-        guard let lastUpdated = lastUpdated else { return }
-        guard let price = price else { return }
-        let attributes = GlowWattAttributes(name: "Aryan")
-        
-        let contentState = GlowWattAttributes.ContentState(
-            lastUpdated: lastUpdated,
-            price: price
-        )
-        
-        /// Construct What i'm gonna send to the Live Activity
-        let content = ActivityContent(state: contentState, staleDate: nil)
-        
-        /// If Started then we update it
-        if let existingActivity = activity {
-            Task {
-                await existingActivity.update(content)
-                hasStarted = true
+            
+            guard let lastUpdated = lastUpdated else { return }
+            guard let price = price else { return }
+            let attributes = GlowWattAttributes(name: "Aryan")
+            
+            let contentState = GlowWattAttributes.ContentState(
+                lastUpdated: lastUpdated,
+                price: price
+            )
+            
+            /// Construct What i'm gonna send to the Live Activity
+            let content = ActivityContent(state: contentState, staleDate: nil)
+            
+            /// If Started then we update it
+            if let existingActivity = activity {
+                Task {
+                    await existingActivity.update(content)
+                    hasStarted = true
+                }
             }
-        }
-        
-        /// If not started then we start it
-        else {
-            do {
-                activity = try Activity<GlowWattAttributes>.request(
-                    attributes: attributes,
-                    content: content,
-                    pushType: nil
-                )
-                print("✅ Live Activity started")
-                hasStarted = true
-            } catch {
-                print("❌ Failed to start Live Activity: \(error)")
-                hasStarted = false
+            
+            /// If not started then we start it
+            else {
+                do {
+                    activity = try Activity<GlowWattAttributes>.request(
+                        attributes: attributes,
+                        content: content,
+                        pushType: nil
+                    )
+                    print("✅ Live Activity started")
+                    hasStarted = true
+                } catch {
+                    print("❌ Failed to start Live Activity: \(error)")
+                    hasStarted = false
+                }
             }
         }
     }
@@ -122,9 +115,9 @@ final class LiveActivitesManager: ObservableObject {
                 )
                 await activity.end(finalContent, dismissalPolicy: .immediate)
             }
+            activity = nil
+            hasStarted = false
         }
-        activity = nil
-        hasStarted = false
     }
 }
 

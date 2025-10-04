@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 final class UIManager: ObservableObject {
     
@@ -15,6 +16,10 @@ final class UIManager: ObservableObject {
 
     @Published var priceHeight: CGFloat = 200
     @Published var activatePriceHeightModal = false
+    /// Start True
+    @Published var showPriceOptionOnHome = true
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     init() {
         loadDefaults()
@@ -37,17 +42,27 @@ extension UIManager {
 extension UIManager {
     private func loadDefaults() {
         let defaults = UserDefaults.standard
+        defaults.register(defaults: [
+            "priceHeight": 200,
+            "showPriceOptionOnHome": true
+        ])
         
         if let priceHeight = defaults.object(forKey: "priceHeight") as? CGFloat {
             self.priceHeight = priceHeight
         } else {
             self.priceHeight = 200 // Default value if not set
         }
+        showPriceOptionOnHome = defaults.bool(forKey: "showPriceOptionOnHome")
     }
     
     public func savePriceHeight() {
         let defaults = UserDefaults.standard
         defaults.set(priceHeight, forKey: "priceHeight")
+    }
+    
+    public func saveShowPriceOptionOnHome() {
+        let defaults = UserDefaults.standard
+        defaults.set(showPriceOptionOnHome, forKey: "showPriceOptionOnHome")
     }
 }
 

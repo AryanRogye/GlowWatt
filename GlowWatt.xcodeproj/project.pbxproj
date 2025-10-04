@@ -46,6 +46,10 @@
 		9BD4C27B2E83553C00278A0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BD4C2732E83553C00278A0D /* Assets.xcassets */; };
 		9BD4C2812E8359CE00278A0D /* PriceLimiterModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */; };
 		9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2842E835B2A00278A0D /* PriceView.swift */; };
+		9BF95DDA2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
+		9BF95DDB2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
+		9BF95DDC2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
+		9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +145,7 @@
 		9BD4C2752E83553C00278A0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLimiterModal.swift; sourceTree = "<group>"; };
 		9BD4C2842E835B2A00278A0D /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
+		9BF95DD92E90B58600776771 /* GlowWatt.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = GlowWatt.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -215,6 +220,7 @@
 				9B07AE5F2DE9429700024AFD /* GlowWattWatchOSWidget */,
 				9BB17B7C2DE1490200200C38 /* Frameworks */,
 				9BB17B672DE148DA00200C38 /* Products */,
+				9BF95DD92E90B58600776771 /* GlowWatt.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -531,6 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BF95DDC2E90B58600776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +545,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BD4C2612E83550300278A0D /* Assets.xcassets in Resources */,
+				9BF95DDA2E90B58600776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BD4C27B2E83553C00278A0D /* Assets.xcassets in Resources */,
+				9BF95DDB2E90B58600776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,7 +652,7 @@
 		9B07AE532DE932A600024AFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
@@ -672,7 +682,7 @@
 		9B07AE542DE932A600024AFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
@@ -881,10 +891,10 @@
 		9BB17B752DE148DC00200C38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -901,7 +911,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -916,10 +926,10 @@
 		9BB17B762DE148DC00200C38 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -936,7 +946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

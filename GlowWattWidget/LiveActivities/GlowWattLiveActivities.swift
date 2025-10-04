@@ -12,7 +12,7 @@ struct GlowWattLiveActivities: Widget {
         ActivityConfiguration(for: GlowWattAttributes.self) { context in
             
             // Lock screen UI
-            GlowWattLockScreen()
+            GlowWattLockScreen(context: context)
 
         } dynamicIsland: { context in
             
@@ -44,7 +44,35 @@ struct GlowWattLiveActivities: Widget {
 }
 
 struct GlowWattLockScreen: View {
+    
+    var priceColor: Color {
+        switch context.state.price {
+        case ..<4:
+            return .green
+        case 4..<8:
+            return .yellow
+        default:
+            return .red
+        }
+    }
+
+    var context : ActivityViewContext<GlowWattAttributes>
+    
     var body: some View {
-        
+        ZStack {
+            priceColor.ignoresSafeArea()
+            
+            VStack {
+                HStack {
+                    Text("\(context.state.price, specifier: "%.2f")¢")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 2)
+                        .widgetAccentable()
+                    Spacer()
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
