@@ -10,16 +10,36 @@ import SwiftUI
 struct Settings: View {
     
     @Environment(\.dismiss) private var dismiss
+    
+    @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
     
     var body: some View {
         VStack {
             Form {
+                priceSettings
                 liveDisplayControlOption
                 historySection
                 issuesSection
                 aboutSection
             }
+        }
+    }
+    
+    private var priceSettings: some View {
+        Section("Price Options") {
+            Picker("Price Option", selection: $priceManager.comEdPriceOption) {
+                ForEach(ComdEdPriceOption.allCases, id: \.self) { option in
+                    Text(option.rawValue)
+                }
+            }
+            .pickerStyle(.inline)
+            .labelsHidden()
+            
+            Toggle("Show Option on Home", isOn: $uiManager.showPriceOptionOnHome)
+                .onChange(of: uiManager.showPriceOptionOnHome) { _, val in
+                    uiManager.saveShowPriceOptionOnHome()
+                }
         }
     }
     

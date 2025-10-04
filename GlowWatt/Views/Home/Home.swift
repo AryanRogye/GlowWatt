@@ -29,8 +29,14 @@ struct Home: View {
     
     
     var body: some View {
-        ScrollView {
-            PriceView()
+        ZStack {
+            ScrollView {
+                PriceView()
+            }
+            
+            if uiManager.showPriceOptionOnHome {
+                priceOptionsOnHome
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
@@ -54,31 +60,35 @@ struct Home: View {
         // MARK: - Toolbars
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: Settings()) {
+                NavigationLink(
+                    destination: Settings()
+                        .environmentObject(uiManager)
+                        .environmentObject(priceManager)
+                ) {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(Color.primary)
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                if liveActivitesManager.hasStarted {
-                    Button(action: {
-                        liveActivitesManager.stopLiveActivity()
-                    }) {
-                        Text("Stop Live Activity")
-                    }
-                } else {
-                    Button(action: {
-                        uiManager.toggleLimiterModal(with: priceManager.price)
-                    }) {
-                        Image(systemName: "slider.horizontal.3")
-                            .foregroundStyle(Color.primary)
-                    }
-                }
-            }
-            
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .primaryAction) {
+//                if liveActivitesManager.hasStarted {
+//                    Button(action: {
+//                        liveActivitesManager.stopLiveActivity()
+//                    }) {
+//                        Text("Stop Live Activity")
+//                    }
+//                } else {
+//                    Button(action: {
+//                        uiManager.toggleLimiterModal(with: priceManager.price)
+//                    }) {
+//                        Image(systemName: "slider.horizontal.3")
+//                            .foregroundStyle(Color.primary)
+//                    }
+//                }
+//            }
+//            
+//        }
         
         //        .toolbar {
         //            ToolbarItem(placement: .primaryAction) {
@@ -111,6 +121,19 @@ struct Home: View {
                     selection: $uiManager.limiterDetent
                 )
                 .presentationDragIndicator(.visible)
+        }
+    }
+    
+    private var priceOptionsOnHome: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Text(priceManager.comEdPriceOption.rawValue)
+                    .font(.system(size: 14, design: .monospaced))
+                    .bold()
+            }
+            .padding(.horizontal)
         }
     }
 }
