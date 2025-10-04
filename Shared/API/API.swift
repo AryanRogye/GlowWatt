@@ -23,7 +23,7 @@ final class API {
         if option == .instantHourlyPrice {
             return await getInstantHourlyPrice()
         } else if option == .currentHourAveragePrice {
-            return await getInstantHourlyPrice()
+            return await getHourlyAveragePrice()
         }
         return nil
     }
