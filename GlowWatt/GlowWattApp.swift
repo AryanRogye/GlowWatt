@@ -12,12 +12,12 @@ struct GlowWattApp: App {
     
     @StateObject private var priceManager: PriceManager
     @StateObject private var uiManager = UIManager()
-    @StateObject private var liveActivitiesStart : LiveActivitesManager
+    @StateObject private var liveActivityManager : LiveActivitesManager
     
     init() {
         let priceManager = PriceManager()
         self._priceManager = .init(wrappedValue: priceManager)
-        self._liveActivitiesStart = .init(wrappedValue: LiveActivitesManager(
+        self._liveActivityManager = .init(wrappedValue: LiveActivitesManager(
             onRefresh: { [weak priceManager] in
                 guard let priceManager else { return (nil, nil) }
                 return await priceManager.refresh()
@@ -32,7 +32,7 @@ struct GlowWattApp: App {
                 Home()
                     .environmentObject(priceManager)
                     .environmentObject(uiManager)
-                    .environmentObject(liveActivitiesStart)
+                    .environmentObject(liveActivityManager)
                     .onOpenURL { url in
                         if url.scheme == "glowwatt", url.host == "refresh" {
                             Task {
@@ -40,6 +40,12 @@ struct GlowWattApp: App {
                             }
                         }
                     }
+                    .onOpenURL { url in
+                        if url.scheme == "glowwatt", url.host == "stop_price_watcher" {
+                            liveActivityManager.stopLiveActivity()
+                        }
+                    }
+
             }
         }
     }

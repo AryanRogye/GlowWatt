@@ -19,10 +19,11 @@ final class LiveActivitesManager: ObservableObject {
     @Published var hasStarted = false
     private var activity: Activity<GlowWattAttributes>?
     
+    private var pastPrices: [Double] = []
+    
     var onRefresh: () async -> (Double?, Date?)
     
     private var cancellables: Set<AnyCancellable> = []
-    
     init(onRefresh: @escaping () async -> (Double?, Date?)) {
         self.onRefresh = onRefresh
         
@@ -33,6 +34,7 @@ final class LiveActivitesManager: ObservableObject {
                 if started {
                     self.startRefreshTimer()
                 } else {
+                    pastPrices = []
                     self.stopRefreshTimer()
                 }
             }
@@ -71,9 +73,11 @@ final class LiveActivitesManager: ObservableObject {
             guard let price = price else { return }
             let attributes = GlowWattAttributes(name: "Aryan")
             
+            pastPrices.append(price)
             let contentState = GlowWattAttributes.ContentState(
                 lastUpdated: lastUpdated,
-                price: price
+                price: price,
+                pastPrices: pastPrices
             )
             
             /// Construct What i'm gonna send to the Live Activity
@@ -110,7 +114,7 @@ final class LiveActivitesManager: ObservableObject {
         Task {
             for activity in Activity<GlowWattAttributes>.activities {
                 let finalContent = ActivityContent(
-                    state: GlowWattAttributes.ContentState(lastUpdated: .now, price: 0),
+                    state: GlowWattAttributes.ContentState(lastUpdated: .now, price: 0, pastPrices: []),
                     staleDate: nil
                 )
                 await activity.end(finalContent, dismissalPolicy: .immediate)

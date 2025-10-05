@@ -13,6 +13,7 @@ struct GlowWattAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         var lastUpdated: Date
         var price: Double
+        var pastPrices: [Double]
     }
     
     /// State Info Not Shown
