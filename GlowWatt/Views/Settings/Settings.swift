@@ -16,8 +16,7 @@ struct Settings: View {
         VStack {
             Form {
                 PriceSettings()
-//                PriceHeightSettings()
-                HapticSettings()
+                AccessibilitySettings()
                 HistorySettings()
                 IssuesSettings()
                 AboutSettings()
@@ -31,22 +30,61 @@ struct PriceSettings: View {
     
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
-
+    
     var body: some View {
-        Section("Price Options") {
-            Picker("Price Option", selection: $priceManager.comEdPriceOption) {
-                ForEach(ComdEdPriceOption.allCases, id: \.self) { option in
-                    Text(option.rawValue)
+        Section("Price Settings") {
+            NavigationLink {
+                List {
+                    ForEach(ComdEdPriceOption.allCases, id: \.self) { option in
+                        HStack {
+                            Text(option.rawValue)
+                            Spacer()
+                            if priceManager.comEdPriceOption == option {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.accentColor)
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            priceManager.comEdPriceOption = option
+                        }
+                    }
+                    
+                    Toggle("Show on Home Screen", isOn: $uiManager.showPriceOptionOnHome)
+                        .onChange(of: uiManager.showPriceOptionOnHome) { _, _ in
+                            uiManager.saveShowPriceOptionOnHome()
+                        }
+                }
+                .navigationTitle("Price Option")
+            } label: {
+                HStack {
+                    Text("Price Option")
+                    Spacer()
+                    Text(priceManager.comEdPriceOption.rawValue)
+                        .foregroundStyle(.secondary)
                 }
             }
-            .pickerStyle(.inline)
-            .labelsHidden()
-            
-            Toggle("Show Option on Home", isOn: $uiManager.showPriceOptionOnHome)
-                .onChange(of: uiManager.showPriceOptionOnHome) { _, val in
-                    uiManager.saveShowPriceOptionOnHome()
+        }
+    }
+}
+
+// MARK: - Haptic Setings
+struct AccessibilitySettings: View {
+    
+    @EnvironmentObject var uiManager: UIManager
+    var body: some View {
+        
+        Section("Accessibility") {
+            List {
+                Picker("Strength", selection: $uiManager.hapticStyle) {
+                    ForEach(HapticStyle.allCases, id: \.self) { style in
+                        Text(style.rawValue).tag(style)
+                    }
                 }
-            
+                .onChange(of: uiManager.hapticStyle) { _, value in
+                    uiManager.saveHapticPreference()
+                }
+            }
             PriceHeightSettings()
         }
     }
@@ -62,11 +100,14 @@ struct PriceHeightSettings: View {
     var body: some View {
         Button(action: handleLiveDisplayControl) {
             HStack {
-                Label("Price Height", systemImage: "slider.horizontal.3")
+                Text("Price Height")
                     .foregroundColor(.primary)
                 Spacer()
+                Text("\(Int(uiManager.priceHeight)) pt")
+                    .foregroundStyle(.secondary)
+                
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.secondary.opacity(0.5))
             }
             .contentShape(Rectangle())
         }
@@ -81,51 +122,17 @@ struct PriceHeightSettings: View {
     }
 }
 
-// MARK: - Haptic Setings
-struct HapticSettings: View {
-
-    @EnvironmentObject var uiManager: UIManager
-    var body: some View {
-        
-        Section("Haptic Settings") {
-            
-            Picker("Strength", selection: $uiManager.hapticStyle) {
-                ForEach(HapticStyle.allCases, id: \.self) { style in
-                    Text(style.rawValue).tag(style)
-                }
-            }
-            .pickerStyle(.navigationLink)
-            .onChange(of: uiManager.hapticStyle) { _, value in
-                uiManager.saveHapticPreference()
-            }
-            
-        }
-    }
-}
-
 // MARK: - History Settings
 
 struct HistorySettings: View {
     var body: some View {
         Section("History") {
-            NavigationLink(destination: HistoryView(for: HistoryViewState.currentHistory)) {
-                HStack {
-                    Label("View History", systemImage: "clock.arrow.circlepath")
-                        .foregroundColor(.primary)
-                    Spacer()
-                }
-                .padding(.vertical, 8)
-                .contentShape(Rectangle())
+            NavigationLink("View History") {
+                HistoryView(for: HistoryViewState.currentHistory)
             }
             
-            NavigationLink(destination: HistoryView(for: HistoryViewState.historyCount)) {
-                HStack {
-                    Label("Max History Count", systemImage: "clock")
-                        .foregroundColor(.primary)
-                    Spacer()
-                }
-                .padding(.vertical, 8)
-                .contentShape(Rectangle())
+            NavigationLink("Max History Count") {
+                HistoryView(for: HistoryViewState.historyCount)
             }
         }
     }
@@ -135,50 +142,33 @@ struct HistorySettings: View {
 struct IssuesSettings: View {
     var body: some View {
         Section("Issues") {
-            NavigationLink(destination: SubmitFeedbackView()) {
-                HStack {
-                    Label("Submit Feedback", systemImage: "bubble.left.and.bubble.right")
-                        .foregroundColor(.primary)
-                    Spacer()
-                }
-                .padding(.vertical, 8)
+            NavigationLink("Submit Feedback") {
+                SubmitFeedbackView()
             }
-            .buttonStyle(.plain)
         }
     }
 }
 
 
+// MARK: - About Settings
 struct AboutSettings: View {
     var body: some View {
         Section("About") {
             Link(destination: URL(string: "https://aryanrogye.github.io/GlowWatt/privacy-policy")!) {
-                HStack {
-                    Label("Privacy Policy", systemImage: "doc.text")
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
-                }
-                .padding(.vertical, 8)
+                Text("Privacy Policy")
             }
             
             Link(destination: URL(string: "https://github.com/aryanrogye/GlowWatt")!) {
-                HStack {
-                    Label("Source Code", systemImage: "chevron.left.slash.chevron.right")
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
-                }
-                .padding(.vertical, 8)
+                Text("Source Code")
             }
             
             HStack {
-                Label("Version", systemImage: "info.circle")
+                Text("Version")
                 Spacer()
                 Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                     .foregroundColor(.secondary)
             }
-            .padding(.vertical, 8)
+            .padding(.vertical, 2)
         }
     }
 }

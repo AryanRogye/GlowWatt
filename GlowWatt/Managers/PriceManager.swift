@@ -147,6 +147,7 @@ extension PriceManager {
     /// Observe changes and persist automatically
     fileprivate func observeComEdPriceOption() {
         $comEdPriceOption
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] option in
                 guard let self = self else { return }
