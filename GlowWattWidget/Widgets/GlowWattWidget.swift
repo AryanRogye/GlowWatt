@@ -44,9 +44,44 @@ struct SimpleEntry: TimelineEntry {
     let price : Double
 }
 
-struct GlowWattWidgetEntryView : View {
-    var entry: Provider.Entry
+// MARK: - Helpers
+struct PriceFormatted: View {
     
+    var entry: Provider.Entry
+    var fontSize: CGFloat
+    
+    @Environment(\.widgetFamily) var family
+    
+    var body: some View {
+        Text("\(entry.price, specifier: "%.2f")¢")
+            .font(.system(size: fontSize, weight: .bold))
+            .foregroundColor(.white)
+            .padding(.horizontal, 2)
+            .widgetAccentable()
+    }
+}
+
+// MARK: - Acessory Circular
+struct GlowWattAcessoryCircular: View {
+    
+    var entry: Provider.Entry
+    var fontSize: CGFloat
+    
+    var body: some View {
+        Circle()
+            .foregroundStyle(.primary.opacity(0.2))
+            .overlay {
+                PriceFormatted(entry: entry, fontSize: fontSize)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+// MARK: - MAIN
+struct GlowWattWidgetEntryView : View {
+    // MARK: - Price Color
     var priceColor: Color {
         switch entry.price {
         case ..<4:
@@ -58,14 +93,13 @@ struct GlowWattWidgetEntryView : View {
         }
     }
     
-    private var formattedDate: String {
-        return AppStorage.getLastUpdated()?.formatted() ?? "Nothing Saved Yet"
-    }
-    
-    @Environment(\.widgetFamily) var family
-    
+    // MARK: - Font Size
     private var fontSize: CGFloat {
         switch family {
+        case .accessoryCircular:
+            return 18
+        case .accessoryInline:
+            return 18
         case .systemSmall:
             return 20
         case .systemMedium:
@@ -79,124 +113,167 @@ struct GlowWattWidgetEntryView : View {
         }
     }
     
+    // MARK: - Accented Status
+    @ViewBuilder
+    private var accentedStatus: some View {
+        switch priceColor {
+        case .green:
+            Label {
+                Text("Good")
+            } icon: {
+                Image(systemName: "checkmark.circle.fill")
+            }
+        case .yellow:
+            Label {
+                Text("Medium")
+            } icon: {
+                Image(systemName: "exclamationmark.circle.fill")
+            }
+        case .red:
+            Label {
+                Text("Bad")
+            } icon: {
+                Image(systemName: "xmark.octagon.fill")
+            }
+        default:
+            Label {
+                Text("Can't Find")
+            } icon: {
+                Image(systemName: "questionmark.circle.fill")
+            }
+        }
+    }
+    
+    // MARK: - Accented Status View
+    private func accentedStatusView(
+        scale: CGFloat
+    ) -> some View {
+        accentedStatus
+            .font(.system(size: fontSize * scale, weight: .semibold))
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 6)
+            .background(priceColor.opacity(0.25), in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    // MARK: - Date Display
+    private func dateDisplay(
+        scale: CGFloat,
+        updatedOpacity: Double = 0.75,
+        timestampOpacity: Double = 0.6
+    ) -> some View {
+        HStack {
+            Text("Updated")
+                .font(.system(size: fontSize * scale, weight: .semibold))
+                .foregroundColor(.white.opacity(updatedOpacity))
+            Spacer()
+            
+            Text(relativeTimestamp)
+                .font(.system(size: fontSize * scale, weight: .bold))
+                .foregroundColor(.white.opacity(timestampOpacity))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(priceColor.opacity(0.25), in: RoundedRectangle(cornerRadius: 8))
+        }
+    }
+    
+    // MARK: - Formatted Date
+    private var relativeTimestamp : String {
+        
+        AppStorage.getLastUpdated()?.formatted(
+            Date.RelativeFormatStyle(presentation: .named, unitsStyle: .abbreviated)
+        ) ?? "Never"
+        
+    }
+    
+    var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
     @Environment(\.widgetRenderingMode) private var widgetRenderingMode
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Spacer()
-            
-            HStack {
-                if family != .accessoryCircular {
-                    Text("\(entry.price, specifier: "%.2f")¢")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 2)
-                        .widgetAccentable()
-                } else {
-                    Text("\(entry.price, specifier: "%.2f")¢")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.white)
-                        .widgetAccentable()
+        switch family {
+        case .accessoryCircular:
+            GlowWattAcessoryCircular(entry: entry, fontSize: fontSize)
+                .widgetURL(URL(string: "glowwatt://refresh"))
+        case .accessoryInline:
+            PriceFormatted(entry: entry, fontSize: fontSize)
+                .widgetURL(URL(string: "glowwatt://refresh"))
+        default:
+            VStack(alignment: .leading) {
+                /// No Matter What Price is Left Side
+                Spacer()
+                
+                HStack {
+                    PriceFormatted(entry: entry, fontSize: fontSize)
+                    Spacer()
                 }
+                
                 Spacer()
                 
                 if family == .accessoryRectangular {
                     accessoryRectangularView
                 }
+                if family == .systemSmall {
+                    systemSmallView
+                }
+                if family == .systemMedium {
+                    systemMediumView
+                }
+                if family == .systemLarge {
+                    systemMediumView
+                }
+                if family == .systemExtraLarge {
+                    systemMediumView
+                }
             }
-            
-            if family != .accessoryCircular {
-                Spacer()
-            }
-            
-            if family == .systemSmall {
-                systemSmallView
-            } else if family == .accessoryRectangular {
-                /// Do Nothing
-            }
-            if family != .accessoryCircular {
-                systemMediumView
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .widgetURL(URL(string: "glowwatt://refresh"))
+            .animation(.spring, value: entry.price)
+            .animation(.spring, value: widgetRenderingMode)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .widgetURL(URL(string: "glowwatt://refresh"))
     }
     
+    // MARK: - Acessory Rectangle
+    @ViewBuilder
     private var accessoryRectangularView: some View {
-        HStack {
-            if widgetRenderingMode == .accented {
-                switch priceColor {
-                case .green: Text("👍")
-                case .yellow: Text("👀")
-                case .red: Text("👎")
-                default: Text("Status: Cant Find")
-                }
-                Spacer()
-            }
+        VStack(alignment: .leading) {
+            Text("Last Updated:")
+            Text(relativeTimestamp)
         }
-        .font(.system(size: fontSize * 0.8, weight: .medium))
+        .font(.system(size: fontSize * 0.6, weight: .medium))
         .foregroundColor(.white.opacity(0.6))
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
     }
     
+    // MARK: - Small View
     private var systemSmallView: some View {
-        VStack {
-            HStack {
-                Text("Last updated")
-                    .font(.system(size: fontSize * 0.5, weight: .medium))
-                    .foregroundColor(.white.opacity(0.8))
-                Spacer()
-            }
+        VStack(spacing: 10) {
             
-            HStack {
-                Text(formattedDate)
-                    .font(.system(size: fontSize * 0.6, weight: .medium))
-                    .foregroundColor(.white.opacity(0.6))
-                Spacer()
-            }
+            dateDisplay(
+                scale: 0.6,
+                updatedOpacity: 0.75,
+                timestampOpacity: 0.6
+            )
+            
             if widgetRenderingMode == .accented {
-                HStack {
-                    switch priceColor {
-                    case .green: Text("Status: Good")
-                    case .yellow: Text("Status: Medium")
-                    case .red: Text("Status: Bad")
-                    default: Text("Status: Cant Find")
-                    }
-                    Spacer()
-                }
-                .font(.system(size: fontSize * 0.8, weight: .medium))
-                .foregroundColor(.white.opacity(0.6))
+                accentedStatusView(scale: 0.6)
             }
         }
     }
     
+    // MARK: - Medium View
     private var systemMediumView: some View {
-        VStack {
-            HStack {
-                Text("Last updated")
-                    .font(.system(size: fontSize * 0.5, weight: .medium))
-                    .foregroundColor(.white.opacity(0.8))
-                
-                Spacer()
-                
-                Text(formattedDate)
-                    .font(.system(size: fontSize * 0.5, weight: .medium))
-                    .foregroundColor(.white.opacity(0.6))
-            }
+        VStack(alignment: .leading) {
+            
+            dateDisplay(
+                scale: 0.5,
+                updatedOpacity: 0.8,
+                timestampOpacity: 0.8
+            )
+            
             if widgetRenderingMode == .accented {
-                HStack {
-                    Text("Status: ")
-                    Spacer()
-                    switch priceColor {
-                    case .green: Text("Good")
-                    case .yellow: Text("Medium")
-                    case .red: Text("Bad")
-                    default: Text("Cant Find")
-                    }
-                }
-                .font(.system(size: fontSize * 0.8, weight: .medium))
-                .foregroundColor(.white.opacity(0.6))
+                accentedStatusView(scale: 0.8)
             }
         }
     }
@@ -215,7 +292,7 @@ struct GlowWattWidgetHomeScreen: Widget {
                     Color.red
                 }
                 .background(.clear)
-
+            
         }
         .supportedFamilies([
             .systemSmall,
