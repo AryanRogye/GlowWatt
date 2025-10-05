@@ -15,12 +15,15 @@ class PriceManager: ObservableObject {
     @Published var price: Double?
     @Published var lastUpdated: Date?
     @Published var timeLeftTillNextUpdate: String? = "2:00"
+    @Published var secondsLeft: Int? = 120
+    
     @Published var comEdPriceOption : ComdEdPriceOption = .instantHourlyPrice
     
     private var timerStartDate: Date?
+    private var timerEndDate: Date?
     
     /// Rate Limiting to Avoid excessive API calls 2 mins
-    private var timer: Timer?
+    private var uiUpdateTimer: Timer?
     
     private var isRefreshing: Bool = false
     private var cancellables = Set<AnyCancellable>()
@@ -36,88 +39,100 @@ class PriceManager: ObservableObject {
     func refresh() async -> (Double?, Date?) {
         
         /// Haptic Feedback
-//        UINotificationFeedbackGenerator().notificationOccurred(.success)
         onHaptic?()
-
         
         if isRefreshing { return (price, lastUpdated) }
         isRefreshing = true
         defer { isRefreshing = false }
         
         /// Start the timer, if the timer is already running, invalidate
-        if !isTimerRunning() {
-            startTimer()
-        } else {
+        if isTimerRunning() {
             return (price, lastUpdated)
         }
         
         /// Get the fetched price
         let fetchedPrice = await API.fetchComEdPrice(option: comEdPriceOption)
         
+        if fetchedPrice != nil {
+            startTimer()
+        }
+        
         /// Store it in the settings
         AppStorage.setPrice(fetchedPrice ?? 0.0)
         AppStorage.setLastUpdated()
         
-        if let price = fetchedPrice {
-            DispatchQueue.main.async {
-                self.price = price
-                UserPricesManager.shared.addStorage(for: price)
-            }
-        } else {
-            self.price = nil
+        /// Set Price
+        self.price = fetchedPrice
+        
+        /// Save Price if not nil and > 0
+        if let price = price, price > 0 {
+            UserPricesManager.shared.addStorage(for: price)
         }
-        if let lastUpdated = AppStorage.getLastUpdated() {
-            DispatchQueue.main.async {
-                self.lastUpdated = lastUpdated
-            }
-        } else {
-            self.lastUpdated = nil
-        }
+        
+        /// Set Last Updated
+        self.lastUpdated = AppStorage.getLastUpdated()
+        
         WidgetCenter.shared.reloadAllTimelines()
         
         return (price, lastUpdated)
     }
-    
-    private func startTimer() {
-        if !isTimerRunning() {
-            timerStartDate = Date()
-            timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: false) { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.timer = nil
-                    self?.timerStartDate = nil
-                    Task {
-                        await self?.refresh()
-                    }
-                }
+}
+
+
+// MARK: - Rate Limit Timer Management
+private extension PriceManager {
+    func startTimer() {
+        resetRateLimitTimer()
+        
+        let start = Date()
+        timerStartDate = start
+        timerEndDate = start.addingTimeInterval(120)
+        
+        uiUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.updateCountdownString()
             }
         }
+        
+        if let u = uiUpdateTimer {
+            RunLoop.main.add(u, forMode: .common)
+        }
+        
+        updateCountdownString()
     }
     
-    private func isTimerRunning() -> Bool {
-        guard let timer = timer, timer.isValid, let start = timerStartDate else {
-            return false
-        }
-        
-        let elapsed = Date().timeIntervalSince(start)
-        let remaining = max(0, 120 - elapsed)
-        
-        let minutes = Int(remaining) / 60
-        let seconds = Int(remaining) % 60
-        DispatchQueue.main.async {
-            self.timeLeftTillNextUpdate = String(format: "%d:%02d", minutes, seconds)
-        }
-        
-        return true
+    func isTimerRunning() -> Bool {
+        guard let end = timerEndDate else { return false }
+        return end.timeIntervalSinceNow > 0
     }
     
     /// Cancel the current rate-limit timer so the next refresh can proceed immediately
-    private func resetRateLimitTimer() {
-        timer?.invalidate()
-        timer = nil
+    func resetRateLimitTimer() {
+        uiUpdateTimer?.invalidate()
+        uiUpdateTimer = nil
         timerStartDate = nil
+        timerEndDate = nil
+        secondsLeft = nil
+        timeLeftTillNextUpdate = nil
+    }
+    
+    func updateCountdownString() {
+        guard let end = timerEndDate else { return }
+        let remaining = max(0, Int(end.timeIntervalSinceNow.rounded()))
+        secondsLeft = remaining
+        
+        let m = remaining / 60
+        let s = remaining % 60
+        timeLeftTillNextUpdate = String(format: "%d:%02d", m, s)
+        
+        if remaining == 0 {
+            resetRateLimitTimer()
+        }
     }
 }
 
+
+// MARK: - ComEd Price Option Persistence
 extension PriceManager {
     private static let comEdPriceOptionKey = "comEdPriceOption"
     
@@ -144,4 +159,3 @@ extension PriceManager {
             .store(in: &cancellables)
     }
 }
-

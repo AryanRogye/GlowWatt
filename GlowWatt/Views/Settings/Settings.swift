@@ -83,17 +83,22 @@ struct PriceHeightSettings: View {
 
 // MARK: - Haptic Setings
 struct HapticSettings: View {
-    
+
     @EnvironmentObject var uiManager: UIManager
     var body: some View {
-        Picker("Haptic Style", selection: $uiManager.hapticStyle) {
-            ForEach(HapticStyle.allCases, id: \.self) { style in
-                Text(style.rawValue).tag(style)
+        
+        Section("Haptic Settings") {
+            
+            Picker("Strength", selection: $uiManager.hapticStyle) {
+                ForEach(HapticStyle.allCases, id: \.self) { style in
+                    Text(style.rawValue).tag(style)
+                }
             }
-        }
-        .pickerStyle(.navigationLink)
-        .onChange(of: uiManager.hapticStyle) { _, value in
-            uiManager.saveHapticPreference()
+            .pickerStyle(.navigationLink)
+            .onChange(of: uiManager.hapticStyle) { _, value in
+                uiManager.saveHapticPreference()
+            }
+            
         }
     }
 }

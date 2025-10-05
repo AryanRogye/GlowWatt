@@ -33,7 +33,6 @@ struct Home: View {
             ScrollView {
                 PriceView()
             }
-            
             if uiManager.showPriceOptionOnHome {
                 priceOptionsOnHome
             }

@@ -39,7 +39,13 @@ struct PriceView: View {
         VStack {
             Text("Current Price: \(price, specifier: "%.2f")¢")
                 .font(.largeTitle)
+                .contentTransition(.numericText())
+                .animation(.snappy(duration: 0.25), value: price)
+
             Text("Last Updated: \(last.formatted(date: .omitted, time: .shortened))")
+                .contentTransition(.numericText())
+                .animation(.snappy(duration: 0.25), value: last)
+
             
             Text("Can refresh in:")
                 .font(.headline)
@@ -48,6 +54,8 @@ struct PriceView: View {
             Text(timeLeft)
                 .font(.system(.title2, design: .monospaced))
                 .bold()
+                .contentTransition(.numericText())
+                .animation(.snappy(duration: 0.25), value: priceManager.secondsLeft)
         }
     }
 }
