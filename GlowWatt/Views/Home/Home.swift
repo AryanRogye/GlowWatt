@@ -43,15 +43,21 @@ struct Home: View {
         // MARK: - On Appear
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                priceManager.refresh()
+                Task {
+                    await priceManager.refresh()
+                }
             }
         }
         // MARK: - TapGesture/Refreshable
         .onTapGesture {
-            priceManager.refresh()
+            Task {
+                await priceManager.refresh()
+            }
         }
         .refreshable {
-            priceManager.refresh()
+            Task {
+                await priceManager.refresh()
+            }
         }
         // MARK: - Background
         .background {
@@ -70,37 +76,6 @@ struct Home: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                if liveActivitesManager.hasStarted {
-                    Button(action: {
-                        liveActivitesManager.stopLiveActivity()
-                    }) {
-                        Text("Stop Live Activity")
-                    }
-                } else {
-                    Button(action: {
-                        uiManager.toggleLimiterModal(with: priceManager.price)
-                    }) {
-                        Image(systemName: "slider.horizontal.3")
-                            .foregroundStyle(Color.primary)
-                    }
-                }
-            }
-        }
-        
-        //        .toolbar {
-        //            ToolbarItem(placement: .primaryAction) {
-        //                Button(action: {
-        //                    started = false
-        //                    liveActivitesManager.stopLiveActivity()
-        //                }) {
-        //                    Image(systemName: "xmark")
-        //                        .foregroundStyle(Color.primary)
-        //                }
-        //            }
-        //        }
-        
         .sheet(isPresented: $uiManager.activatePriceHeightModal) {
             PriceHeightModal()
                 .presentationDetents(

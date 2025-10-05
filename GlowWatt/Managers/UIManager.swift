@@ -19,11 +19,14 @@ final class UIManager: ObservableObject {
     /// Start True
     @Published var showPriceOptionOnHome = true
     
+    @Published var hapticStyle = HapticStyle.medium
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
         loadDefaults()
     }
+    
 }
 
 // MARK: - Limiter Modal
@@ -44,7 +47,8 @@ extension UIManager {
         let defaults = UserDefaults.standard
         defaults.register(defaults: [
             "priceHeight": 200,
-            "showPriceOptionOnHome": true
+            "showPriceOptionOnHome": true,
+            "hapticStyle": HapticStyle.medium.rawValue
         ])
         
         if let priceHeight = defaults.object(forKey: "priceHeight") as? CGFloat {
@@ -53,6 +57,8 @@ extension UIManager {
             self.priceHeight = 200 // Default value if not set
         }
         showPriceOptionOnHome = defaults.bool(forKey: "showPriceOptionOnHome")
+        
+        hapticStyle = HapticStyle(rawValue: defaults.string(forKey: "hapticStyle") ?? HapticStyle.medium.rawValue) ?? .medium
     }
     
     public func savePriceHeight() {
@@ -63,6 +69,11 @@ extension UIManager {
     public func saveShowPriceOptionOnHome() {
         let defaults = UserDefaults.standard
         defaults.set(showPriceOptionOnHome, forKey: "showPriceOptionOnHome")
+    }
+    
+    public func saveHapticPreference() {
+        let defaults = UserDefaults.standard
+        defaults.set(hapticStyle.rawValue, forKey: "hapticStyle")
     }
 }
 

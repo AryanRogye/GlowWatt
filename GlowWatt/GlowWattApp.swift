@@ -14,6 +14,9 @@ struct GlowWattApp: App {
     @StateObject private var uiManager = UIManager()
     @StateObject private var liveActivitiesStart = LiveActivitesManager()
     
+    init() {
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -24,7 +27,14 @@ struct GlowWattApp: App {
                     .onOpenURL { url in
                         if url.scheme == "glowwatt", url.host == "refresh" {
                             Task {
-                                priceProvider.refresh()
+                                await priceProvider.refresh()
+                            }
+                        }
+                    }
+                    .task {
+                        if priceProvider.onHaptic == nil {
+                            priceProvider.onHaptic = { [weak uiManager] in
+                                uiManager?.hapticStyle.playHaptic()
                             }
                         }
                     }
