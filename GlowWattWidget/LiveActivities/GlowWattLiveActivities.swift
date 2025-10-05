@@ -83,6 +83,8 @@ struct GlowWattLockScreen: View {
                 
                 Sparkline(values: context.state.pastPrices)
                     .padding()
+                
+                Text("\(context.state.pastPrices)")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

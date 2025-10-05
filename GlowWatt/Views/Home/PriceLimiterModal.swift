@@ -49,7 +49,7 @@ struct PriceLimiterModal: View {
     @ViewBuilder
     private func startLiveActivity(price: Double) -> some View {
         Button(action: {
-            liveActivity.startSimpleLiveActivity(by: "PriceLimiter")
+            liveActivity.start()
             uiManager.activateLimiterModal = false
         }) {
             Text("Start Watcher")
