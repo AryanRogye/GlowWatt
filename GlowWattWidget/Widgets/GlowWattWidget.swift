@@ -44,9 +44,44 @@ struct SimpleEntry: TimelineEntry {
     let price : Double
 }
 
-struct GlowWattWidgetEntryView : View {
-    var entry: Provider.Entry
+// MARK: - Helpers
+struct PriceFormatted: View {
     
+    var entry: Provider.Entry
+    var fontSize: CGFloat
+    
+    @Environment(\.widgetFamily) var family
+
+    var body: some View {
+        Text("\(entry.price, specifier: "%.2f")¢")
+            .font(.system(size: fontSize, weight: .bold))
+            .foregroundColor(.white)
+            .padding(.horizontal, 2)
+            .widgetAccentable()
+    }
+}
+
+// MARK: - Acessory Circular
+struct GlowWattAcessoryCircular: View {
+    
+    var entry: Provider.Entry
+    var fontSize: CGFloat
+    
+    var body: some View {
+        Circle()
+            .foregroundStyle(.primary.opacity(0.2))
+            .overlay {
+                PriceFormatted(entry: entry, fontSize: fontSize)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+// MARK: - MAIN
+struct GlowWattWidgetEntryView : View {
+    // MARK: - Price Color
     var priceColor: Color {
         switch entry.price {
         case ..<4:
@@ -58,14 +93,13 @@ struct GlowWattWidgetEntryView : View {
         }
     }
     
-    private var formattedDate: String {
-        return AppStorage.getLastUpdated()?.formatted() ?? "Nothing Saved Yet"
-    }
-    
-    @Environment(\.widgetFamily) var family
-    
+    // MARK: - Font Size
     private var fontSize: CGFloat {
         switch family {
+        case .accessoryCircular:
+            return 18
+        case .accessoryInline:
+            return 18
         case .systemSmall:
             return 20
         case .systemMedium:
@@ -78,68 +112,71 @@ struct GlowWattWidgetEntryView : View {
             return 20
         }
     }
-    
+
+    // MARK: - Formatted Date
+    private var formattedDate: String {
+        return AppStorage.getLastUpdated()?.formatted() ?? "Nothing Saved Yet"
+    }
+
+    var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
     @Environment(\.widgetRenderingMode) private var widgetRenderingMode
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Spacer()
-            
-            HStack {
-                if family != .accessoryCircular {
-                    Text("\(entry.price, specifier: "%.2f")¢")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 2)
-                        .widgetAccentable()
-                } else {
-                    Text("\(entry.price, specifier: "%.2f")¢")
-                        .font(.system(size: fontSize, weight: .bold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.white)
-                        .widgetAccentable()
+        switch family {
+        case .accessoryCircular:
+            GlowWattAcessoryCircular(entry: entry, fontSize: fontSize)
+                .widgetURL(URL(string: "glowwatt://refresh"))
+        case .accessoryInline:
+            PriceFormatted(entry: entry, fontSize: fontSize)
+                .widgetURL(URL(string: "glowwatt://refresh"))
+        default:
+            VStack(alignment: .leading) {
+                /// No Matter What Price is Left Side
+                Spacer()
+                
+                HStack {
+                    PriceFormatted(entry: entry, fontSize: fontSize)
+                    Spacer()
                 }
+                
                 Spacer()
                 
                 if family == .accessoryRectangular {
                     accessoryRectangularView
                 }
-            }
-            
-            if family != .accessoryCircular {
-                Spacer()
-            }
-            
-            if family == .systemSmall {
-                systemSmallView
-            } else if family == .accessoryRectangular {
-                /// Do Nothing
-            }
-            if family != .accessoryCircular {
-                systemMediumView
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .widgetURL(URL(string: "glowwatt://refresh"))
-    }
-    
-    private var accessoryRectangularView: some View {
-        HStack {
-            if widgetRenderingMode == .accented {
-                switch priceColor {
-                case .green: Text("👍")
-                case .yellow: Text("👀")
-                case .red: Text("👎")
-                default: Text("Status: Cant Find")
+                if family == .systemSmall {
+                    systemSmallView
                 }
-                Spacer()
+                if family == .systemMedium {
+                    systemMediumView
+                }
+                if family == .systemLarge {
+                    systemMediumView
+                }
+                if family == .systemExtraLarge {
+                    systemMediumView
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .widgetURL(URL(string: "glowwatt://refresh"))
         }
-        .font(.system(size: fontSize * 0.8, weight: .medium))
-        .foregroundColor(.white.opacity(0.6))
     }
     
+    // MARK: - Acessory Rectangle
+    @ViewBuilder
+    private var accessoryRectangularView: some View {
+        VStack(alignment: .leading) {
+            Text("Last Updated:")
+            Text(formattedDate)
+        }
+        .font(.system(size: fontSize * 0.6, weight: .medium))
+        .foregroundColor(.white.opacity(0.6))
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
+    }
+
+    // MARK: - Small View
     private var systemSmallView: some View {
         VStack {
             HStack {
@@ -171,6 +208,7 @@ struct GlowWattWidgetEntryView : View {
         }
     }
     
+    // MARK: - Medium View
     private var systemMediumView: some View {
         VStack {
             HStack {

@@ -49,7 +49,7 @@ struct PriceLimiterModal: View {
     @ViewBuilder
     private func startLiveActivity(price: Double) -> some View {
         Button(action: {
-            liveActivity.startSimpleLiveActivity(with: price)
+            liveActivity.start()
             uiManager.activateLimiterModal = false
         }) {
             Text("Start Watcher")
@@ -111,17 +111,21 @@ struct PriceLimiterModal: View {
 }
 
 
-#Preview {
-    @Previewable @StateObject var priceManager = PriceManager()
-    @Previewable @StateObject var liveActivity = LiveActivitesManager()
-    @Previewable @StateObject var uiManager    = UIManager()
-    
-    
-    PriceLimiterModal()
-        .environmentObject(priceManager)
-        .environmentObject(liveActivity)
-        .environmentObject(uiManager)
-        .task {
-            priceManager.price = 4.0
-        }
-}
+//#Preview {
+//    @Previewable @StateObject var priceManager = PriceManager()
+//    @Previewable @StateObject var liveActivity = LiveActivitesManager(onRefresh: {
+//        Task {
+//            await priceManager.refresh()
+//        }
+//    })
+//    @Previewable @StateObject var uiManager    = UIManager()
+//    
+//    
+//    PriceLimiterModal()
+//        .environmentObject(priceManager)
+//        .environmentObject(liveActivity)
+//        .environmentObject(uiManager)
+//        .task {
+//            priceManager.price = 4.0
+//        }
+//}

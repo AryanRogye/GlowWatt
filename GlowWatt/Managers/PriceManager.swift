@@ -30,44 +30,45 @@ class PriceManager: ObservableObject {
         observeComEdPriceOption()
     }
     
-    func refresh() {
-        if isRefreshing { return }
+    @discardableResult
+    func refresh() async -> (Double?, Date?) {
         
-        Task {
-            isRefreshing = true
-            defer { isRefreshing = false }
-            
-            /// Start the timer, if the timer is already running, invalidate
-            if !isTimerRunning() {
-                startTimer()
-            } else {
-                return
-            }
-
-            /// Get the fetched price
-            let fetchedPrice = await API.fetchComEdPrice(option: comEdPriceOption)
-            
-            /// Store it in the settings
-            AppStorage.setPrice(fetchedPrice ?? 0.0)
-            AppStorage.setLastUpdated()
-            
-            if let price = fetchedPrice {
-                DispatchQueue.main.async {
-                    self.price = price
-                    UserPricesManager.shared.addStorage(for: price)
-                }
-            } else {
-                self.price = nil
-            }
-            if let lastUpdated = AppStorage.getLastUpdated() {
-                DispatchQueue.main.async {
-                    self.lastUpdated = lastUpdated
-                }
-            } else {
-                self.lastUpdated = nil
-            }
-            WidgetCenter.shared.reloadAllTimelines()
+        if isRefreshing { return (price, lastUpdated) }
+        isRefreshing = true
+        defer { isRefreshing = false }
+        
+        /// Start the timer, if the timer is already running, invalidate
+        if !isTimerRunning() {
+            startTimer()
+        } else {
+            return (price, lastUpdated)
         }
+        
+        /// Get the fetched price
+        let fetchedPrice = await API.fetchComEdPrice(option: comEdPriceOption)
+        
+        /// Store it in the settings
+        AppStorage.setPrice(fetchedPrice ?? 0.0)
+        AppStorage.setLastUpdated()
+        
+        if let price = fetchedPrice {
+            DispatchQueue.main.async {
+                self.price = price
+                UserPricesManager.shared.addStorage(for: price)
+            }
+        } else {
+            self.price = nil
+        }
+        if let lastUpdated = AppStorage.getLastUpdated() {
+            DispatchQueue.main.async {
+                self.lastUpdated = lastUpdated
+            }
+        } else {
+            self.lastUpdated = nil
+        }
+        WidgetCenter.shared.reloadAllTimelines()
+        
+        return (price, lastUpdated)
     }
     
     private func startTimer() {
@@ -77,7 +78,9 @@ class PriceManager: ObservableObject {
                 DispatchQueue.main.async {
                     self?.timer = nil
                     self?.timerStartDate = nil
-                    self?.refresh()
+                    Task {
+                        await self?.refresh()
+                    }
                 }
             }
         }
@@ -127,7 +130,9 @@ extension PriceManager {
                 guard let self = self else { return }
                 UserDefaults.standard.set(option.rawValue, forKey: Self.comEdPriceOptionKey)
                 self.resetRateLimitTimer()
-                self.refresh()
+                Task {
+                    await self.refresh()
+                }
             }
             .store(in: &cancellables)
     }

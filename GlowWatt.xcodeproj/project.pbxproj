@@ -46,10 +46,10 @@
 		9BD4C27B2E83553C00278A0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BD4C2732E83553C00278A0D /* Assets.xcassets */; };
 		9BD4C2812E8359CE00278A0D /* PriceLimiterModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */; };
 		9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2842E835B2A00278A0D /* PriceView.swift */; };
-		9BF95DDA2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
-		9BF95DDB2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
-		9BF95DDC2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
-		9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
+		9BF95E872E919D5300776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95E862E919D5300776771 /* GlowWatt.icon */; };
+		9BF95E882E919D5300776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95E862E919D5300776771 /* GlowWatt.icon */; };
+		9BF95E892E919D5300776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95E862E919D5300776771 /* GlowWatt.icon */; };
+		9BF95E8A2E919D5300776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95E862E919D5300776771 /* GlowWatt.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +145,7 @@
 		9BD4C2752E83553C00278A0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLimiterModal.swift; sourceTree = "<group>"; };
 		9BD4C2842E835B2A00278A0D /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
-		9BF95DD92E90B58600776771 /* GlowWatt.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = GlowWatt.icon; sourceTree = "<group>"; };
+		9BF95E862E919D5300776771 /* GlowWatt.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = GlowWatt.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -220,7 +220,7 @@
 				9B07AE5F2DE9429700024AFD /* GlowWattWatchOSWidget */,
 				9BB17B7C2DE1490200200C38 /* Frameworks */,
 				9BB17B672DE148DA00200C38 /* Products */,
-				9BF95DD92E90B58600776771 /* GlowWatt.icon */,
+				9BF95E862E919D5300776771 /* GlowWatt.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -537,7 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BF95DDC2E90B58600776771 /* GlowWatt.icon in Resources */,
+				9BF95E8A2E919D5300776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +545,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */,
+				9BF95E872E919D5300776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,7 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BD4C2612E83550300278A0D /* Assets.xcassets in Resources */,
-				9BF95DDA2E90B58600776771 /* GlowWatt.icon in Resources */,
+				9BF95E882E919D5300776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,7 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BD4C27B2E83553C00278A0D /* Assets.xcassets in Resources */,
-				9BF95DDB2E90B58600776771 /* GlowWatt.icon in Resources */,
+				9BF95E892E919D5300776771 /* GlowWatt.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
