@@ -13,6 +13,15 @@ struct Home: View {
     @EnvironmentObject var uiManager: UIManager
     @EnvironmentObject var liveActivitesManager: LiveActivitesManager
     
+    @State private var origin: CGPoint = .zero
+    @State private var counter: Int = 0
+    
+    @State private var amplitude: Double = 10
+    @State private var frequency: Double = 15
+    @State private var decay: Double = 8
+    @State private var speed: Double = 2000
+    
+    
     var priceColor: Color {
         if let price = priceManager.price {
             switch price {
@@ -30,17 +39,32 @@ struct Home: View {
     
     var body: some View {
         ZStack {
+            
+            priceColor.ignoresSafeArea()
+            priceColor.ignoresSafeArea()
+                .modifier(RippleEffect(
+                    trigger: counter, origin: origin,
+                    amplitude: amplitude, frequency: frequency,
+                    decay: decay, speed: speed
+                ))
+
             ScrollView {
                 PriceView()
+                    .modifier(RippleEffect(
+                        trigger: counter, origin: origin,
+                        amplitude: amplitude, frequency: frequency,
+                        decay: decay, speed: speed
+                    ))
             }
-            
-            if uiManager.showPriceOptionOnHome {
-                priceOptionsOnHome
+            .overlay {
+                if uiManager.showPriceOptionOnHome {
+                    priceOptionsOnHome
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
-        // MARK: - On Appear
+        // MARK: - Initial Data Fetch
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 Task {
@@ -60,8 +84,11 @@ struct Home: View {
             }
         }
         // MARK: - Background
-        .background {
-            priceColor.ignoresSafeArea(.all)
+        .onPressingChanged { point in
+            if let point {
+                origin = point
+                counter += 1
+            }
         }
         // MARK: - Toolbars
         .toolbar {
