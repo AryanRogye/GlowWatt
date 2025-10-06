@@ -17,6 +17,9 @@
 		9B07AE702DE9437100024AFD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB17B982DE149E100200C38 /* API.swift */; };
 		9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */; };
 		9B4E05642E942B82001CF411 /* RippleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05632E942B82001CF411 /* RippleEffect.swift */; };
+		9B736CBD2E9454360063C622 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBC2E9454340063C622 /* Graph.swift */; };
+		9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */; };
+		9B736CC22E94544F0063C622 /* PriceTapAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CC12E94544A0063C622 /* PriceTapAnimations.swift */; };
 		9BB17B7E2DE1490200200C38 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7D2DE1490200200C38 /* WidgetKit.framework */; };
 		9BB17B802DE1490200200C38 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7F2DE1490200200C38 /* SwiftUI.framework */; };
 		9BB17B912DE1490400200C38 /* GlowWattWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -121,6 +124,10 @@
 		9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlowWattWatchOSWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialPressingGestureModifier.swift; sourceTree = "<group>"; };
 		9B4E05632E942B82001CF411 /* RippleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleEffect.swift; sourceTree = "<group>"; };
+		9B736CBC2E9454340063C622 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTapSettingsView.swift; sourceTree = "<group>"; };
+		9B736CC12E94544A0063C622 /* PriceTapAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTapAnimations.swift; sourceTree = "<group>"; };
+		9B736CC32E9454C90063C622 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		9BB17B662DE148DA00200C38 /* GlowWatt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowWatt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlowWattWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7D2DE1490200200C38 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -227,6 +234,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		9B736CBF2E9454410063C622 /* PriceTapSettings */ = {
+			isa = PBXGroup;
+			children = (
+				9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */,
+			);
+			path = PriceTapSettings;
+			sourceTree = "<group>";
+		};
 		9BB17B5D2DE148DA00200C38 = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +308,7 @@
 			children = (
 				9BD4C24C2E83550300278A0D /* PriceManager.swift */,
 				9BD4C24D2E83550300278A0D /* UIManager.swift */,
+				9B736CC32E9454C90063C622 /* Untitled.swift */,
 				9BB3B9B62E1918D500B5F196 /* UserPricesManager.swift */,
 			);
 			path = Managers;
@@ -336,6 +352,7 @@
 		9BD4C25B2E83550300278A0D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				9B736CBF2E9454410063C622 /* PriceTapSettings */,
 				9BD4C2552E83550300278A0D /* History */,
 				9BD4C2592E83550300278A0D /* SubmitFeedback */,
 				9BD4C25A2E83550300278A0D /* Settings.swift */,
@@ -418,6 +435,8 @@
 		9BF95EC02E92476A00776771 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9B736CC12E94544A0063C622 /* PriceTapAnimations.swift */,
+				9B736CBC2E9454340063C622 /* Graph.swift */,
 				9BF95EC12E92477700776771 /* HapticStyle.swift */,
 			);
 			path = Models;
@@ -620,6 +639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B736CBD2E9454360063C622 /* Graph.swift in Sources */,
 				9BB17B9D2DE1541E00200C38 /* AppStorage.swift in Sources */,
 				9BD4C1E12E83343200278A0D /* LiveActivitesManager.swift in Sources */,
 				9BF95EC22E92478C00776771 /* HapticStyle.swift in Sources */,
@@ -636,10 +656,12 @@
 				9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */,
 				9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */,
 				9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */,
+				9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */,
 				9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */,
 				9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */,
 				9BD4C26B2E83550300278A0D /* SubmitFeedbackView.swift in Sources */,
 				9BF95EC42E930F5B00776771 /* layerEffects.metal in Sources */,
+				9B736CC22E94544F0063C622 /* PriceTapAnimations.swift in Sources */,
 				9BD4C26C2E83550300278A0D /* Settings.swift in Sources */,
 				9BD4C26D2E83550300278A0D /* Home.swift in Sources */,
 			);
@@ -926,7 +948,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -943,7 +965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18;
+				MARKETING_VERSION = 1.19;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -961,7 +983,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = GlowWatt;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -978,7 +1000,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18;
+				MARKETING_VERSION = 1.19;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

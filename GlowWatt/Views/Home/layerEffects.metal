@@ -10,7 +10,7 @@
 using namespace metal;
 
 [[ stitchable ]]
-half4 layerDistortion(
+half4 ripple(
                       float2 position,
                       SwiftUI::Layer layer,
                       float2 origin,

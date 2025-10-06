@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-enum GraphMode: String, CaseIterable, Identifiable {
-    case overTime = "Over Time"
-    case byHour = "By Hour"
-    var id: String { rawValue }
-}
-
-enum ViewMode: String, CaseIterable, Identifiable {
-    case list = "List"
-    case graph = "Graph"
-    var id: String { rawValue }
-}
-
 struct HistoryCurrentView: View {
     
     @Environment(\.dismiss) private var dismiss

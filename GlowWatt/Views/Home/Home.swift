@@ -42,19 +42,25 @@ struct Home: View {
             
             priceColor.ignoresSafeArea()
             priceColor.ignoresSafeArea()
-                .modifier(RippleEffect(
-                    trigger: counter, origin: origin,
-                    amplitude: amplitude, frequency: frequency,
-                    decay: decay, speed: speed
-                ))
-
-            ScrollView {
-                PriceView()
-                    .modifier(RippleEffect(
+                .modifier(
+                    RippleEffect(
+                        shouldActivate: uiManager.shouldUseWave,
                         trigger: counter, origin: origin,
                         amplitude: amplitude, frequency: frequency,
                         decay: decay, speed: speed
-                    ))
+                    )
+                )
+
+            ScrollView {
+                PriceView()
+                    .modifier(
+                        RippleEffect(
+                            shouldActivate: uiManager.shouldUseWave,
+                            trigger: counter, origin: origin,
+                            amplitude: amplitude, frequency: frequency,
+                            decay: decay, speed: speed
+                        )
+                    )
             }
             .overlay {
                 if uiManager.showPriceOptionOnHome {
@@ -85,6 +91,7 @@ struct Home: View {
         }
         // MARK: - Background
         .onPressingChanged { point in
+            if uiManager.priceTapAnimation == .none { return }
             if let point {
                 origin = point
                 counter += 1

@@ -21,6 +21,12 @@ final class UIManager: ObservableObject {
     
     @Published var hapticStyle = HapticStyle.medium
     
+    @Published var priceTapAnimation : PriceTapAnimations = PriceTapAnimations.ripple
+    
+    public var shouldUseWave : Bool {
+        return priceTapAnimation == .ripple ? true : false
+    }
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
@@ -48,7 +54,8 @@ extension UIManager {
         defaults.register(defaults: [
             "priceHeight": 200,
             "showPriceOptionOnHome": true,
-            "hapticStyle": HapticStyle.medium.rawValue
+            "hapticStyle": HapticStyle.medium.rawValue,
+            "priceTapAnimation" : PriceTapAnimations.ripple.rawValue
         ])
         
         if let priceHeight = defaults.object(forKey: "priceHeight") as? CGFloat {
@@ -57,8 +64,11 @@ extension UIManager {
             self.priceHeight = 200 // Default value if not set
         }
         showPriceOptionOnHome = defaults.bool(forKey: "showPriceOptionOnHome")
-        
+    
         hapticStyle = HapticStyle(rawValue: defaults.string(forKey: "hapticStyle") ?? HapticStyle.medium.rawValue) ?? .medium
+        priceTapAnimation = PriceTapAnimations(
+            rawValue: defaults.string(forKey: "priceTapAnimation") ?? PriceTapAnimations.ripple.rawValue
+        ) ?? .ripple
     }
     
     public func savePriceHeight() {
@@ -74,6 +84,11 @@ extension UIManager {
     public func saveHapticPreference() {
         let defaults = UserDefaults.standard
         defaults.set(hapticStyle.rawValue, forKey: "hapticStyle")
+    }
+    
+    public func savePriceTapAnimation() {
+        let defaults = UserDefaults.standard
+        defaults.set(priceTapAnimation.rawValue, forKey: "priceTapAnimation")
     }
 }
 

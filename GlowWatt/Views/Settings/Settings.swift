@@ -21,6 +21,8 @@ struct Settings: View {
                 IssuesSettings()
                 AboutSettings()
             }
+            .environmentObject(priceManager)
+            .environmentObject(uiManager)
         }
     }
 }
@@ -85,7 +87,29 @@ struct AccessibilitySettings: View {
                     uiManager.saveHapticPreference()
                 }
             }
+            PriceTapAnimation()
             PriceHeightSettings()
+        }
+    }
+}
+
+struct PriceTapAnimation: View {
+    
+    @EnvironmentObject var priceManager : PriceManager
+    @EnvironmentObject var uiManager: UIManager
+    
+    var body: some View {
+        NavigationLink {
+            PriceTapSettingsView()
+                .environmentObject(priceManager)
+                .environmentObject(uiManager)
+        } label: {
+            HStack {
+                Text("Price Tap Animation")
+                Spacer()
+                Text(uiManager.priceTapAnimation.rawValue)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }
@@ -175,5 +199,15 @@ struct AboutSettings: View {
 
 
 #Preview {
-    Settings()
+    
+    @Previewable @StateObject var priceManager = PriceManager()
+    @Previewable @StateObject var uiManager = UIManager()
+    @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
+    
+    NavigationStack {
+        Settings()
+            .environmentObject(priceManager)
+            .environmentObject(uiManager)
+            .environmentObject(liveActivitiesStart)
+    }
 }

@@ -35,7 +35,7 @@ struct RippleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .layerEffect(
-                ShaderLibrary.layerDistortion(
+                ShaderLibrary.ripple(
                     .float2(origin),
                     .float(elapsedTime),
                     .float(amplitude),
@@ -51,6 +51,7 @@ struct RippleModifier: ViewModifier {
 @MainActor
 struct RippleEffect<T: Equatable>: ViewModifier {
     
+    var shouldActivate: Bool
     var trigger : T
     var origin  : CGPoint
     var duration: TimeInterval = 0.6
