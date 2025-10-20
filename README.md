@@ -8,8 +8,10 @@
 ### iOS
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/d2c33a55-12a8-47c3-8543-a3f041bcaecd" width="45%" />
-  <img src="https://github.com/user-attachments/assets/9adc044b-307a-4c18-bcd9-a0fce868acfe" width="45%" />
+  <img width="225" height="430" src="https://github.com/user-attachments/assets/1aba80be-b4c8-4668-8403-f523d4ab2d81" />
+  <img width="225" height="430" src="https://github.com/user-attachments/assets/b7aff260-9f08-4682-8a71-afd416d4f03c" />
+  <img width="225" height="430" src="https://github.com/user-attachments/assets/ef3fffea-1ebc-4f24-a93a-4c5ef07cf854" />
+  <img width="225" height="430" src="https://github.com/user-attachments/assets/8767932a-c0ba-45a1-9160-5b6fcff29087" />
 </p>
 
 ### watchOS
