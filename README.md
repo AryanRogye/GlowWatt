@@ -15,8 +15,11 @@
 ### watchOS
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/7ecaf8ba-a7e2-4086-bdf3-2e9058bcac99" width="45%" />
-  <img src="https://github.com/user-attachments/assets/f74da3b6-ff1a-4d8c-a09e-f1001b680c31" width="45%" />
+  <img width="150" height="167" src="https://github.com/user-attachments/assets/e69169cd-68f0-41a3-b948-cb31708c9a69" />
+  <img width="150" height="167" src="https://github.com/user-attachments/assets/80cc689d-c015-4116-ba2b-4a5a9f26cc20" />
+  <img width="150" height="167" src="https://github.com/user-attachments/assets/86011d96-9d27-4c53-b8af-4282f0f0d816" />
+  <img width="150" height="167" src="https://github.com/user-attachments/assets/f3c81429-a323-4780-bd05-6d25ef39a7e7" />
+  <img width="150" height="167" src="https://github.com/user-attachments/assets/05db4b41-d3ee-45be-bb9d-e619beaeec1c" />
 </p>
 
 ---
