@@ -8,58 +8,43 @@
 import SwiftUI
 import WidgetKit
 
+extension Color {
+    static let comfySystemGreen  = Color(red: 52/255,  green: 199/255, blue: 89/255)   // #34C759
+    static let comfySystemRed    = Color(red: 255/255, green: 59/255,  blue: 48/255)   // #FF3B30
+    static let comfySystemYellow = Color(red: 255/255, green: 204/255, blue: 0/255)    // #FFCC00
+}
+
 struct ContentView: View {
     
-    @StateObject var priceProvider = PriceProvider.shared
+    @Environment(PriceProvider.self) var priceProvider
     
+    // MARK: - Price Color
     var priceColor: Color {
         if let price = priceProvider.price {
             switch price {
             case ..<4:
-                return .green
+                return .comfySystemGreen
             case 4..<8:
-                return .yellow
+                return .comfySystemYellow
             default:
-                return .red
+                return .comfySystemRed
             }
         }
         return .gray
     }
     
+    // MARK: - Body
     var body: some View {
+        @Bindable var priceProvider = priceProvider
         Button(action: {
             WKInterfaceDevice.current().play(.success)
             priceProvider.refresh()
         }) {
             ZStack {
+                /// Background
                 priceColor.ignoresSafeArea(.all)
-                VStack {
-                    Text("Tap To Refresh")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 10, weight: .bold))
-                        .padding(5)
-                        .background(Color.black.opacity(0.5))
-                        .cornerRadius(10)
-                    if let price = priceProvider.price, let last = priceProvider.lastUpdated {
-                        /// Allow to wrap
-                        Text("Current Price: \(price, specifier: "%.2f")¢")
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.black)
-                            .font(.system(size: 35, weight: .bold))
-                        /// Last updated date
-                        Spacer()
-                        Text(last.formatted())
-                            .foregroundStyle(.white)
-                            .font(.system(size: 20))
-                    } else {
-                        Text("Fetching price...")
-                            .font(.largeTitle)
-                    }
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding()
+                /// Price View
+                PriceView()
             }
         }
         .containerBackground(priceColor, for: .navigation)
@@ -74,82 +59,9 @@ struct ContentView: View {
     }
 }
 
-@MainActor
-class PriceProvider: ObservableObject {
-    
-    static let shared = PriceProvider()
-    
-    @Published var price: Double?
-    @Published var lastUpdated: Date?
-    @Published var timeLeftTillNextUpdate: String? = "2:00"
-    
-    private var timerStartDate: Date?
-
-    /// Rate Limiting to Avoid excessive API calls 2 mins
-    private var timer: Timer?
-
-    func refresh() {
-        /// Start the timer, if the timer is already running, invalidate
-        if !isTimerRunning() {
-            startTimer()
-        } else {
-            return
-        }
-        Task {
-            let fetchedPrice = await API.fetchComEdPrice()
-            
-            AppStorage.setPrice(fetchedPrice ?? 0.0)
-            AppStorage.setLastUpdated()
-            
-            if let price = fetchedPrice {
-                DispatchQueue.main.async {
-                    self.price = price
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.price = nil
-                }
-            }
-            if let lastUpdated = AppStorage.getLastUpdated() {
-                self.lastUpdated = lastUpdated
-            } else {
-                self.lastUpdated = nil
-            }
-            WidgetCenter.shared.reloadAllTimelines()
-        }
-    }
-    
-    private func startTimer() {
-        if !isTimerRunning() {
-            timerStartDate = Date()
-            timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: false) { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.timer = nil
-                    self?.timerStartDate = nil
-                    self?.refresh()
-                }
-            }
-        }
-    }
-    
-    private func isTimerRunning() -> Bool {
-        guard let timer = timer, timer.isValid, let start = timerStartDate else {
-            return false
-        }
-
-        let elapsed = Date().timeIntervalSince(start)
-        let remaining = max(0, 120 - elapsed)
-
-        let minutes = Int(remaining) / 60
-        let seconds = Int(remaining) % 60
-        DispatchQueue.main.async {
-            self.timeLeftTillNextUpdate = String(format: "%d:%02d", minutes, seconds)
-        }
-
-        return true
-    }
-}
-
 #Preview {
+    @Previewable @State var priceProvidier = PriceProvider()
+    
     ContentView()
+        .environment(priceProvidier)
 }

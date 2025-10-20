@@ -8,12 +8,18 @@
 import WidgetKit
 import SwiftUI
 
+extension Color {
+    static let comfySystemGreen  = Color(red: 52/255,  green: 199/255, blue: 89/255)   // #34C759
+    static let comfySystemRed    = Color(red: 255/255, green: 59/255,  blue: 48/255)   // #FF3B30
+    static let comfySystemYellow = Color(red: 255/255, green: 204/255, blue: 0/255)    // #FFCC00
+}
+
 struct Provider: TimelineProvider {
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), price: 0.0)
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping @Sendable (SimpleEntry) -> Void) {
         completion(SimpleEntry(date: Date(), price: 0.0))
     }
@@ -38,18 +44,6 @@ struct SimpleEntry: TimelineEntry {
     let price: Double
 }
 
-struct AnyShape: Shape {
-    private let pathBuilder: (CGRect) -> Path
-    
-    init<S: Shape>(_ shape: S) {
-        self.pathBuilder = shape.path(in:)
-    }
-    
-    func path(in rect: CGRect) -> Path {
-        pathBuilder(rect)
-    }
-}
-
 struct GlowWattWatchOSWidgetEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
@@ -57,71 +51,62 @@ struct GlowWattWatchOSWidgetEntryView : View {
     var priceColor: Color {
         switch entry.price {
         case ..<4:
-            return .green
+            return .comfySystemGreen
         case 4..<8:
-            return .yellow
+            return .comfySystemYellow
         default:
-            return .red
+            return .comfySystemRed
         }
     }
     
-    private var formattedDate: String {
-        return AppStorage.getLastUpdated()?.formatted() ?? "Never"
+    // MARK: - Time Stamp
+    private var relativeTimestamp : String {
+        
+        AppStorage.getLastUpdated()?.formatted(
+            Date.RelativeFormatStyle(presentation: .named, unitsStyle: .abbreviated)
+        ) ?? "Never"
+        
     }
-
+    
     var body: some View {
-        ZStack {
-            priceColor.ignoresSafeArea(.all)
-            VStack {
-                switch family {
-                case .accessoryRectangular:
-                    accessoryRectangleView
-                case .accessoryInline:
-                    accessoryInlineView
-                case .accessoryCircular:
-                    accessoryCircularView
-                case .accessoryCorner:
-                    accessoryCornerView
-                default:
-                    EmptyView()
-                }
-            }
-            .padding()
+        
+        switch family {
+        case .accessoryRectangular:
+            accessoryRectangleView
+        case .accessoryInline:
+            accessoryInlineView
+        case .accessoryCircular:
+            accessoryCircularView
+        case .accessoryCorner:
+            accessoryCircularView
+        default:
+            EmptyView()
         }
-        .containerBackground(priceColor, for: .widget)
-        .clipShape(
-            family == .accessoryCircular || family == .accessoryCorner
-                ? AnyShape(Circle())
-                : AnyShape(RoundedRectangle(cornerRadius: 10))
-        )
-        .padding(1)
-        .widgetURL(URL(string: "glowwatt://refresh"))
     }
     
-    private var accessoryCornerView: some View {
-        Text("\(entry.price, specifier: "%.2f")¢")
-            .widgetAccentable()
-            .foregroundColor(.primary)
-            .multilineTextAlignment(.center)
-            .foregroundStyle(.black)
-            .font(.system(size: 7))
-    }
-
     private var accessoryCircularView: some View {
-        Text("\(entry.price, specifier: "%.2f")¢")
-            .widgetAccentable()
-            .foregroundColor(.primary)
-            .multilineTextAlignment(.center)
-            .foregroundStyle(.black)
-            .font(.system(size: 8))
+        Circle()
+            .fill(.clear)
+            .strokeBorder(priceColor, lineWidth: 2)
+            .overlay {
+                Text("\(entry.price, specifier: "%.2f")¢")
+                    .widgetAccentable()
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 10))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+            }
+            .padding(1)
     }
     
     private var accessoryInlineView: some View {
-        Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+        Text("\(entry.price, specifier: "%.2f")¢")
             .widgetAccentable()
             .foregroundColor(.primary)
             .multilineTextAlignment(.center)
-            .lineLimit(2)
+            .lineLimit(1)
             .minimumScaleFactor(0.5)
             .font(.system(size: 30, weight: .medium))
     }
@@ -129,33 +114,29 @@ struct GlowWattWatchOSWidgetEntryView : View {
     private var accessoryRectangleView: some View {
         VStack {
             HStack {
-                Text("Current Price: \(entry.price, specifier: "%.2f")¢")
+                Text("\(entry.price, specifier: "%.2f")¢")
                     .widgetAccentable()
                     .multilineTextAlignment(.center)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.white)
                     .font(.system(size: 30, weight: .medium))
                 Spacer()
             }
             
-            Spacer()
-            
             HStack {
-                Text("Last updated")
-                    .widgetAccentable()
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(.white.opacity(0.8))
-                Spacer()
-            }
-            
-            HStack {
-                Text(formattedDate)
+                Text(relativeTimestamp)
                     .widgetAccentable()
                     .font(.system(size: 13, weight: .medium))
                     .foregroundColor(.white.opacity(0.6))
                 Spacer()
             }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .strokeBorder(priceColor, lineWidth: 2)
         }
     }
 }
@@ -163,7 +144,7 @@ struct GlowWattWatchOSWidgetEntryView : View {
 @main
 struct GlowWattWatchOSWidget: Widget {
     let kind: String = "GlowWattWatchOSWidget"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             GlowWattWatchOSWidgetEntryView(entry: entry)
@@ -183,7 +164,7 @@ struct GlowWattWatchOSWidget: Widget {
 #Preview(as: .accessoryRectangular) {
     GlowWattWatchOSWidget()
 } timeline: {
-    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 1.0)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }
@@ -191,7 +172,7 @@ struct GlowWattWatchOSWidget: Widget {
 #Preview(as: .accessoryInline) {
     GlowWattWatchOSWidget()
 } timeline: {
-    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 1.0)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }
@@ -199,7 +180,7 @@ struct GlowWattWatchOSWidget: Widget {
 #Preview(as: .accessoryCircular) {
     GlowWattWatchOSWidget()
 } timeline: {
-    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 1.0)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }
@@ -207,7 +188,7 @@ struct GlowWattWatchOSWidget: Widget {
 #Preview(as: .accessoryCorner) {
     GlowWattWatchOSWidget()
 } timeline: {
-    SimpleEntry(date: .now, price: 10.3634)
+    SimpleEntry(date: .now, price: 1.0)
     SimpleEntry(date: .now, price: 5.0)
     SimpleEntry(date: .now, price: 10.0)
 }
