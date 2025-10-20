@@ -20,6 +20,7 @@
 		9B736CBD2E9454360063C622 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBC2E9454340063C622 /* Graph.swift */; };
 		9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */; };
 		9B736CC22E94544F0063C622 /* PriceTapAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CC12E94544A0063C622 /* PriceTapAnimations.swift */; };
+		9B736CD72E94858A0063C622 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CD42E9485880063C622 /* AppIntent.swift */; };
 		9BB17B7E2DE1490200200C38 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7D2DE1490200200C38 /* WidgetKit.framework */; };
 		9BB17B802DE1490200200C38 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB17B7F2DE1490200200C38 /* SwiftUI.framework */; };
 		9BB17B912DE1490400200C38 /* GlowWattWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -128,6 +129,7 @@
 		9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTapSettingsView.swift; sourceTree = "<group>"; };
 		9B736CC12E94544A0063C622 /* PriceTapAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTapAnimations.swift; sourceTree = "<group>"; };
 		9B736CC32E9454C90063C622 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		9B736CD42E9485880063C622 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		9BB17B662DE148DA00200C38 /* GlowWatt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowWatt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GlowWattWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB17B7D2DE1490200200C38 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -242,6 +244,14 @@
 			path = PriceTapSettings;
 			sourceTree = "<group>";
 		};
+		9B736CD32E9485860063C622 /* AppIntent */ = {
+			isa = PBXGroup;
+			children = (
+				9B736CD42E9485880063C622 /* AppIntent.swift */,
+			);
+			path = AppIntent;
+			sourceTree = "<group>";
+		};
 		9BB17B5D2DE148DA00200C38 = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +289,7 @@
 		9BB17B972DE149B600200C38 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9B736CD32E9485860063C622 /* AppIntent */,
 				9BD4C1D92E8333EC00278A0D /* LiveActivities */,
 				9BD4C1D82E8333C500278A0D /* API */,
 				9BD4C27D2E83574300278A0D /* Storage */,
@@ -660,6 +671,7 @@
 				9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */,
 				9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */,
 				9BD4C26B2E83550300278A0D /* SubmitFeedbackView.swift in Sources */,
+				9B736CD72E94858A0063C622 /* AppIntent.swift in Sources */,
 				9BF95EC42E930F5B00776771 /* layerEffects.metal in Sources */,
 				9B736CC22E94544F0063C622 /* PriceTapAnimations.swift in Sources */,
 				9BD4C26C2E83550300278A0D /* Settings.swift in Sources */,
