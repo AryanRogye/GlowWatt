@@ -36,17 +36,22 @@ struct ContentView: View {
     // MARK: - Body
     var body: some View {
         @Bindable var priceProvider = priceProvider
-        Button(action: {
-            WKInterfaceDevice.current().play(.success)
-            priceProvider.refresh()
-        }) {
-            ZStack {
-                /// Background
-                priceColor.ignoresSafeArea(.all)
+//        NavigationStack {
+        ZStack {
+            /// Background
+            priceColor.ignoresSafeArea(.all)
+            Button(action: {
+                WKInterfaceDevice.current().play(.success)
+                priceProvider.refresh()
+            }) {
                 /// Price View
                 PriceView()
             }
         }
+//            .toolbar {
+//                ToolbarItem(placement: .confirmationAction) { SettingsButton() }
+//            }
+//        }
         .containerBackground(priceColor, for: .navigation)
         .buttonStyle(.plain)
         .contentShape(Rectangle())
@@ -59,9 +64,24 @@ struct ContentView: View {
     }
 }
 
+private struct SettingsButton: View {
+    var body: some View {
+        NavigationLink(destination: SettingsView()) {
+            Image(systemName: "gear")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .padding(4)
+        }
+    }
+}
+
 #Preview {
+    
     @Previewable @State var priceProvidier = PriceProvider()
+    @Previewable @State var settingsModel = WatchOSSettingsModel()
+
     
     ContentView()
         .environment(priceProvidier)
+        .environment(settingsModel)
 }

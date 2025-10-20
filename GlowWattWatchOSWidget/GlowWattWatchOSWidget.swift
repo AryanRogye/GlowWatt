@@ -76,25 +76,25 @@ struct GlowWattWatchOSWidgetEntryView : View {
         case .accessoryInline:
             accessoryInlineView
         case .accessoryCircular:
-            accessoryCircularView
+            accessoryCircularView(fontWeight: 12,lineWidth: 4)
         case .accessoryCorner:
-            accessoryCircularView
+            accessoryCircularView(fontWeight: 10, lineWidth: 2)
         default:
             EmptyView()
         }
     }
     
-    private var accessoryCircularView: some View {
+    private func accessoryCircularView(fontWeight: CGFloat, lineWidth: CGFloat) -> some View {
         Circle()
             .fill(.clear)
-            .strokeBorder(priceColor, lineWidth: 2)
+            .strokeBorder(priceColor, lineWidth: lineWidth)
             .overlay {
                 Text("\(entry.price, specifier: "%.2f")¢")
                     .widgetAccentable()
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.black)
-                    .font(.system(size: 10))
+                    .font(.system(size: fontWeight))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
             }
@@ -104,36 +104,30 @@ struct GlowWattWatchOSWidgetEntryView : View {
     private var accessoryInlineView: some View {
         Text("\(entry.price, specifier: "%.2f")¢")
             .widgetAccentable()
+            .font(.headline)
             .foregroundColor(.primary)
             .multilineTextAlignment(.center)
             .lineLimit(1)
             .minimumScaleFactor(0.5)
-            .font(.system(size: 30, weight: .medium))
     }
     
     private var accessoryRectangleView: some View {
-        VStack {
-            HStack {
-                Text("\(entry.price, specifier: "%.2f")¢")
-                    .widgetAccentable()
-                    .multilineTextAlignment(.center)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .foregroundStyle(.white)
-                    .font(.system(size: 30, weight: .medium))
-                Spacer()
-            }
+        VStack(alignment: .leading) {
+            Text("\(entry.price, specifier: "%.2f")¢")
+                .widgetAccentable()
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .foregroundStyle(.white)
+                .font(.system(size: 30, weight: .medium))
             
-            HStack {
-                Text(relativeTimestamp)
-                    .widgetAccentable()
-                    .font(.system(size: 13, weight: .medium))
-                    .foregroundColor(.white.opacity(0.6))
-                Spacer()
-            }
+            Text(relativeTimestamp)
+                .widgetAccentable()
+                .font(.system(size: 13, weight: .medium))
+                .foregroundColor(.white.opacity(0.6))
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background {
             RoundedRectangle(cornerRadius: 12)
                 .strokeBorder(priceColor, lineWidth: 2)

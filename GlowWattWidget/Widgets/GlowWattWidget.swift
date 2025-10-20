@@ -18,20 +18,24 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
+        // 1) read what the intent (or app) stored
+        let storedPrice : Double = AppStorage.getPrice() ?? .nan
+        let lastUpdated : Date = AppStorage.getLastUpdated() ?? .distantPast
+        let isStale : Bool = Date().timeIntervalSince(lastUpdated) > 25 * 60  // ~25 min
         
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
-        AppStorage.setPrice(fetchedPrice)
-        AppStorage.setLastUpdated()
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, price: fetchedPrice)
-            entries.append(entry)
+        // 2) fetch only if missing/stale
+        let price: Double
+        if storedPrice.isNaN || isStale {
+            let fetched : Double = await API.fetchComEdPrice() ?? (storedPrice.isNaN ? 0.0 : storedPrice)
+            AppStorage.setPrice(fetched)
+            AppStorage.setLastUpdated()
+            price = fetched
+        } else {
+            price = storedPrice
         }
         
-        return Timeline(entries: entries, policy: .after(currentDate.addingTimeInterval(1800)))
+        let entry = SimpleEntry(date: .now, price: price)
+        return Timeline(entries: [entry], policy: .after(.now.addingTimeInterval(1800)))
     }
     
     //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
@@ -58,6 +62,8 @@ struct PriceFormatted: View {
             .foregroundColor(.white)
             .padding(.horizontal, 2)
             .widgetAccentable()
+            .minimumScaleFactor(0.5)
+            .lineLimit(1)
     }
 }
 
@@ -100,14 +106,16 @@ struct GlowWattWidgetEntryView : View {
             return 18
         case .accessoryInline:
             return 18
+        case .accessoryRectangular:
+            return 24
         case .systemSmall:
-            return 20
+            return 36
         case .systemMedium:
-            return 28
+            return 36
         case .systemLarge:
-            return 36
+            return 100
         case .systemExtraLarge:
-            return 36
+            return 100
         default:
             return 20
         }
@@ -118,29 +126,13 @@ struct GlowWattWidgetEntryView : View {
     private var accentedStatus: some View {
         switch priceColor {
         case .green:
-            Label {
-                Text("Good")
-            } icon: {
-                Image(systemName: "checkmark.circle.fill")
-            }
+            Image(systemName: "checkmark.circle.fill")
         case .yellow:
-            Label {
-                Text("Medium")
-            } icon: {
-                Image(systemName: "exclamationmark.circle.fill")
-            }
+            Image(systemName: "exclamationmark.circle.fill")
         case .red:
-            Label {
-                Text("Bad")
-            } icon: {
-                Image(systemName: "xmark.octagon.fill")
-            }
+            Image(systemName: "xmark.octagon.fill")
         default:
-            Label {
-                Text("Can't Find")
-            } icon: {
-                Image(systemName: "questionmark.circle.fill")
-            }
+            Image(systemName: "questionmark.circle.fill")
         }
     }
     
@@ -151,9 +143,6 @@ struct GlowWattWidgetEntryView : View {
         accentedStatus
             .font(.system(size: fontSize * scale, weight: .semibold))
             .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 6)
-            .background(priceColor.opacity(0.25), in: RoundedRectangle(cornerRadius: 8))
     }
 
     // MARK: - Date Display
@@ -163,17 +152,29 @@ struct GlowWattWidgetEntryView : View {
         timestampOpacity: Double = 0.6
     ) -> some View {
         HStack {
-            Text("Updated")
-                .font(.system(size: fontSize * scale, weight: .semibold))
-                .foregroundColor(.white.opacity(updatedOpacity))
-            Spacer()
-            
             Text(relativeTimestamp)
                 .font(.system(size: fontSize * scale, weight: .bold))
                 .foregroundColor(.white.opacity(timestampOpacity))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(priceColor.opacity(0.25), in: RoundedRectangle(cornerRadius: 8))
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+            if widgetRenderingMode == .accented {
+                accentedStatusView(scale: 0.4)
+                    .minimumScaleFactor(0.5)
+            }
+            Spacer()
+            Button(intent: FetchCurrentInstantHourlyPrice()) {
+                Circle()
+                    .fill(.clear)
+                    .strokeBorder(.white, style: StrokeStyle(lineWidth: 2))
+                    .frame(width: 30, height: 30)
+                    .overlay {
+                        Image(systemName: "arrow.clockwise")
+                            .frame(alignment: .center)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundStyle(.white)
+            }
+            .buttonStyle(.plain)
         }
     }
     
@@ -200,13 +201,9 @@ struct GlowWattWidgetEntryView : View {
                 .widgetURL(URL(string: "glowwatt://refresh"))
         default:
             VStack(alignment: .leading) {
-                /// No Matter What Price is Left Side
                 Spacer()
                 
-                HStack {
-                    PriceFormatted(entry: entry, fontSize: fontSize)
-                    Spacer()
-                }
+                PriceFormatted(entry: entry, fontSize: fontSize)
                 
                 Spacer()
                 
@@ -226,7 +223,7 @@ struct GlowWattWidgetEntryView : View {
                     systemMediumView
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .widgetURL(URL(string: "glowwatt://refresh"))
             .animation(.spring, value: entry.price)
             .animation(.spring, value: widgetRenderingMode)
@@ -236,45 +233,32 @@ struct GlowWattWidgetEntryView : View {
     // MARK: - Acessory Rectangle
     @ViewBuilder
     private var accessoryRectangularView: some View {
-        VStack(alignment: .leading) {
-            Text("Last Updated:")
-            Text(relativeTimestamp)
-        }
-        .font(.system(size: fontSize * 0.6, weight: .medium))
-        .foregroundColor(.white.opacity(0.6))
-        .lineLimit(1)
-        .minimumScaleFactor(0.5)
+        Text(relativeTimestamp)
+            .font(.system(size: fontSize * 0.6, weight: .medium))
+            .foregroundColor(.white.opacity(0.6))
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
     }
     
     // MARK: - Small View
     private var systemSmallView: some View {
         VStack(spacing: 10) {
-            
             dateDisplay(
                 scale: 0.6,
                 updatedOpacity: 0.75,
                 timestampOpacity: 0.6
             )
-            
-            if widgetRenderingMode == .accented {
-                accentedStatusView(scale: 0.6)
-            }
         }
     }
     
     // MARK: - Medium View
     private var systemMediumView: some View {
         VStack(alignment: .leading) {
-            
             dateDisplay(
                 scale: 0.5,
                 updatedOpacity: 0.8,
                 timestampOpacity: 0.8
             )
-            
-            if widgetRenderingMode == .accented {
-                accentedStatusView(scale: 0.8)
-            }
         }
     }
 }
@@ -283,7 +267,11 @@ struct GlowWattWidgetHomeScreen: Widget {
     let kind: String = "GlowWattWidget"
     
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+        AppIntentConfiguration(
+            kind: kind,
+            intent: ConfigurationAppIntent.self,
+            provider: Provider()
+        ) { entry in
             GlowWattWidgetEntryView(entry: entry)
                 .contentMargins(.zero)
                 .containerBackground(for: .widget) {
@@ -297,8 +285,6 @@ struct GlowWattWidgetHomeScreen: Widget {
         .supportedFamilies([
             .systemSmall,
             .systemMedium,
-            .systemLarge,
-            .systemExtraLarge,
             .accessoryInline,
             .accessoryCircular,
             .accessoryRectangular,
