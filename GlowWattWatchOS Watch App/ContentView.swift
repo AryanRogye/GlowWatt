@@ -36,22 +36,22 @@ struct ContentView: View {
     // MARK: - Body
     var body: some View {
         @Bindable var priceProvider = priceProvider
-//        NavigationStack {
-        ZStack {
-            /// Background
-            priceColor.ignoresSafeArea(.all)
-            Button(action: {
-                WKInterfaceDevice.current().play(.success)
-                priceProvider.refresh()
-            }) {
-                /// Price View
-                PriceView()
+        NavigationStack {
+            ZStack {
+                /// Background
+                priceColor.ignoresSafeArea(.all)
+                Button(action: {
+                    WKInterfaceDevice.current().play(.success)
+                    priceProvider.refresh()
+                }) {
+                    /// Price View
+                    PriceView()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) { SettingsButton() }
             }
         }
-//            .toolbar {
-//                ToolbarItem(placement: .confirmationAction) { SettingsButton() }
-//            }
-//        }
         .containerBackground(priceColor, for: .navigation)
         .buttonStyle(.plain)
         .contentShape(Rectangle())

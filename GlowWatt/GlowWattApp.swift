@@ -14,30 +14,38 @@ struct GlowWattApp: App {
     @StateObject private var uiManager = UIManager()
     @StateObject private var liveActivitiesStart = LiveActivitesManager()
     
+    @State var onboardingManager = OnboardingManager()
+    
     init() {
     }
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                Home()
-                    .environmentObject(priceProvider)
-                    .environmentObject(uiManager)
-                    .environmentObject(liveActivitiesStart)
-                    .onOpenURL { url in
-                        if url.scheme == "glowwatt", url.host == "refresh" {
-                            Task {
-                                await priceProvider.refresh()
+            if onboardingManager.needsOnboarding {
+                OnboardingView()
+                    .environment(onboardingManager)
+            } else {
+                NavigationStack {
+                    Home()
+                        .environment(onboardingManager)
+                        .environmentObject(priceProvider)
+                        .environmentObject(uiManager)
+                        .environmentObject(liveActivitiesStart)
+                        .onOpenURL { url in
+                            if url.scheme == "glowwatt", url.host == "refresh" {
+                                Task {
+                                    await priceProvider.refresh()
+                                }
                             }
                         }
-                    }
-                    .task {
-                        if priceProvider.onHaptic == nil {
-                            priceProvider.onHaptic = { [weak uiManager] in
-                                uiManager?.hapticStyle.playHaptic()
+                        .task {
+                            if priceProvider.onHaptic == nil {
+                                priceProvider.onHaptic = { [weak uiManager] in
+                                    uiManager?.hapticStyle.playHaptic()
+                                }
                             }
                         }
-                    }
+                }
             }
         }
     }

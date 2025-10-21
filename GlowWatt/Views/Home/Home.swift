@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     
+    @Environment(OnboardingManager.self) var onboardingManager
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
     @EnvironmentObject var liveActivitesManager: LiveActivitesManager
@@ -104,6 +105,7 @@ struct Home: View {
                     destination: Settings()
                         .environmentObject(uiManager)
                         .environmentObject(priceManager)
+                        .environment(onboardingManager)
                 ) {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(Color.primary)

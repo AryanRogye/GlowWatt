@@ -11,6 +11,7 @@ struct Settings: View {
     
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
+    @Environment(OnboardingManager.self) var onboardingManager
     
     var body: some View {
         VStack {
@@ -20,6 +21,7 @@ struct Settings: View {
                 HistorySettings()
                 IssuesSettings()
                 AboutSettings()
+                ResetOnboarding()
             }
             .environmentObject(priceManager)
             .environmentObject(uiManager)
@@ -197,15 +199,29 @@ struct AboutSettings: View {
     }
 }
 
+struct ResetOnboarding: View {
+    
+    @Environment(OnboardingManager.self) var onboardingManager
+    
+    var body: some View {
+        Button(action: {
+            onboardingManager.resetOnboarding()
+        }) {
+            Text("Reset Onboarding")
+        }
+    }
+}
 
 #Preview {
     
+    @Previewable @State var onboardingManager = OnboardingManager()
     @Previewable @StateObject var priceManager = PriceManager()
     @Previewable @StateObject var uiManager = UIManager()
     @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
     
     NavigationStack {
         Settings()
+            .environment(onboardingManager)
             .environmentObject(priceManager)
             .environmentObject(uiManager)
             .environmentObject(liveActivitiesStart)
