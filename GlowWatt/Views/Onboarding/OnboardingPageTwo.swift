@@ -13,12 +13,13 @@ struct OnboardingPageTwo: View {
     @State private var smallDescriptionAppear = false
     @State private var legendSwatchAppear = false
     @State private var textAppear = false
+    @State private var demoButtonAppear = false
     
     @Binding var currentPage: Int
 
     var body: some View {
         VStack {
-            // Title
+            // MARK: - Title
             VStack(spacing: 6) {
                 Text("How I use")
                 Text("GlowWatt")
@@ -31,6 +32,7 @@ struct OnboardingPageTwo: View {
             .offset(y: titleAppear ? 0 : 10)
             .animation(.spring(response: 0.6, dampingFraction: 0.8), value: titleAppear)
             
+            // MARK: - Description
             Text("3 Colors To Look At")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .minimumScaleFactor(0.5)
@@ -41,6 +43,7 @@ struct OnboardingPageTwo: View {
             
                 .padding(.top)
             
+            // MARK: - Colors
             HStack(spacing: 16) {
                 LegendSwatch(color: .comfySystemGreen,
                              title: "Green",
@@ -50,13 +53,14 @@ struct OnboardingPageTwo: View {
                              note: "If I really have to")
                 LegendSwatch(color: .comfySystemRed,
                              title: "Red",
-                             note: "I wait. never now")
+                             note: "I'm putting this off")
             }
             .frame(height: 120)
             .opacity(legendSwatchAppear ? 1 : 0)
             .offset(y: legendSwatchAppear ? 0 : 10)
             .animation(.spring(response: 0.6, dampingFraction: 0.85), value: legendSwatchAppear)
             
+            // MARK: - List
             VStack(spacing: 12) {
                 ForEach(Array(["Laundry", "EV Charging", "Dishwasher", "3D Printer"].enumerated()), id: \.offset) { index, item in
                     HStack(spacing: 12) {
@@ -89,6 +93,7 @@ struct OnboardingPageTwo: View {
                 smallDescriptionAppear = false
                 legendSwatchAppear = false
                 textAppear = false
+                demoButtonAppear = false
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     titleAppear = true
@@ -102,19 +107,31 @@ struct OnboardingPageTwo: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     textAppear = true
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    demoButtonAppear = true
+                }
+                
             } else {
                 titleAppear = false
                 smallDescriptionAppear = false
                 legendSwatchAppear = false
                 textAppear = false
+                demoButtonAppear = false
             }
         }
         .onAppear {
             if currentPage == 1 {
                 titleAppear = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { smallDescriptionAppear = true }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { legendSwatchAppear = true }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { textAppear = true }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { smallDescriptionAppear = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { legendSwatchAppear = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { textAppear = true
+                    textAppear = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { textAppear = true
+                    demoButtonAppear = true
+                }
             }
         }
     }
