@@ -68,7 +68,6 @@ struct Home: View {
                     priceOptionsOnHome
                 }
             }
-            Toolbar()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
@@ -93,6 +92,19 @@ struct Home: View {
             if let point {
                 origin = point
                 counter += 1
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink {
+                    Settings()
+                        .environmentObject(uiManager)
+                        .environmentObject(priceManager)
+                        .environment(onboardingManager)
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .foregroundStyle(Color.primary)
+                }
             }
         }
         .sheet(isPresented: $uiManager.activatePriceHeightModal) {

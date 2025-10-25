@@ -12,7 +12,6 @@ struct Settings: View {
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
     @Environment(OnboardingManager.self) var onboardingManager
-    var namespace: Namespace.ID
     
     @State private var onAppear = false
     
@@ -28,7 +27,6 @@ struct Settings: View {
             }
             .environmentObject(priceManager)
             .environmentObject(uiManager)
-            .navigationTitle("Settings")
             
         }
         .transition(.opacity)
@@ -41,6 +39,8 @@ struct Settings: View {
         .onDisappear {
             onAppear = false
         }
+        .navigationTitle("Settings")
+        .toolbarTitleDisplayMode(.inlineLarge)
     }
 }
 
@@ -67,6 +67,7 @@ struct AboutSettings: View {
     }
 }
 
+// MARK: - Reset Onboarding
 struct ResetOnboarding: View {
     
     @Environment(OnboardingManager.self) var onboardingManager
@@ -75,7 +76,7 @@ struct ResetOnboarding: View {
         Button(action: {
             onboardingManager.resetOnboarding()
         }) {
-            Text("Reset Onboarding")
+            Text("Reset Intro")
         }
     }
 }
@@ -89,7 +90,7 @@ struct ResetOnboarding: View {
     @Previewable @Namespace var nm
     
     NavigationStack {
-        Settings(namespace: nm)
+        Settings()
             .environment(onboardingManager)
             .environmentObject(priceManager)
             .environmentObject(uiManager)

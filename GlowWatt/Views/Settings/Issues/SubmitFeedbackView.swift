@@ -50,23 +50,9 @@ struct SubmitFeedbackView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section("Feedback Type") {
-                    Picker("Type", selection: $feedbackType) {
-                        ForEach(FeedbackType.allCases, id: \.self) { type in
-                            HStack {
-                                Image(systemName: type.icon)
-                                Text(type.rawValue)
-                                Spacer()
-                            }
-                            .tag(type)
-                        }
-                    }
-                    .pickerStyle(.menu)
-                    .labelsHidden()
-                }
+                feedbackTypeView
                 
                 TextField("Description", text: $feedbackDescription)
-                    .padding(.vertical, 6)
                 
                 Section(header: Text("Feedback")) {
                     TextEditor(text: $feedbackText)
@@ -74,10 +60,9 @@ struct SubmitFeedbackView: View {
                         .frame(height: 200)
                         .padding()
                         .background(Color(.systemGray6))
-                        .cornerRadius(8)
+                        .cornerRadius(16)
                         .overlay{
                             if !feedBackInFocus {
-                                // Placeholder text
                                 Text(placeholderText)
                                     .foregroundColor(.secondary)
                                     .padding()
@@ -123,13 +108,21 @@ struct SubmitFeedbackView: View {
                 }
             }
             .navigationTitle("Submit Feedback")
-            .navigationBarItems(trailing: Button("Close") {
-                dismiss()
-            })
         }
         .sheet(isPresented: $showSafari) {
             if let url = safariURL {
                 SafariView(url: url)
+            }
+        }
+    }
+    
+    private var feedbackTypeView: some View {
+        List {
+            Picker("Type", selection: $feedbackType) {
+                ForEach(FeedbackType.allCases, id: \.self) { type in
+                    Label(type.rawValue, systemImage: type.icon)
+                        .tag(type)
+                }
             }
         }
     }

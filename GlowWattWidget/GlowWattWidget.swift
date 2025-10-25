@@ -8,16 +8,35 @@
 import WidgetKit
 import SwiftUI
 
+struct GlowWattInfo: TimelineEntry {
+    let date: Date
+    let price : Double
+    let showingRefreshButton : Bool
+    let hideStatusOnTint : Bool
+    let hideDate : Bool
+}
 struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), price: 0.0)
+    func placeholder(in context: Context) -> GlowWattInfo {
+        GlowWattInfo(
+            date: Date(),
+            price: 0.0,
+            showingRefreshButton: true,
+            hideStatusOnTint: false,
+            hideDate: false
+        )
     }
     
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), price: 0.0)
+    func snapshot(for configuration: GlowWattAppIntent, in context: Context) async -> GlowWattInfo {
+        GlowWattInfo(
+            date: Date(),
+            price: 0.0,
+            showingRefreshButton: configuration.showingButton,
+            hideStatusOnTint: configuration.hideStatusOnTint,
+            hideDate: configuration.hideDate
+        )
     }
     
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
+    func timeline(for configuration: GlowWattAppIntent, in context: Context) async -> Timeline<GlowWattInfo> {
         // 1) read what the intent (or app) stored
         let storedPrice : Double = AppStorage.getPrice() ?? .nan
         let lastUpdated : Date = AppStorage.getLastUpdated() ?? .distantPast
@@ -34,19 +53,17 @@ struct Provider: AppIntentTimelineProvider {
             price = storedPrice
         }
         
-        let entry = SimpleEntry(date: .now, price: price)
+        let entry = GlowWattInfo(
+            date: .now,
+            price: price,
+            showingRefreshButton: configuration.showingButton,
+            hideStatusOnTint: configuration.hideStatusOnTint,
+            hideDate: configuration.hideDate
+        )
         return Timeline(entries: [entry], policy: .after(.now.addingTimeInterval(1800)))
     }
-    
-    //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-    //        // Generate a list containing the contexts this widget is relevant in.
-    //    }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let price : Double
-}
 
 // MARK: - Helpers
 struct PriceFormatted: View {
@@ -87,6 +104,11 @@ struct GlowWattAcessoryCircular: View {
 
 // MARK: - MAIN
 struct GlowWattWidgetEntryView : View {
+    
+    var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
+    @Environment(\.widgetRenderingMode) private var widgetRenderingMode
+
     // MARK: - Price Color
     var priceColor: Color {
         switch entry.price {
@@ -152,30 +174,39 @@ struct GlowWattWidgetEntryView : View {
         timestampOpacity: Double = 0.6
     ) -> some View {
         HStack {
-            Text(relativeTimestamp)
-                .font(.system(size: fontSize * scale, weight: .bold))
-                .foregroundColor(.white.opacity(timestampOpacity))
-                .minimumScaleFactor(0.5)
-                .lineLimit(1)
-            if widgetRenderingMode == .accented {
-                accentedStatusView(scale: 0.4)
+            if !entry.hideDate {
+                Text(relativeTimestamp)
+                    .font(.system(size: fontSize * scale, weight: .bold))
+                    .foregroundColor(.white.opacity(timestampOpacity))
                     .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+            }
+            if widgetRenderingMode == .accented {
+                if !entry.hideStatusOnTint {
+                    accentedStatusView(scale: 0.4)
+                        .minimumScaleFactor(0.5)
+                }
             }
             Spacer()
-            Button(intent: FetchCurrentInstantHourlyPrice()) {
-                Circle()
-                    .fill(.clear)
-                    .strokeBorder(.white, style: StrokeStyle(lineWidth: 2))
-                    .frame(width: 30, height: 30)
-                    .overlay {
-                        Image(systemName: "arrow.clockwise")
-                            .frame(alignment: .center)
-                            .fontWeight(.bold)
-                    }
-                    .foregroundStyle(.white)
+            
+            if entry.showingRefreshButton {
+                Button(intent: FetchCurrentInstantHourlyPrice()) {
+                    Circle()
+                        .fill(.clear)
+                        .strokeBorder(.white, style: StrokeStyle(lineWidth: 2))
+                        .frame(width: 30, height: 30)
+                        .overlay {
+                            Image(systemName: "arrow.clockwise")
+                                .frame(alignment: .center)
+                                .fontWeight(.bold)
+                        }
+                        .foregroundStyle(.white)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
         }
+        .animation(.spring, value: entry.showingRefreshButton)
+        .animation(.spring, value: entry.hideStatusOnTint)
     }
     
     // MARK: - Formatted Date
@@ -186,10 +217,6 @@ struct GlowWattWidgetEntryView : View {
         ) ?? "Never"
         
     }
-    
-    var entry: Provider.Entry
-    @Environment(\.widgetFamily) var family
-    @Environment(\.widgetRenderingMode) private var widgetRenderingMode
     
     var body: some View {
         switch family {
@@ -269,7 +296,7 @@ struct GlowWattWidgetHomeScreen: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(
             kind: kind,
-            intent: ConfigurationAppIntent.self,
+            intent: GlowWattAppIntent.self,
             provider: Provider()
         ) { entry in
             GlowWattWidgetEntryView(entry: entry)
@@ -295,61 +322,61 @@ struct GlowWattWidgetHomeScreen: Widget {
 #Preview(as: .accessoryCircular) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: -1.10)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: -1.10, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 
 #Preview(as: .accessoryInline) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: -1.10)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: -1.10, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 #Preview(as: .accessoryRectangular) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: -1.10)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: -1.10, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 #Preview(as: .systemSmall) {
     GlowWattWidgetHomeScreen()
 } timeline: {
     let now = Date()
-    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -3, to: now)!, price: 1.3)
-    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -2, to: now)!, price: 2.4)
-    SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, price: 5.0)
-    SimpleEntry(date: now, price: 10.0)
+    GlowWattInfo(date: Calendar.current.date(byAdding: .hour, value: -3, to: now)!, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: Calendar.current.date(byAdding: .hour, value: -2, to: now)!, price: 2.4, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: Calendar.current.date(byAdding: .hour, value: -1, to: now)!, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 #Preview(as: .systemMedium) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 #Preview(as: .systemLarge) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
 
 #Preview(as: .systemExtraLarge) {
     GlowWattWidgetHomeScreen()
 } timeline: {
-    SimpleEntry(date: .now, price: 1.3)
-    SimpleEntry(date: .now, price: 5.0)
-    SimpleEntry(date: .now, price: 10.0)
+    GlowWattInfo(date: .now, price: 1.3, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
+    GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }

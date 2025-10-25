@@ -10,20 +10,66 @@
           "glass" : false,
           "image-name" : "Bulb.png",
           "name" : "Bulb"
-        },
-        {
-          "fill" : "none",
-          "glass" : false,
-          "image-name" : "Bars.svg",
-          "name" : "Bars"
         }
       ],
+      "name" : "Bulb",
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
       },
       "translucency" : {
         "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "hidden" : false,
+      "layers" : [
+        {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "value" : "none"
+            },
+            {
+              "appearance" : "tinted",
+              "value" : "none"
+            }
+          ],
+          "glass-specializations" : [
+            {
+              "value" : false
+            },
+            {
+              "appearance" : "tinted",
+              "value" : true
+            }
+          ],
+          "image-name" : "Bars.svg",
+          "name" : "Bars",
+          "opacity-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : 0.24
+            }
+          ]
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "Base",
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : false,
         "value" : 0.5
       }
     }
