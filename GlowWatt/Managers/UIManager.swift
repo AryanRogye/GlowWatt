@@ -49,8 +49,24 @@ extension UIManager {
 
 // MARK: - Price Height Modal
 extension UIManager {
+    
+    public func resetDefaults() {
+        priceHeight = 200
+        savePriceHeight()
+        
+        showPriceOptionOnHome = true
+        saveShowPriceOptionOnHome()
+
+        hapticStyle = .medium
+        saveHapticPreference()
+        
+        priceTapAnimation = .ripple
+        savePriceTapAnimation()
+    }
+    
     private func loadDefaults() {
         let defaults = UserDefaults.standard
+        
         defaults.register(defaults: [
             "priceHeight": 200,
             "showPriceOptionOnHome": true,

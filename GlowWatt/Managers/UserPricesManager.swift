@@ -26,9 +26,27 @@ final class UserPricesManager: ObservableObject {
         loadPrices()
         loadMaxPricesHistory()
     }
+    
+    public func resetValues() {
+        // 1. Clear in-memory data
+        prices.removeAll()
+        maxPricesHistory = 100
+        
+        // 2. Remove persisted data
+        UserDefaults.standard.removeObject(forKey: "userPrices")
+        UserDefaults.standard.removeObject(forKey: "maxPricesHistory")
+        
+        // 3. Persist defaults back
+        savePrices()
+        saveMaxPricesHistory()
+    }
+    public func resetMaxPriceHistory() {
+        maxPricesHistory = 100
+        saveMaxPricesHistory()
+    }
+
     // MARK: - Prices
     
-    @MainActor
     public func deletePrices(at offsets: IndexSet) {
         prices.remove(atOffsets: offsets)
         savePrices()

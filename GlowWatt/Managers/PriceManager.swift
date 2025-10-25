@@ -136,11 +136,15 @@ private extension PriceManager {
 extension PriceManager {
     private static let comEdPriceOptionKey = "comEdPriceOption"
     
+    public func resetComEdPriceOption() {
+        self.comEdPriceOption = .instantHourlyPrice
+    }
+    
     /// Load saved option from persistent storage on init
     fileprivate func loadComEdPriceOption() {
         if let raw = UserDefaults.standard.string(forKey: Self.comEdPriceOptionKey),
            let saved = ComdEdPriceOption(rawValue: raw) {
-            self.comEdPriceOption = saved
+            comEdPriceOption = saved
         }
     }
     

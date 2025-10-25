@@ -14,6 +14,8 @@ struct Settings: View {
     @Environment(OnboardingManager.self) var onboardingManager
     
     @State private var onAppear = false
+    @State private var shouldShowReset = false
+    @State private var shouldShowHistoryReset = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -41,6 +43,65 @@ struct Settings: View {
         }
         .navigationTitle("Settings")
         .toolbarTitleDisplayMode(.inlineLarge)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    shouldShowReset = true
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundStyle(.primary)
+                }
+            }
+        }
+        .alert("Reset Values",
+               isPresented: $shouldShowReset) {
+            
+            Button("Cancel", role: .cancel) {
+                shouldShowReset = false
+            }
+            
+            Button(action: {
+                shouldShowReset = false
+                // run your reset logic
+                shouldShowHistoryReset = true
+            }) {
+                Text("Reset All Values")
+            }
+            
+        } message: {
+            Text("Are you sure you want to reset all saved values?")
+        }
+        /// Final Reset
+        .alert("Clear History As Well?", isPresented: $shouldShowHistoryReset) {
+            
+            Button("Cancel", role: .cancel) {
+                shouldShowHistoryReset = false
+            }
+            
+            Button(action: {
+                delete(deleteHistory: false)
+            }) {
+                Text("Reset (keep history)")
+            }
+            
+            Button(action: {
+                delete(deleteHistory: true)
+            }) {
+                Text("Reset & clear history")
+            }
+            
+        } message: {
+            Text("This cannot be undone. Graphs may be inaccurate if you keep history.")
+        }
+    }
+    
+    private func delete(deleteHistory: Bool) {
+        priceManager.resetComEdPriceOption()
+        uiManager.resetDefaults()
+        if deleteHistory {
+            UserPricesManager.shared.resetValues()
+        }
     }
 }
 
