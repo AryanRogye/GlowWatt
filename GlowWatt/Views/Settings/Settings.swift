@@ -12,11 +12,14 @@ struct Settings: View {
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
     @Environment(OnboardingManager.self) var onboardingManager
+    var namespace: Namespace.ID
+    
+    @State private var onAppear = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Form {
-                PriceSettings()
+                PriceSettingsView()
                 AccessibilitySettings()
                 HistorySettings()
                 IssuesSettings()
@@ -25,156 +28,21 @@ struct Settings: View {
             }
             .environmentObject(priceManager)
             .environmentObject(uiManager)
-        }
-    }
-}
-
-// MARK: - Price Settings
-struct PriceSettings: View {
-    
-    @EnvironmentObject var priceManager : PriceManager
-    @EnvironmentObject var uiManager: UIManager
-    
-    var body: some View {
-        Section("Price Settings") {
-            NavigationLink {
-                List {
-                    ForEach(ComdEdPriceOption.allCases, id: \.self) { option in
-                        HStack {
-                            Text(option.rawValue)
-                            Spacer()
-                            if priceManager.comEdPriceOption == option {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.accentColor)
-                            }
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            priceManager.comEdPriceOption = option
-                        }
-                    }
-                    
-                    Toggle("Show on Home Screen", isOn: $uiManager.showPriceOptionOnHome)
-                        .onChange(of: uiManager.showPriceOptionOnHome) { _, _ in
-                            uiManager.saveShowPriceOptionOnHome()
-                        }
-                }
-                .navigationTitle("Price Option")
-            } label: {
-                HStack {
-                    Text("Price Option")
-                    Spacer()
-                    Text(priceManager.comEdPriceOption.rawValue)
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Haptic Setings
-struct AccessibilitySettings: View {
-    
-    @EnvironmentObject var uiManager: UIManager
-    var body: some View {
-        
-        Section("Accessibility") {
-            List {
-                Picker("Strength", selection: $uiManager.hapticStyle) {
-                    ForEach(HapticStyle.allCases, id: \.self) { style in
-                        Text(style.rawValue).tag(style)
-                    }
-                }
-                .onChange(of: uiManager.hapticStyle) { _, value in
-                    uiManager.saveHapticPreference()
-                }
-            }
-            PriceTapAnimation()
-            PriceHeightSettings()
-        }
-    }
-}
-
-struct PriceTapAnimation: View {
-    
-    @EnvironmentObject var priceManager : PriceManager
-    @EnvironmentObject var uiManager: UIManager
-    
-    var body: some View {
-        NavigationLink {
-            PriceTapSettingsView()
-                .environmentObject(priceManager)
-                .environmentObject(uiManager)
-        } label: {
-            HStack {
-                Text("Price Tap Animation")
-                Spacer()
-                Text(uiManager.priceTapAnimation.rawValue)
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-}
-
-// MARK: - Price Height Settings
-struct PriceHeightSettings: View {
-    
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var priceManager : PriceManager
-    @EnvironmentObject var uiManager: UIManager
-    
-    var body: some View {
-        Button(action: handleLiveDisplayControl) {
-            HStack {
-                Text("Price Height")
-                    .foregroundColor(.primary)
-                Spacer()
-                Text("\(Int(uiManager.priceHeight)) pt")
-                    .foregroundStyle(.secondary)
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.secondary.opacity(0.5))
-            }
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-    }
-    
-    private func handleLiveDisplayControl() {
-        dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            uiManager.activatePriceHeightModal = true
-        }
-    }
-}
-
-// MARK: - History Settings
-
-struct HistorySettings: View {
-    var body: some View {
-        Section("History") {
-            NavigationLink("View History") {
-                HistoryView(for: HistoryViewState.currentHistory)
-            }
+            .navigationTitle("Settings")
             
-            NavigationLink("Max History Count") {
-                HistoryView(for: HistoryViewState.historyCount)
+        }
+        .transition(.opacity)
+        .opacity(onAppear ? 1 : 0)
+        .onAppear {
+            withAnimation(.easeIn(duration: 0.6)) {
+                onAppear = true
             }
+        }
+        .onDisappear {
+            onAppear = false
         }
     }
 }
-
-// MARK: - Issues Settings
-struct IssuesSettings: View {
-    var body: some View {
-        Section("Issues") {
-            NavigationLink("Submit Feedback") {
-                SubmitFeedbackView()
-            }
-        }
-    }
-}
-
 
 // MARK: - About Settings
 struct AboutSettings: View {
@@ -218,9 +86,10 @@ struct ResetOnboarding: View {
     @Previewable @StateObject var priceManager = PriceManager()
     @Previewable @StateObject var uiManager = UIManager()
     @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
+    @Previewable @Namespace var nm
     
     NavigationStack {
-        Settings()
+        Settings(namespace: nm)
             .environment(onboardingManager)
             .environmentObject(priceManager)
             .environmentObject(uiManager)

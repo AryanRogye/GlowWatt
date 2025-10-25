@@ -19,6 +19,14 @@
 		9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B10FC7A2EA715AD00A7687D /* OnboardingPageTwo.swift */; };
 		9B10FC7D2EA71BCB00A7687D /* OnboardingPageThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B10FC7C2EA71BC700A7687D /* OnboardingPageThree.swift */; };
 		9B10FC7F2EA71C8600A7687D /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B10FC7E2EA71C8400A7687D /* OnboardingManager.swift */; };
+		9B30A1842EAC8EDB00D640D6 /* PriceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1832EAC8ED800D640D6 /* PriceSettingsView.swift */; };
+		9B30A1872EAC92F000D640D6 /* AccessibilitySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1862EAC92EF00D640D6 /* AccessibilitySettings.swift */; };
+		9B30A1892EACA35C00D640D6 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1882EACA35900D640D6 /* Toolbar.swift */; };
+		9B30A18B2EACA3EB00D640D6 /* HistorySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A18A2EACA3E900D640D6 /* HistorySettings.swift */; };
+		9B30A18E2EACA49900D640D6 /* IssuesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A18D2EACA49300D640D6 /* IssuesSettings.swift */; };
+		9B30A1912EACA5FF00D640D6 /* PriceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1902EACA5FD00D640D6 /* PriceOptionView.swift */; };
+		9B30A1932EACA71B00D640D6 /* PriceTapAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1922EACA71700D640D6 /* PriceTapAnimation.swift */; };
+		9B30A1952EACA72D00D640D6 /* PriceHeightSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30A1942EACA72A00D640D6 /* PriceHeightSettings.swift */; };
 		9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */; };
 		9B4E05642E942B82001CF411 /* RippleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05632E942B82001CF411 /* RippleEffect.swift */; };
 		9B736CBD2E9454360063C622 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBC2E9454340063C622 /* Graph.swift */; };
@@ -144,6 +152,14 @@
 		9B10FC7A2EA715AD00A7687D /* OnboardingPageTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageTwo.swift; sourceTree = "<group>"; };
 		9B10FC7C2EA71BC700A7687D /* OnboardingPageThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageThree.swift; sourceTree = "<group>"; };
 		9B10FC7E2EA71C8400A7687D /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
+		9B30A1832EAC8ED800D640D6 /* PriceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSettingsView.swift; sourceTree = "<group>"; };
+		9B30A1862EAC92EF00D640D6 /* AccessibilitySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilitySettings.swift; sourceTree = "<group>"; };
+		9B30A1882EACA35900D640D6 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		9B30A18A2EACA3E900D640D6 /* HistorySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySettings.swift; sourceTree = "<group>"; };
+		9B30A18D2EACA49300D640D6 /* IssuesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesSettings.swift; sourceTree = "<group>"; };
+		9B30A1902EACA5FD00D640D6 /* PriceOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceOptionView.swift; sourceTree = "<group>"; };
+		9B30A1922EACA71700D640D6 /* PriceTapAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTapAnimation.swift; sourceTree = "<group>"; };
+		9B30A1942EACA72A00D640D6 /* PriceHeightSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeightSettings.swift; sourceTree = "<group>"; };
 		9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialPressingGestureModifier.swift; sourceTree = "<group>"; };
 		9B4E05632E942B82001CF411 /* RippleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleEffect.swift; sourceTree = "<group>"; };
 		9B736CBC2E9454340063C622 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -238,6 +254,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B30A1852EAC92E600D640D6 /* Accessibility */ = {
+			isa = PBXGroup;
+			children = (
+				9B30A1942EACA72A00D640D6 /* PriceHeightSettings.swift */,
+				9B30A1922EACA71700D640D6 /* PriceTapAnimation.swift */,
+				9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */,
+				9B30A1862EAC92EF00D640D6 /* AccessibilitySettings.swift */,
+			);
+			path = Accessibility;
+			sourceTree = "<group>";
+		};
+		9B30A18C2EACA48B00D640D6 /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				9B30A18D2EACA49300D640D6 /* IssuesSettings.swift */,
+				9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */,
+			);
+			path = Issues;
+			sourceTree = "<group>";
+		};
+		9B30A18F2EACA5EB00D640D6 /* PriceSettings */ = {
+			isa = PBXGroup;
+			children = (
+				9B30A1902EACA5FD00D640D6 /* PriceOptionView.swift */,
+				9B30A1832EAC8ED800D640D6 /* PriceSettingsView.swift */,
+			);
+			path = PriceSettings;
+			sourceTree = "<group>";
+		};
 		9B4E05612E942B78001CF411 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,14 +290,6 @@
 				9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		9B736CBF2E9454410063C622 /* PriceTapSettings */ = {
-			isa = PBXGroup;
-			children = (
-				9B736CBE2E9454410063C622 /* PriceTapSettingsView.swift */,
-			);
-			path = PriceTapSettings;
 			sourceTree = "<group>";
 		};
 		9B736CD32E9485860063C622 /* Intents */ = {
@@ -405,24 +442,18 @@
 				9BD4C2502E83550300278A0D /* HistoryCountSlider */,
 				9BD4C2532E83550300278A0D /* HistoryCurrentView */,
 				9BD4C2542E83550300278A0D /* HistoryView.swift */,
+				9B30A18A2EACA3E900D640D6 /* HistorySettings.swift */,
 			);
 			path = History;
-			sourceTree = "<group>";
-		};
-		9BD4C2592E83550300278A0D /* SubmitFeedback */ = {
-			isa = PBXGroup;
-			children = (
-				9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */,
-			);
-			path = SubmitFeedback;
 			sourceTree = "<group>";
 		};
 		9BD4C25B2E83550300278A0D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				9B736CBF2E9454410063C622 /* PriceTapSettings */,
+				9B30A18F2EACA5EB00D640D6 /* PriceSettings */,
+				9B30A18C2EACA48B00D640D6 /* Issues */,
+				9B30A1852EAC92E600D640D6 /* Accessibility */,
 				9BD4C2552E83550300278A0D /* History */,
-				9BD4C2592E83550300278A0D /* SubmitFeedback */,
 				9BD4C25A2E83550300278A0D /* Settings.swift */,
 			);
 			path = Settings;
@@ -431,8 +462,8 @@
 		9BD4C25D2E83550300278A0D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9BB430BC2EA70FAD00CC81D4 /* Onboarding */,
 				9B4E05612E942B78001CF411 /* Components */,
+				9BB430BC2EA70FAD00CC81D4 /* Onboarding */,
 				9BD4C27F2E8358C500278A0D /* Home */,
 				9BD4C25B2E83550300278A0D /* Settings */,
 			);
@@ -499,6 +530,7 @@
 				9BD4C2842E835B2A00278A0D /* PriceView.swift */,
 				9BD4C2562E83550300278A0D /* PriceHeightModal.swift */,
 				9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */,
+				9B30A1882EACA35900D640D6 /* Toolbar.swift */,
 				9BD4C25C2E83550300278A0D /* Home.swift */,
 			);
 			path = Home;
@@ -722,7 +754,9 @@
 				9BF95EC22E92478C00776771 /* HapticStyle.swift in Sources */,
 				9BD4C2812E8359CE00278A0D /* PriceLimiterModal.swift in Sources */,
 				9B4E05642E942B82001CF411 /* RippleEffect.swift in Sources */,
+				9B30A1932EACA71B00D640D6 /* PriceTapAnimation.swift in Sources */,
 				9B10FC7D2EA71BCB00A7687D /* OnboardingPageThree.swift in Sources */,
+				9B30A1912EACA5FF00D640D6 /* PriceOptionView.swift in Sources */,
 				9BB17B992DE149EB00200C38 /* API.swift in Sources */,
 				9BD4C1DC2E83340800278A0D /* GlowWattAttributes.swift in Sources */,
 				9BB3B9B82E1918EA00B5F196 /* UserPricesManager.swift in Sources */,
@@ -730,17 +764,23 @@
 				9BD4C2642E83550300278A0D /* PriceManager.swift in Sources */,
 				9BD4C2652E83550300278A0D /* UIManager.swift in Sources */,
 				9B10FC792EA7152500A7687D /* OnboardingPageOne.swift in Sources */,
+				9B30A18B2EACA3EB00D640D6 /* HistorySettings.swift in Sources */,
 				9BB430BE2EA70FB800CC81D4 /* OnboardingView.swift in Sources */,
+				9B30A1872EAC92F000D640D6 /* AccessibilitySettings.swift in Sources */,
 				9BD4C2662E83550300278A0D /* HistoryCountSlider.swift in Sources */,
 				9BD4C2672E83550300278A0D /* HistoryChartView.swift in Sources */,
 				9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */,
+				9B30A18E2EACA49900D640D6 /* IssuesSettings.swift in Sources */,
 				9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */,
 				9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */,
 				9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */,
 				9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */,
 				9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */,
+				9B30A1842EAC8EDB00D640D6 /* PriceSettingsView.swift in Sources */,
+				9B30A1952EACA72D00D640D6 /* PriceHeightSettings.swift in Sources */,
 				9B10FC7F2EA71C8600A7687D /* OnboardingManager.swift in Sources */,
 				9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */,
+				9B30A1892EACA35C00D640D6 /* Toolbar.swift in Sources */,
 				9BD4C26B2E83550300278A0D /* SubmitFeedbackView.swift in Sources */,
 				9B736CD72E94858A0063C622 /* FetchIntent.swift in Sources */,
 				9BF95EC42E930F5B00776771 /* layerEffects.metal in Sources */,

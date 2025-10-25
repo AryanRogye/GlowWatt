@@ -13,7 +13,6 @@ struct GlowWattApp: App {
     @StateObject private var priceProvider = PriceManager()
     @StateObject private var uiManager = UIManager()
     @StateObject private var liveActivitiesStart = LiveActivitesManager()
-    
     @State var onboardingManager = OnboardingManager()
     
     init() {

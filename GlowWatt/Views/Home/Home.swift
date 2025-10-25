@@ -23,6 +23,7 @@ struct Home: View {
     @State private var speed: Double = 2000
     
     
+    
     var priceColor: Color {
         if let price = priceManager.price {
             switch price {
@@ -40,7 +41,6 @@ struct Home: View {
     
     var body: some View {
         ZStack {
-            
             priceColor.ignoresSafeArea()
             priceColor.ignoresSafeArea()
                 .modifier(
@@ -68,16 +68,13 @@ struct Home: View {
                     priceOptionsOnHome
                 }
             }
+            Toolbar()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         // MARK: - Initial Data Fetch
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                Task {
-                    await priceManager.refresh()
-                }
-            }
+        .task {
+            await priceManager.refresh()
         }
         // MARK: - TapGesture/Refreshable
         .onTapGesture {
@@ -96,20 +93,6 @@ struct Home: View {
             if let point {
                 origin = point
                 counter += 1
-            }
-        }
-        // MARK: - Toolbars
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                NavigationLink(
-                    destination: Settings()
-                        .environmentObject(uiManager)
-                        .environmentObject(priceManager)
-                        .environment(onboardingManager)
-                ) {
-                    Image(systemName: "gearshape.fill")
-                        .foregroundStyle(Color.primary)
-                }
             }
         }
         .sheet(isPresented: $uiManager.activatePriceHeightModal) {
@@ -148,16 +131,20 @@ struct Home: View {
     }
 }
 
-
 #Preview {
+    
+    @Previewable @State var onboardingManager = OnboardingManager()
     @Previewable @StateObject var priceManager = PriceManager()
     @Previewable @StateObject var uiManager = UIManager()
     @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
     
     NavigationStack {
-        Home()
-            .environmentObject(priceManager)
-            .environmentObject(uiManager)
-            .environmentObject(liveActivitiesStart)
+        NavigationStack {
+            Home()
+                .environmentObject(priceManager)
+                .environmentObject(uiManager)
+                .environmentObject(liveActivitiesStart)
+                .environment(onboardingManager)
+        }
     }
 }
