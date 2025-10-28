@@ -14,17 +14,23 @@ struct PriceView: View {
     
     var body: some View {
         VStack {
-            /// Get the price
-            if let price = priceManager.price,
-               /// Get the last updated date
-               let last = priceManager.lastUpdated,
-               /// Get the time left till next update
-               let timeLeft = priceManager.timeLeftTillNextUpdate {
-                /// View
-                formattedPriceView(price, last, timeLeft)
+            if let price = priceManager.price {
+                formattedPriceView(price)
+                
+                if let last = priceManager.lastUpdated {
+                    formattedLastUpdatedView(last)
+                }
+                   /// Get the time left till next update
+                if let timeLeft = priceManager.timeLeftTillNextUpdate {
+                    formattedTimeLeftTillNextUpdate(timeLeft)
+                }
+                if priceManager.readyToUpdate {
+                    Text("Tap The Screen To Refresh")
+                        .font(.largeTitle)
+                        .padding()
+                }
             } else {
-                /// Loading state
-                Text("No data available yet. Check your internet connection.")
+                Text("No data available yet. Please Reload.")
                     .font(.largeTitle)
                     .padding()
             }
@@ -33,20 +39,25 @@ struct PriceView: View {
         .animation(.easeInOut(duration: 0.2), value: uiManager.priceHeight)
     }
     
-    private func formattedPriceView(_ price: Double,
-                                    _ last: Date,
-                                    _ timeLeft: String) -> some View {
+    private func formattedPriceView(_ price: Double) -> some View {
+        Text("Current Price: \(price, specifier: "%.2f")¢")
+            .font(.largeTitle)
+            .contentTransition(.numericText())
+            .animation(.snappy(duration: 0.25), value: price)
+    }
+    
+    private func formattedLastUpdatedView(
+        _ last: Date
+    ) -> some View {
+        Text("Last Updated: \(last.formatted(date: .omitted, time: .shortened))")
+            .contentTransition(.numericText())
+            .animation(.snappy(duration: 0.25), value: last)
+    }
+    
+    private func formattedTimeLeftTillNextUpdate(
+        _ timeLeft: String
+    ) -> some View {
         VStack {
-            Text("Current Price: \(price, specifier: "%.2f")¢")
-                .font(.largeTitle)
-                .contentTransition(.numericText())
-                .animation(.snappy(duration: 0.25), value: price)
-
-            Text("Last Updated: \(last.formatted(date: .omitted, time: .shortened))")
-                .contentTransition(.numericText())
-                .animation(.snappy(duration: 0.25), value: last)
-
-            
             Text("Can refresh in:")
                 .font(.headline)
                 .padding(.top, 10)

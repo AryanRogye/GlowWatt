@@ -18,6 +18,7 @@ class PriceManager: ObservableObject {
     @Published var secondsLeft: Int? = 120
     
     @Published var comEdPriceOption : ComdEdPriceOption = .instantHourlyPrice
+    @Published var readyToUpdate : Bool = false
     
     private var timerStartDate: Date?
     private var timerEndDate: Date?
@@ -31,15 +32,20 @@ class PriceManager: ObservableObject {
     var onHaptic: (() -> Void)?
     
     init() {
+        price = AppStorage.getPrice()
+        self.lastUpdated = AppStorage.getLastUpdated()
+        
         loadComEdPriceOption()
         observeComEdPriceOption()
     }
+    deinit { uiUpdateTimer?.invalidate() }
     
     @discardableResult
     func refresh() async -> (Double?, Date?) {
         
         /// Haptic Feedback
         onHaptic?()
+        readyToUpdate = false
         
         if isRefreshing { return (price, lastUpdated) }
         isRefreshing = true
@@ -53,24 +59,21 @@ class PriceManager: ObservableObject {
         /// Get the fetched price
         let fetchedPrice = await API.fetchComEdPrice(option: comEdPriceOption)
         
-        if fetchedPrice != nil {
-            startTimer()
-        }
-        
-        /// Store it in the settings
-        AppStorage.setPrice(fetchedPrice ?? 0.0)
-        AppStorage.setLastUpdated()
-        
-        /// Set Price
-        self.price = fetchedPrice
-        
         /// Save Price if not nil and > 0
-        if let price = price, price > 0 {
+        if let price = fetchedPrice {
+            startTimer()
+            
+            self.price = price
+
+            /// Store it in the settings
+            AppStorage.setPrice(price)
+            AppStorage.setLastUpdated()
+            
+            /// Set Last Updated
+            self.lastUpdated = AppStorage.getLastUpdated()
             UserPricesManager.shared.addStorage(for: price)
         }
         
-        /// Set Last Updated
-        self.lastUpdated = AppStorage.getLastUpdated()
         
         WidgetCenter.shared.reloadAllTimelines()
         
@@ -114,20 +117,33 @@ private extension PriceManager {
         timerEndDate = nil
         secondsLeft = nil
         timeLeftTillNextUpdate = nil
+        readyToUpdate = false
     }
     
     func updateCountdownString() {
         guard let end = timerEndDate else { return }
-        let remaining = max(0, Int(end.timeIntervalSinceNow.rounded()))
+        let remaining = max(0, Int(ceil(end.timeIntervalSinceNow)))
         secondsLeft = remaining
         
         let m = remaining / 60
         let s = remaining % 60
         timeLeftTillNextUpdate = String(format: "%d:%02d", m, s)
         
-        if remaining == 0 {
-            resetRateLimitTimer()
+        if remaining <= 0 {
+            finishTimer()
         }
+    }
+    
+    func finishTimer() {
+        uiUpdateTimer?.invalidate()
+        uiUpdateTimer = nil
+        timerStartDate = nil
+        timerEndDate = nil
+        
+        readyToUpdate = true
+        
+        secondsLeft = 0
+        timeLeftTillNextUpdate = "0:00"
     }
 }
 

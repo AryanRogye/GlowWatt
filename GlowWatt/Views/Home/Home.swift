@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     
+    @Environment(\.scenePhase) var scenePhase
     @Environment(OnboardingManager.self) var onboardingManager
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
@@ -22,20 +23,22 @@ struct Home: View {
     @State private var decay: Double = 8
     @State private var speed: Double = 2000
     
-    
+    @State private var priceFetchTask : Task<Void, Never>? = nil
+    @State private var didHandleInitialScenePhase = false
+    @State private var isRefreshing = false
     
     var priceColor: Color {
         if let price = priceManager.price {
             switch price {
             case ..<4:
-                return .green
+                return Color(.systemGreen)
             case 4..<8:
-                return .yellow
+                return Color(.systemYellow)
             default:
-                return .red
+                return Color(.systemRed)
             }
         }
-        return .gray
+        return Color(.systemGray)
     }
     
     
@@ -71,21 +74,34 @@ struct Home: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
+        // MARK: - Scene Change Fetch
+        /// When Changed from background/incative to active only then refresh
+        .onChange(of: scenePhase) { lastValue, value in
+            if !didHandleInitialScenePhase {
+                didHandleInitialScenePhase = true
+                return
+            }
+            if value == .active && (lastValue == .background || lastValue == .inactive) {
+                startRefresh()
+            }
+        }
         // MARK: - Initial Data Fetch
-        .task {
-            await priceManager.refresh()
+        .onAppear {
+            startRefresh()
         }
+        .onDisappear {
+            priceFetchTask?.cancel()
+            priceFetchTask = nil
+        }
+        
         // MARK: - TapGesture/Refreshable
-        .onTapGesture {
-            Task {
-                await priceManager.refresh()
-            }
-        }
+        .onTapGesture { startRefresh() }
+        
         .refreshable {
-            Task {
-                await priceManager.refresh()
-            }
+            startRefresh()
+            await priceFetchTask?.value
         }
+
         // MARK: - Background
         .onPressingChanged { point in
             if uiManager.priceTapAnimation == .none { return }
@@ -126,6 +142,21 @@ struct Home: View {
                     selection: $uiManager.limiterDetent
                 )
                 .presentationDragIndicator(.visible)
+        }
+    }
+    
+    @MainActor
+    private func startRefresh() {
+        if isRefreshing { return }
+        isRefreshing = true
+        
+        priceFetchTask?.cancel()
+        priceFetchTask = Task { @MainActor in
+            defer {
+                isRefreshing = false
+                priceFetchTask = nil
+            }
+            await priceManager.refresh()
         }
     }
     
