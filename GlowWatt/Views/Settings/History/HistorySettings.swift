@@ -16,28 +16,45 @@ struct HistorySettings: View {
     @Namespace var histNM
     @Namespace var maxHistNM
     
+    @State private var showViewHistory = false
+    @State private var showMaxHistoryCount = false
+    
     var body: some View {
         Section("History") {
-            NavigationLink {
-                HistoryView(for: HistoryViewState.currentHistory)
-                    .navigationTransition(.zoom(sourceID: viewHistoryID, in: histNM))
-            } label: {
+            HStack {
                 Text("View History")
-                    .overlay {
-                        Color.clear
-                            .matchedTransitionSource(id: viewHistoryID, in: histNM)
-                    }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showMaxHistoryCount = true
+            }
+            .matchedTransitionSource(id: viewHistoryID, in: histNM)
+            .fullScreenCover(isPresented: $showViewHistory) {
+                NavigationStack {
+                    HistoryView(for: HistoryViewState.currentHistory)
+                        .navigationTransition(.zoom(sourceID: viewHistoryID, in: histNM))
+                        .toolbarCancel($showViewHistory)
+                }
             }
             
-            NavigationLink {
-                HistoryView(for: HistoryViewState.historyCount)
-                    .navigationTransition(.zoom(sourceID: maxHistoryID, in: maxHistNM))
-            } label: {
+            HStack {
                 Text("Max History Count")
-                    .overlay {
-                        Color.clear
-                            .matchedTransitionSource(id: maxHistoryID, in: maxHistNM)
-                    }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showMaxHistoryCount = true
+            }
+            .matchedTransitionSource(id: maxHistoryID, in: maxHistNM)
+            .fullScreenCover(isPresented: $showMaxHistoryCount) {
+                NavigationStack {
+                    HistoryView(for: HistoryViewState.historyCount)
+                        .navigationTransition(.zoom(sourceID: maxHistoryID, in: maxHistNM))
+                        .toolbarCancel($showMaxHistoryCount)
+                }
             }
         }
     }

@@ -82,6 +82,7 @@
 		9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
 		9BF95EC22E92478C00776771 /* HapticStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF95EC12E92477700776771 /* HapticStyle.swift */; };
 		9BF95EC42E930F5B00776771 /* layerEffects.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9BF95EC32E930F5700776771 /* layerEffects.metal */; };
+		9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +215,7 @@
 		9BF95DD92E90B58600776771 /* GlowWatt.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = GlowWatt.icon; sourceTree = "<group>"; };
 		9BF95EC12E92477700776771 /* HapticStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticStyle.swift; sourceTree = "<group>"; };
 		9BF95EC32E930F5700776771 /* layerEffects.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = layerEffects.metal; sourceTree = "<group>"; };
+		9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 		9B4E05612E942B78001CF411 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */,
 				9B4E05632E942B82001CF411 /* RippleEffect.swift */,
 				9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */,
 			);
@@ -751,6 +754,7 @@
 				9BD4C2672E83550300278A0D /* HistoryChartView.swift in Sources */,
 				9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */,
 				9B30A18E2EACA49900D640D6 /* IssuesSettings.swift in Sources */,
+				9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */,
 				9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */,
 				9B30A1992EAD3DB300D640D6 /* HapticSettings.swift in Sources */,
 				9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */,
@@ -1080,7 +1084,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1116,7 +1120,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -15,22 +15,29 @@ struct PriceTapAnimation: View {
     var id = "priceTapAnimation"
     @Namespace var nm
     
+    @State var showScreen = false
+    
     var body: some View {
-        NavigationLink {
-            PriceTapSettingsView()
-                .environmentObject(priceManager)
-                .environmentObject(uiManager)
-                .navigationTransition(.zoom(sourceID: id, in: nm))
-        } label: {
-            HStack {
-                Text("Price Tap Animation")
-                Spacer()
-                Text(uiManager.priceTapAnimation.rawValue)
-                    .foregroundStyle(.secondary)
-            }
-            .overlay {
-                Color.clear
-                    .matchedTransitionSource(id: id, in: nm)
+        HStack {
+            Text("Price Tap Animation")
+            Spacer()
+            Text(uiManager.priceTapAnimation.rawValue)
+                .foregroundStyle(.secondary)
+        }
+        .matchedTransitionSource(id: id, in: nm)
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            showScreen = true
+        }
+
+        .fullScreenCover(isPresented: $showScreen) {
+            NavigationStack {
+                PriceTapSettingsView()
+                    .environmentObject(priceManager)
+                    .environmentObject(uiManager)
+                    .navigationTransition(.zoom(sourceID: id, in: nm))
+                    .toolbarCancel($showScreen)
             }
         }
     }

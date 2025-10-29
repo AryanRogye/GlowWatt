@@ -12,18 +12,26 @@ struct IssuesSettings: View {
     
     var id = "submitFeedbackAnimation"
     @Namespace var nm
+    @State private var showScreen = false
     
     var body: some View {
         Section("Issues") {
-            NavigationLink() {
-                SubmitFeedbackView()
-                    .navigationTransition(.zoom(sourceID: id, in: nm))
-            } label: {
+            HStack {
                 Text("Submit Feedback")
-                    .overlay {
-                        Color.clear
-                            .matchedTransitionSource(id: id, in: nm)
-                    }
+                Spacer()
+            }
+            .matchedTransitionSource(id: id, in: nm)
+            .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showScreen = true
+            }
+            .fullScreenCover(isPresented: $showScreen) {
+                NavigationStack {
+                    SubmitFeedbackView()
+                        .navigationTransition(.zoom(sourceID: id, in: nm))
+                        .toolbarCancel($showScreen)
+                }
             }
         }
     }
