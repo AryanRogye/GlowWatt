@@ -48,6 +48,7 @@ final class UserPricesManager: ObservableObject {
     // MARK: - Prices
     public func deletePrice(_ price: PricesStorage) {
         prices.removeAll(where: { $0.id == price.id })
+        savePrices()
     }
     
     public func addStorage(for price: Double) {

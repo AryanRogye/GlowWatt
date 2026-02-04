@@ -164,9 +164,11 @@ struct Home: View {
         VStack {
             Spacer()
             HStack {
+                #if DEBUG
                 if priceManager.isPreview {
                     Text("[Preview]")
                 }
+                #endif
                 Spacer()
                 Text(priceManager.comEdPriceOption.rawValue)
             }

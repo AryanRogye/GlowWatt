@@ -77,9 +77,10 @@ extension UIManager {
             "priceHeight": 200,
             "showPriceOptionOnHome": true,
             "hapticStyle": HapticStyle.medium.rawValue,
-            "priceTapAnimation" : PriceTapAnimations.ripple.rawValue
+            "priceTapAnimation": PriceTapAnimations.ripple.rawValue,
+            "MostRecentOnTop": true
         ])
-        
+
         if let priceHeight = defaults.object(forKey: "priceHeight") as? CGFloat {
             self.priceHeight = priceHeight
         } else {
