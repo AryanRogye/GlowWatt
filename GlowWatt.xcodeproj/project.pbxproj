@@ -216,6 +216,35 @@
 		9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B2F85C72F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOS Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Date+finderStyleString.swift",
+			);
+			target = 9B07AE432DE932A600024AFD /* GlowWattWatchOS Watch App */;
+		};
+		9B2F85C82F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOSWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Date+finderStyleString.swift",
+			);
+			target = 9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B2F85BF2F33BC8A00DB2A6B /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B2F85C72F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOS Watch App" target */,
+				9B2F85C82F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOSWidgetExtension" target */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		9B07AE412DE932A600024AFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -355,6 +384,7 @@
 		9BB17B972DE149B600200C38 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
 				9B736CD32E9485860063C622 /* Intents */,
 				9BD4C1D92E8333EC00278A0D /* LiveActivities */,
 				9BD4C1D82E8333C500278A0D /* API */,
@@ -586,6 +616,9 @@
 				9BB17B902DE1490400200C38 /* PBXTargetDependency */,
 				9B07AE502DE932A600024AFD /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
+			);
 			name = GlowWatt;
 			packageProductDependencies = (
 			);
@@ -604,6 +637,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
 			);
 			name = GlowWattWidgetExtension;
 			packageProductDependencies = (

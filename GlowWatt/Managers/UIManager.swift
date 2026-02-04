@@ -23,6 +23,12 @@ final class UIManager: ObservableObject {
     
     @Published var priceTapAnimation : PriceTapAnimations = PriceTapAnimations.ripple
     
+    @Published var mostRecentOnTop = true {
+        didSet {
+            saveMostRecentOnTop()
+        }
+    }
+    
     public var shouldUseWave : Bool {
         return priceTapAnimation == .ripple ? true : false
     }
@@ -85,6 +91,13 @@ extension UIManager {
         priceTapAnimation = PriceTapAnimations(
             rawValue: defaults.string(forKey: "priceTapAnimation") ?? PriceTapAnimations.ripple.rawValue
         ) ?? .ripple
+        
+        mostRecentOnTop = defaults.bool(forKey: "MostRecentOnTop")
+    }
+    
+    public func saveMostRecentOnTop() {
+        let defaults = UserDefaults.standard
+        defaults.set(mostRecentOnTop, forKey: "MostRecentOnTop")
     }
     
     public func savePriceHeight() {
