@@ -141,7 +141,7 @@ struct HistoryListView: View {
                 .listRowBackground(
                     Rectangle()
                         .fill(uiManager.shadeHistoryRegion
-                              ? Color(priceColor(price: price.price)).opacity(0.5)
+                              ? priceColor(price: price.price).opacity(0.5)
                               : Color.clear)
                         .padding(.horizontal, 8)
                 )
