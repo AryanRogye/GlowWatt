@@ -64,7 +64,6 @@
 		9BD4C2662E83550300278A0D /* HistoryCountSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */; };
 		9BD4C2672E83550300278A0D /* HistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2512E83550300278A0D /* HistoryChartView.swift */; };
 		9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2522E83550300278A0D /* HistoryCurrentView.swift */; };
-		9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2542E83550300278A0D /* HistoryView.swift */; };
 		9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2562E83550300278A0D /* PriceHeightModal.swift */; };
 		9BD4C26B2E83550300278A0D /* SubmitFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */; };
 		9BD4C26C2E83550300278A0D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C25A2E83550300278A0D /* Settings.swift */; };
@@ -197,7 +196,6 @@
 		9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCountSlider.swift; sourceTree = "<group>"; };
 		9BD4C2512E83550300278A0D /* HistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryChartView.swift; sourceTree = "<group>"; };
 		9BD4C2522E83550300278A0D /* HistoryCurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCurrentView.swift; sourceTree = "<group>"; };
-		9BD4C2542E83550300278A0D /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		9BD4C2562E83550300278A0D /* PriceHeightModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeightModal.swift; sourceTree = "<group>"; };
 		9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFeedbackView.swift; sourceTree = "<group>"; };
 		9BD4C25A2E83550300278A0D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -444,7 +442,6 @@
 			children = (
 				9BD4C2532E83550300278A0D /* HistoryCurrentView */,
 				9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */,
-				9BD4C2542E83550300278A0D /* HistoryView.swift */,
 				9B30A18A2EACA3E900D640D6 /* HistorySettings.swift */,
 			);
 			path = History;
@@ -757,7 +754,6 @@
 				9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */,
 				9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */,
 				9B30A1992EAD3DB300D640D6 /* HapticSettings.swift in Sources */,
-				9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */,
 				9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */,
 				9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */,
 				9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */,
