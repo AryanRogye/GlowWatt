@@ -14,7 +14,6 @@ struct HistoryCurrentView: View {
     
     @EnvironmentObject var uiManager : UIManager
     
-    
     @SwiftUI.AppStorage("ViewMode") private var viewMode: ViewMode = .list
     @SwiftUI.AppStorage("GraphMode") private var graphMode: GraphMode = .overTime
     
@@ -39,9 +38,12 @@ struct HistoryCurrentView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    Toggle("Most Recent On Top", isOn: $uiManager.mostRecentOnTop)
+                    Section {
+                        Toggle("Most Recent On Top", isOn: $uiManager.mostRecentOnTop)
+                        Toggle("Shade Reigons", isOn: $uiManager.shadeHistoryRegion)
+                    }
                 } label: {
-                    Image(systemName: "line.horizontal.3.decrease.circle")
+                    Image(systemName: "ellipsis")
                 }
             }
         }
@@ -109,6 +111,17 @@ struct HistoryListView: View {
             return all
         }
     }
+    
+    func priceColor(price: Double) -> Color {
+        switch price {
+        case ..<4:
+            return Color(.systemGreen)
+        case 4..<8:
+            return Color(.systemYellow)
+        default:
+            return Color(.systemRed)
+        }
+    }
 
     var body: some View {
         List {
@@ -116,11 +129,22 @@ struct HistoryListView: View {
                 HStack {
                     Text("\(price.price, specifier: "%.2f")¢")
                         .font(.largeTitle)
+                        .fontDesign(.monospaced)
                     Spacer()
                     Text(price.date.finderStyleString())
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
+                .listRowSeparator(
+                    uiManager.shadeHistoryRegion ? .hidden : .visible
+                )
+                .listRowBackground(
+                    Rectangle()
+                        .fill(uiManager.shadeHistoryRegion
+                              ? Color(priceColor(price: price.price)).opacity(0.5)
+                              : Color.clear)
+                        .padding(.horizontal, 8)
+                )
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button(role: .destructive, action: {
                         userPriceManager.deletePrice(price)
@@ -130,7 +154,9 @@ struct HistoryListView: View {
                 }
             }
         }
+        .id(uiManager.shadeHistoryRegion)
         .listStyle(.plain)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: uiManager.shadeHistoryRegion)
         .animation(.spring, value: prices)
     }
 }

@@ -23,11 +23,8 @@ final class UIManager: ObservableObject {
     
     @Published var priceTapAnimation : PriceTapAnimations = PriceTapAnimations.ripple
     
-    @Published var mostRecentOnTop = true {
-        didSet {
-            saveMostRecentOnTop()
-        }
-    }
+    @SwiftUI.AppStorage("MostRecentOnTop") var mostRecentOnTop = true
+    @SwiftUI.AppStorage("ShadeHistoryRegion") var shadeHistoryRegion = false
     
     public var shouldUseWave : Bool {
         return priceTapAnimation == .ripple ? true : false
