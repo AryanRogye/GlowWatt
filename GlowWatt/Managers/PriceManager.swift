@@ -40,8 +40,21 @@ class PriceManager: ObservableObject {
     }
     deinit { uiUpdateTimer?.invalidate() }
     
+    #if DEBUG
+    let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    #endif
+    
     @discardableResult
     func refresh() async -> (Double?, Date?) {
+        
+        #if DEBUG
+        if isPreview {
+            /// Pick Random Number Between 4 - 10
+            let double = Double.random(in: 4.0...10.0)
+            price = double
+            return (double, .now)
+        }
+        #endif
         
         /// Haptic Feedback
         onHaptic?()

@@ -121,9 +121,13 @@ struct HistoryListView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-            }
-            .onDelete { indexSet in
-                userPriceManager.deletePrices(at: indexSet)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button(role: .destructive, action: {
+                        userPriceManager.deletePrice(price)
+                    }) {
+                        Image(systemName: "trash")
+                    }
+                }
             }
         }
         .listStyle(.plain)

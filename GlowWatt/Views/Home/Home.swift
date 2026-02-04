@@ -86,16 +86,16 @@ struct Home: View {
             }
         }
         // MARK: - Initial Data Fetch
-        .onAppear {
-            startRefresh()
-        }
+        .onAppear { startRefresh() }
         .onDisappear {
             priceFetchTask?.cancel()
             priceFetchTask = nil
         }
         
         // MARK: - TapGesture/Refreshable
-        .onTapGesture { startRefresh() }
+        .onTapGesture {
+            startRefresh()
+        }
         
         .refreshable {
             startRefresh()
@@ -164,11 +164,14 @@ struct Home: View {
         VStack {
             Spacer()
             HStack {
+                if priceManager.isPreview {
+                    Text("[Preview]")
+                }
                 Spacer()
                 Text(priceManager.comEdPriceOption.rawValue)
-                    .font(.system(size: 14, design: .monospaced))
-                    .bold()
             }
+            .font(.system(size: 14, design: .monospaced))
+            .bold()
             .padding(.horizontal)
         }
     }
