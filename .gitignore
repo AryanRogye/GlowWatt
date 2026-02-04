@@ -1,0 +1,27 @@
+# Xcode
+#
+
+## User settings
+xcuserdata/
+
+## Build results
+build/
+DerivedData/
+
+## Usage reports
+*.gcno
+
+## Package Manager
+.swiftpm/
+.build/
+
+## Dependency Managers
+# CocoaPods
+Pods/
+# Carthage
+Carthage/Build/
+
+## Misc
+*.swp
+*.lock
+.DS_Store

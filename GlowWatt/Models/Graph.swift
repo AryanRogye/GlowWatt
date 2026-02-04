@@ -16,5 +16,6 @@ enum GraphMode: String, CaseIterable, Identifiable {
 enum ViewMode: String, CaseIterable, Identifiable {
     case list = "List"
     case graph = "Graph"
+    
     var id: String { rawValue }
 }

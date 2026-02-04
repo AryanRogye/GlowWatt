@@ -28,12 +28,13 @@ struct HistorySettings: View {
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
             .onTapGesture {
-                showMaxHistoryCount = true
+                showViewHistory = true
             }
             .matchedTransitionSource(id: viewHistoryID, in: histNM)
             .fullScreenCover(isPresented: $showViewHistory) {
                 NavigationStack {
-                    HistoryView(for: HistoryViewState.currentHistory)
+                    HistoryCurrentView()
+                        .padding()
                         .navigationTransition(.zoom(sourceID: viewHistoryID, in: histNM))
                         .toolbarCancel($showViewHistory)
                 }
@@ -51,7 +52,8 @@ struct HistorySettings: View {
             .matchedTransitionSource(id: maxHistoryID, in: maxHistNM)
             .fullScreenCover(isPresented: $showMaxHistoryCount) {
                 NavigationStack {
-                    HistoryView(for: HistoryViewState.historyCount)
+                    HistoryCountSlider()
+                        .padding()
                         .navigationTransition(.zoom(sourceID: maxHistoryID, in: maxHistNM))
                         .toolbarCancel($showMaxHistoryCount)
                 }

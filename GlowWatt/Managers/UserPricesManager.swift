@@ -46,9 +46,8 @@ final class UserPricesManager: ObservableObject {
     }
 
     // MARK: - Prices
-    
-    public func deletePrices(at offsets: IndexSet) {
-        prices.remove(atOffsets: offsets)
+    public func deletePrice(_ price: PricesStorage) {
+        prices.removeAll(where: { $0.id == price.id })
         savePrices()
     }
     

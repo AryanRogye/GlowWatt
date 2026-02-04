@@ -23,6 +23,9 @@ final class UIManager: ObservableObject {
     
     @Published var priceTapAnimation : PriceTapAnimations = PriceTapAnimations.ripple
     
+    @SwiftUI.AppStorage("MostRecentOnTop") var mostRecentOnTop = true
+    @SwiftUI.AppStorage("ShadeHistoryRegion") var shadeHistoryRegion = false
+    
     public var shouldUseWave : Bool {
         return priceTapAnimation == .ripple ? true : false
     }
@@ -71,9 +74,10 @@ extension UIManager {
             "priceHeight": 200,
             "showPriceOptionOnHome": true,
             "hapticStyle": HapticStyle.medium.rawValue,
-            "priceTapAnimation" : PriceTapAnimations.ripple.rawValue
+            "priceTapAnimation": PriceTapAnimations.ripple.rawValue,
+            "MostRecentOnTop": true
         ])
-        
+
         if let priceHeight = defaults.object(forKey: "priceHeight") as? CGFloat {
             self.priceHeight = priceHeight
         } else {
@@ -85,6 +89,13 @@ extension UIManager {
         priceTapAnimation = PriceTapAnimations(
             rawValue: defaults.string(forKey: "priceTapAnimation") ?? PriceTapAnimations.ripple.rawValue
         ) ?? .ripple
+        
+        mostRecentOnTop = defaults.bool(forKey: "MostRecentOnTop")
+    }
+    
+    public func saveMostRecentOnTop() {
+        let defaults = UserDefaults.standard
+        defaults.set(mostRecentOnTop, forKey: "MostRecentOnTop")
     }
     
     public func savePriceHeight() {

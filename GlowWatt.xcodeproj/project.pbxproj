@@ -64,7 +64,6 @@
 		9BD4C2662E83550300278A0D /* HistoryCountSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */; };
 		9BD4C2672E83550300278A0D /* HistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2512E83550300278A0D /* HistoryChartView.swift */; };
 		9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2522E83550300278A0D /* HistoryCurrentView.swift */; };
-		9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2542E83550300278A0D /* HistoryView.swift */; };
 		9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2562E83550300278A0D /* PriceHeightModal.swift */; };
 		9BD4C26B2E83550300278A0D /* SubmitFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */; };
 		9BD4C26C2E83550300278A0D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C25A2E83550300278A0D /* Settings.swift */; };
@@ -197,7 +196,6 @@
 		9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCountSlider.swift; sourceTree = "<group>"; };
 		9BD4C2512E83550300278A0D /* HistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryChartView.swift; sourceTree = "<group>"; };
 		9BD4C2522E83550300278A0D /* HistoryCurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCurrentView.swift; sourceTree = "<group>"; };
-		9BD4C2542E83550300278A0D /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		9BD4C2562E83550300278A0D /* PriceHeightModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeightModal.swift; sourceTree = "<group>"; };
 		9BD4C2582E83550300278A0D /* SubmitFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFeedbackView.swift; sourceTree = "<group>"; };
 		9BD4C25A2E83550300278A0D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -217,6 +215,35 @@
 		9BF95EC32E930F5700776771 /* layerEffects.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = layerEffects.metal; sourceTree = "<group>"; };
 		9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B2F85C72F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOS Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Date+finderStyleString.swift",
+			);
+			target = 9B07AE432DE932A600024AFD /* GlowWattWatchOS Watch App */;
+		};
+		9B2F85C82F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOSWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Date+finderStyleString.swift",
+			);
+			target = 9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B2F85BF2F33BC8A00DB2A6B /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B2F85C72F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOS Watch App" target */,
+				9B2F85C82F33BCA500DB2A6B /* Exceptions for "Extensions" folder in "GlowWattWatchOSWidgetExtension" target */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9B07AE412DE932A600024AFD /* Frameworks */ = {
@@ -357,6 +384,7 @@
 		9BB17B972DE149B600200C38 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
 				9B736CD32E9485860063C622 /* Intents */,
 				9BD4C1D92E8333EC00278A0D /* LiveActivities */,
 				9BD4C1D82E8333C500278A0D /* API */,
@@ -444,7 +472,6 @@
 			children = (
 				9BD4C2532E83550300278A0D /* HistoryCurrentView */,
 				9BD4C24F2E83550300278A0D /* HistoryCountSlider.swift */,
-				9BD4C2542E83550300278A0D /* HistoryView.swift */,
 				9B30A18A2EACA3E900D640D6 /* HistorySettings.swift */,
 			);
 			path = History;
@@ -589,6 +616,9 @@
 				9BB17B902DE1490400200C38 /* PBXTargetDependency */,
 				9B07AE502DE932A600024AFD /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
+			);
 			name = GlowWatt;
 			packageProductDependencies = (
 			);
@@ -607,6 +637,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B2F85BF2F33BC8A00DB2A6B /* Extensions */,
 			);
 			name = GlowWattWidgetExtension;
 			packageProductDependencies = (
@@ -757,7 +790,6 @@
 				9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */,
 				9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */,
 				9B30A1992EAD3DB300D640D6 /* HapticSettings.swift in Sources */,
-				9BD4C2692E83550300278A0D /* HistoryView.swift in Sources */,
 				9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */,
 				9B736CC02E9454410063C622 /* PriceTapSettingsView.swift in Sources */,
 				9BD4C26A2E83550300278A0D /* PriceHeightModal.swift in Sources */,
