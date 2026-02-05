@@ -28,8 +28,10 @@ struct Provider: TimelineProvider {
         
         Task {
             let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
-            AppStorage.setPrice(fetchedPrice)
-            AppStorage.setLastUpdated()
+            await MainActor.run {
+                AppStorage.setPrice(fetchedPrice)
+                AppStorage.setLastUpdated()
+            }
             
             let entry = SimpleEntry(date: Date(), price: fetchedPrice)
             let currentDate = Date()

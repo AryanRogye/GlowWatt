@@ -19,13 +19,18 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
         var errorDescription: String? { "Couldn’t fetch the current price." }
     }
     
-    
     func perform() async throws -> some IntentResult & ReturnsValue<Double> {
         let now = Date()
-        let last = AppStorage.getLastUpdated() ?? .distantPast
+        let last: Date = await MainActor.run {
+            var last : Date
+            last = AppStorage.getLastUpdated() ?? .distantPast
+            return last
+        }
         
         if now.timeIntervalSince(last) < Self.cooldown {
-            let cached = AppStorage.getPrice() ?? 0.0
+            let cached = await MainActor.run {
+                return AppStorage.getPrice() ?? 0.0
+            }
             return .result(value: cached)
         }
         
@@ -33,8 +38,11 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
         guard let price = await API.fetchComEdPrice(option: .instantHourlyPrice) else {
             throw PriceError.unavailable
         }
-        AppStorage.setPrice(price)
-        AppStorage.setLastUpdated(now)
+        
+        await MainActor.run { [price, now] in
+            AppStorage.setPrice(price)
+            AppStorage.setLastUpdated(now)
+        }
         WidgetCenter.shared.reloadAllTimelines()
         return .result(value: price)
     }

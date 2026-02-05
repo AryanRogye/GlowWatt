@@ -9,6 +9,7 @@ import ActivityKit
 import Combine
 
 /// We Make it ObservableObject, so SwiftUI can start it easier
+@MainActor
 final class LiveActivitesManager: ObservableObject {
     
     @Published var hasStarted = false

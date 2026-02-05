@@ -656,7 +656,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					9B07AE432DE932A600024AFD = {
 						CreatedOnToolsVersion = 16.2;
@@ -850,8 +850,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
@@ -861,7 +860,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -880,8 +879,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
@@ -891,7 +889,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -910,8 +908,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
@@ -922,7 +919,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -941,8 +938,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
@@ -953,7 +949,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1000,6 +996,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1023,6 +1020,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1063,6 +1061,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1079,6 +1078,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1092,7 +1092,6 @@
 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 25;
-				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
@@ -1115,7 +1114,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_MEMORY_SAFETY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1128,7 +1128,6 @@
 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 25;
-				DEVELOPMENT_TEAM = B9P888266K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
@@ -1151,7 +1150,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_MEMORY_SAFETY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1163,8 +1163,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
@@ -1174,7 +1173,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1194,8 +1193,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = B9P888266K;
+				CURRENT_PROJECT_VERSION = 25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
@@ -1205,7 +1203,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.25;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

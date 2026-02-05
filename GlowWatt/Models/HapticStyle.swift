@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum HapticStyle: String, CaseIterable {
     case none = "None"
     case subtle = "Subtle"

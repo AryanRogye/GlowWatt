@@ -38,16 +38,19 @@ struct Provider: AppIntentTimelineProvider {
     
     func timeline(for configuration: GlowWattAppIntent, in context: Context) async -> Timeline<GlowWattInfo> {
         // 1) read what the intent (or app) stored
-        let storedPrice : Double = AppStorage.getPrice() ?? .nan
-        let lastUpdated : Date = AppStorage.getLastUpdated() ?? .distantPast
+        let (storedPrice , lastUpdated) = await MainActor.run {
+            return (AppStorage.getPrice() ?? .nan, AppStorage.getLastUpdated() ?? .distantPast)
+        }
         let isStale : Bool = Date().timeIntervalSince(lastUpdated) > 25 * 60  // ~25 min
         
         // 2) fetch only if missing/stale
         let price: Double
         if storedPrice.isNaN || isStale {
             let fetched : Double = await API.fetchComEdPrice() ?? (storedPrice.isNaN ? 0.0 : storedPrice)
-            AppStorage.setPrice(fetched)
-            AppStorage.setLastUpdated()
+            await MainActor.run { [fetched] in
+                AppStorage.setPrice(fetched)
+                AppStorage.setLastUpdated()
+            }
             price = fetched
         } else {
             price = storedPrice

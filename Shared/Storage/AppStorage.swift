@@ -6,6 +6,7 @@
 //
 import Foundation
 
+@MainActor
 final class AppStorage {
     static let suiteName = "group.com.aryanrogye.glowwatt"
     static let defaults = UserDefaults(suiteName: suiteName)

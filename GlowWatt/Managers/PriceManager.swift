@@ -38,6 +38,8 @@ class PriceManager: ObservableObject {
         loadComEdPriceOption()
         observeComEdPriceOption()
     }
+    
+    @MainActor
     deinit { uiUpdateTimer?.invalidate() }
     
     #if DEBUG
@@ -138,9 +140,12 @@ private extension PriceManager {
         let remaining = max(0, Int(ceil(end.timeIntervalSinceNow)))
         secondsLeft = remaining
         
-        let m = remaining / 60
-        let s = remaining % 60
-        timeLeftTillNextUpdate = String(format: "%d:%02d", m, s)
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        
+        timeLeftTillNextUpdate = formatter.string(from: TimeInterval(remaining)) ?? "0:00"
         
         if remaining <= 0 {
             finishTimer()

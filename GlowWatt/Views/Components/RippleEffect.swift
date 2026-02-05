@@ -49,7 +49,7 @@ struct RippleModifier: ViewModifier {
 }
 
 @MainActor
-struct RippleEffect<T: Equatable>: ViewModifier {
+struct RippleEffect<T: Equatable & Sendable>: ViewModifier {
     
     var shouldActivate: Bool
     var trigger : T
