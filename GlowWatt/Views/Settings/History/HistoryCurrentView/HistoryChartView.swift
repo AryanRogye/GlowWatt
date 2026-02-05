@@ -13,16 +13,18 @@ struct HistoryChartView: View {
     @ObservedObject private var userPriceManager = UserPricesManager.shared
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            header
-            
-            switch graphMode {
-            case .overTime:
-                overTimeChart
-                helperText("This shows how the price changes over days. Higher means more expensive.")
-            case .byHour:
-                byHourChart
-                helperText("This shows the average price at each hour of the day.")
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                header
+                
+                switch graphMode {
+                case .overTime:
+                    overTimeChart
+                    helperText("This shows how the price changes over days. Higher means more expensive.")
+                case .byHour:
+                    byHourChart
+                    helperText("This shows the average price at each hour of the day.")
+                }
             }
         }
         .padding()

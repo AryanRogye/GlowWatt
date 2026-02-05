@@ -35,6 +35,7 @@ struct HistoryCurrentView: View {
             }
         }
         .navigationTitle("Current History")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
