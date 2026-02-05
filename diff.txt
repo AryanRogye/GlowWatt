@@ -1,0 +1,394 @@
+diff --git a/GlowWatt.xcodeproj/project.pbxproj b/GlowWatt.xcodeproj/project.pbxproj
+index f92c34a..18eef90 100644
+--- a/GlowWatt.xcodeproj/project.pbxproj
++++ b/GlowWatt.xcodeproj/project.pbxproj
+@@ -656,7 +656,7 @@
+ 			attributes = {
+ 				BuildIndependentTargetsInParallel = 1;
+ 				LastSwiftUpdateCheck = 1620;
+-				LastUpgradeCheck = 1620;
++				LastUpgradeCheck = 2600;
+ 				TargetAttributes = {
+ 					9B07AE432DE932A600024AFD = {
+ 						CreatedOnToolsVersion = 16.2;
+@@ -850,8 +850,7 @@
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
+@@ -861,7 +860,7 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = watchos;
+@@ -880,8 +879,7 @@
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
+@@ -891,7 +889,7 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = watchos;
+@@ -910,8 +908,7 @@
+ 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+ 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
+@@ -922,7 +919,7 @@
+ 					"@executable_path/../../Frameworks",
+ 					"@executable_path/../../../../Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = watchos;
+@@ -941,8 +938,7 @@
+ 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+ 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
+@@ -953,7 +949,7 @@
+ 					"@executable_path/../../Frameworks",
+ 					"@executable_path/../../../../Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = watchos;
+@@ -1000,6 +996,7 @@
+ 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+ 				COPY_PHASE_STRIP = NO;
+ 				DEBUG_INFORMATION_FORMAT = dwarf;
++				DEVELOPMENT_TEAM = B9P888266K;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				ENABLE_TESTABILITY = YES;
+ 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+@@ -1023,6 +1020,7 @@
+ 				MTL_FAST_MATH = YES;
+ 				ONLY_ACTIVE_ARCH = YES;
+ 				SDKROOT = iphoneos;
++				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+ 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+ 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+ 			};
+@@ -1063,6 +1061,7 @@
+ 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+ 				COPY_PHASE_STRIP = NO;
+ 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
++				DEVELOPMENT_TEAM = B9P888266K;
+ 				ENABLE_NS_ASSERTIONS = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+@@ -1079,6 +1078,7 @@
+ 				MTL_ENABLE_DEBUG_INFO = NO;
+ 				MTL_FAST_MATH = YES;
+ 				SDKROOT = iphoneos;
++				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+ 				SWIFT_COMPILATION_MODE = wholemodule;
+ 				VALIDATE_PRODUCT = YES;
+ 			};
+@@ -1092,7 +1092,6 @@
+ 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 25;
+-				DEVELOPMENT_TEAM = B9P888266K;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
+@@ -1115,7 +1114,8 @@
+ 				SUPPORTS_MACCATALYST = NO;
+ 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+-				SWIFT_VERSION = 5.0;
++				SWIFT_STRICT_MEMORY_SAFETY = YES;
++				SWIFT_VERSION = 6.0;
+ 				TARGETED_DEVICE_FAMILY = "1,2";
+ 			};
+ 			name = Debug;
+@@ -1128,7 +1128,6 @@
+ 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 25;
+-				DEVELOPMENT_TEAM = B9P888266K;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
+@@ -1151,7 +1150,8 @@
+ 				SUPPORTS_MACCATALYST = NO;
+ 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+-				SWIFT_VERSION = 5.0;
++				SWIFT_STRICT_MEMORY_SAFETY = YES;
++				SWIFT_VERSION = 6.0;
+ 				TARGETED_DEVICE_FAMILY = "1,2";
+ 			};
+ 			name = Release;
+@@ -1163,8 +1163,7 @@
+ 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+ 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
+@@ -1174,7 +1173,7 @@
+ 					"@executable_path/Frameworks",
+ 					"@executable_path/../../Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+@@ -1194,8 +1193,7 @@
+ 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+ 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 24;
+-				DEVELOPMENT_TEAM = B9P888266K;
++				CURRENT_PROJECT_VERSION = 25;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
+ 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
+@@ -1205,7 +1203,7 @@
+ 					"@executable_path/Frameworks",
+ 					"@executable_path/../../Frameworks",
+ 				);
+-				MARKETING_VERSION = 1.24;
++				MARKETING_VERSION = 1.25;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+diff --git a/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWatt.xcscheme b/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWatt.xcscheme
+index 2019b2a..27338b8 100644
+--- a/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWatt.xcscheme
++++ b/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWatt.xcscheme
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Scheme
+-   LastUpgradeVersion = "1620"
++   LastUpgradeVersion = "2600"
+    version = "1.7">
+    <BuildAction
+       parallelizeBuildables = "YES"
+diff --git a/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWattWidgetExtension.xcscheme b/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWattWidgetExtension.xcscheme
+index 6cf6d7d..1251f6e 100644
+--- a/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWattWidgetExtension.xcscheme
++++ b/GlowWatt.xcodeproj/xcshareddata/xcschemes/GlowWattWidgetExtension.xcscheme
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Scheme
+-   LastUpgradeVersion = "1620"
++   LastUpgradeVersion = "2600"
+    wasCreatedForAppExtension = "YES"
+    version = "2.0">
+    <BuildAction
+diff --git a/GlowWatt.xcodeproj/xcshareddata/xcschemes/Release.xcscheme b/GlowWatt.xcodeproj/xcshareddata/xcschemes/Release.xcscheme
+index 2027d1c..9971365 100644
+--- a/GlowWatt.xcodeproj/xcshareddata/xcschemes/Release.xcscheme
++++ b/GlowWatt.xcodeproj/xcshareddata/xcschemes/Release.xcscheme
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Scheme
+-   LastUpgradeVersion = "1620"
++   LastUpgradeVersion = "2600"
+    version = "1.7">
+    <BuildAction
+       parallelizeBuildables = "YES"
+diff --git a/GlowWatt/Managers/PriceManager.swift b/GlowWatt/Managers/PriceManager.swift
+index b81d67f..e33b76f 100644
+--- a/GlowWatt/Managers/PriceManager.swift
++++ b/GlowWatt/Managers/PriceManager.swift
+@@ -38,6 +38,8 @@ class PriceManager: ObservableObject {
+         loadComEdPriceOption()
+         observeComEdPriceOption()
+     }
++    
++    @MainActor
+     deinit { uiUpdateTimer?.invalidate() }
+     
+     #if DEBUG
+@@ -138,9 +140,12 @@ private extension PriceManager {
+         let remaining = max(0, Int(ceil(end.timeIntervalSinceNow)))
+         secondsLeft = remaining
+         
+-        let m = remaining / 60
+-        let s = remaining % 60
+-        timeLeftTillNextUpdate = String(format: "%d:%02d", m, s)
++        let formatter = DateComponentsFormatter()
++        formatter.allowedUnits = [.minute, .second]
++        formatter.unitsStyle = .positional
++        formatter.zeroFormattingBehavior = .pad
++        
++        timeLeftTillNextUpdate = formatter.string(from: TimeInterval(remaining)) ?? "0:00"
+         
+         if remaining <= 0 {
+             finishTimer()
+diff --git a/GlowWatt/Models/HapticStyle.swift b/GlowWatt/Models/HapticStyle.swift
+index 6b50a57..963c9e1 100644
+--- a/GlowWatt/Models/HapticStyle.swift
++++ b/GlowWatt/Models/HapticStyle.swift
+@@ -7,6 +7,7 @@
+ 
+ import UIKit
+ 
++@MainActor
+ enum HapticStyle: String, CaseIterable {
+     case none = "None"
+     case subtle = "Subtle"
+diff --git a/GlowWatt/Views/Components/RippleEffect.swift b/GlowWatt/Views/Components/RippleEffect.swift
+index 75eff22..fb23e7e 100644
+--- a/GlowWatt/Views/Components/RippleEffect.swift
++++ b/GlowWatt/Views/Components/RippleEffect.swift
+@@ -49,7 +49,7 @@ struct RippleModifier: ViewModifier {
+ }
+ 
+ @MainActor
+-struct RippleEffect<T: Equatable>: ViewModifier {
++struct RippleEffect<T: Equatable & Sendable>: ViewModifier {
+     
+     var shouldActivate: Bool
+     var trigger : T
+diff --git a/GlowWattWatchOSWidget/GlowWattWatchOSWidget.swift b/GlowWattWatchOSWidget/GlowWattWatchOSWidget.swift
+index c7baef8..079b5a4 100644
+--- a/GlowWattWatchOSWidget/GlowWattWatchOSWidget.swift
++++ b/GlowWattWatchOSWidget/GlowWattWatchOSWidget.swift
+@@ -28,8 +28,10 @@ struct Provider: TimelineProvider {
+         
+         Task {
+             let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
+-            AppStorage.setPrice(fetchedPrice)
+-            AppStorage.setLastUpdated()
++            await MainActor.run {
++                AppStorage.setPrice(fetchedPrice)
++                AppStorage.setLastUpdated()
++            }
+             
+             let entry = SimpleEntry(date: Date(), price: fetchedPrice)
+             let currentDate = Date()
+diff --git a/GlowWattWidget/GlowWattWidget.swift b/GlowWattWidget/GlowWattWidget.swift
+index e9ddbbc..ff2865e 100644
+--- a/GlowWattWidget/GlowWattWidget.swift
++++ b/GlowWattWidget/GlowWattWidget.swift
+@@ -38,16 +38,19 @@ struct Provider: AppIntentTimelineProvider {
+     
+     func timeline(for configuration: GlowWattAppIntent, in context: Context) async -> Timeline<GlowWattInfo> {
+         // 1) read what the intent (or app) stored
+-        let storedPrice : Double = AppStorage.getPrice() ?? .nan
+-        let lastUpdated : Date = AppStorage.getLastUpdated() ?? .distantPast
++        let (storedPrice , lastUpdated) = await MainActor.run {
++            return (AppStorage.getPrice() ?? .nan, AppStorage.getLastUpdated() ?? .distantPast)
++        }
+         let isStale : Bool = Date().timeIntervalSince(lastUpdated) > 25 * 60  // ~25 min
+         
+         // 2) fetch only if missing/stale
+         let price: Double
+         if storedPrice.isNaN || isStale {
+             let fetched : Double = await API.fetchComEdPrice() ?? (storedPrice.isNaN ? 0.0 : storedPrice)
+-            AppStorage.setPrice(fetched)
+-            AppStorage.setLastUpdated()
++            await MainActor.run { [fetched] in
++                AppStorage.setPrice(fetched)
++                AppStorage.setLastUpdated()
++            }
+             price = fetched
+         } else {
+             price = storedPrice
+diff --git a/Shared/Intents/FetchIntent.swift b/Shared/Intents/FetchIntent.swift
+index ec54b07..cee7a59 100644
+--- a/Shared/Intents/FetchIntent.swift
++++ b/Shared/Intents/FetchIntent.swift
+@@ -19,13 +19,18 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
+         var errorDescription: String? { "Couldn’t fetch the current price." }
+     }
+     
+-    
+     func perform() async throws -> some IntentResult & ReturnsValue<Double> {
+         let now = Date()
+-        let last = AppStorage.getLastUpdated() ?? .distantPast
++        let last: Date = await MainActor.run {
++            var last : Date
++            last = AppStorage.getLastUpdated() ?? .distantPast
++            return last
++        }
+         
+         if now.timeIntervalSince(last) < Self.cooldown {
+-            let cached = AppStorage.getPrice() ?? 0.0
++            let cached = await MainActor.run {
++                return AppStorage.getPrice() ?? 0.0
++            }
+             return .result(value: cached)
+         }
+         
+@@ -33,8 +38,11 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
+         guard let price = await API.fetchComEdPrice(option: .instantHourlyPrice) else {
+             throw PriceError.unavailable
+         }
+-        AppStorage.setPrice(price)
+-        AppStorage.setLastUpdated(now)
++        
++        await MainActor.run { [price, now] in
++            AppStorage.setPrice(price)
++            AppStorage.setLastUpdated(now)
++        }
+         WidgetCenter.shared.reloadAllTimelines()
+         return .result(value: price)
+     }
+diff --git a/Shared/LiveActivities/LiveActivitesManager.swift b/Shared/LiveActivities/LiveActivitesManager.swift
+index ce95922..0d759f0 100644
+--- a/Shared/LiveActivities/LiveActivitesManager.swift
++++ b/Shared/LiveActivities/LiveActivitesManager.swift
+@@ -9,6 +9,7 @@ import ActivityKit
+ import Combine
+ 
+ /// We Make it ObservableObject, so SwiftUI can start it easier
++@MainActor
+ final class LiveActivitesManager: ObservableObject {
+     
+     @Published var hasStarted = false
+diff --git a/Shared/Storage/AppStorage.swift b/Shared/Storage/AppStorage.swift
+index 98c63a8..33b8f2d 100644
+--- a/Shared/Storage/AppStorage.swift
++++ b/Shared/Storage/AppStorage.swift
+@@ -6,6 +6,7 @@
+ //
+ import Foundation
+ 
++@MainActor
+ final class AppStorage {
+     static let suiteName = "group.com.aryanrogye.glowwatt"
+     static let defaults = UserDefaults(suiteName: suiteName)

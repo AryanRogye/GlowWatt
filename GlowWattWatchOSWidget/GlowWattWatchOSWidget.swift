@@ -24,15 +24,13 @@ struct Provider: TimelineProvider {
         completion(SimpleEntry(date: Date(), price: 0.0))
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-        
+    func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> ()) {
         Task {
             let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
             await MainActor.run {
                 AppStorage.setPrice(fetchedPrice)
                 AppStorage.setLastUpdated()
             }
-            
             let entry = SimpleEntry(date: Date(), price: fetchedPrice)
             let currentDate = Date()
             let timeline = Timeline(entries: [entry], policy: .after(currentDate.addingTimeInterval(1800)))

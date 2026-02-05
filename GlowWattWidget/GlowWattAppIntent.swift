@@ -9,8 +9,8 @@ import WidgetKit
 import AppIntents
 
 struct GlowWattAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "GlowWatt Widget Configuration"
-    static var description: IntentDescription = "This is an example widget."
+    static let title: LocalizedStringResource = "GlowWatt Widget Configuration"
+    static let description: IntentDescription = "This is an example widget."
     
     @Parameter(title: "Show Reload", default: true)
     var showingButton : Bool
