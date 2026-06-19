@@ -9,6 +9,7 @@ import SwiftUI
 import AppIntents
 import WidgetKit
 
+/// This Intent is used for the Widget Target and for Apple Shortcuts
 struct FetchCurrentInstantHourlyPrice: AppIntent {
     static let cooldown: TimeInterval = 5 * 60
 
@@ -19,31 +20,42 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
         var errorDescription: String? { "Couldn’t fetch the current price." }
     }
     
-    func perform() async throws -> some IntentResult & ReturnsValue<Double> {
+    func perform() async throws -> some IntentResult & ReturnsValue<Double> & ProvidesDialog {
         let now = Date()
-        let last: Date = await MainActor.run {
-            var last : Date
-            last = AppStorage.getLastUpdated() ?? .distantPast
-            return last
+
+        let last = await MainActor.run {
+            AppStorage.getLastUpdated() ?? .distantPast
         }
-        
+
         if now.timeIntervalSince(last) < Self.cooldown {
             let cached = await MainActor.run {
-                return AppStorage.getPrice() ?? 0.0
+                AppStorage.getPrice() ?? 0.0
             }
-            return .result(value: cached)
+
+            return .result(
+                value: cached,
+                dialog: "The current hourly price is \(cached) cents per kilowatt hour."
+            )
         }
-        
-        // Fetch + persist
+
         guard let price = await API.fetchComEdPrice(option: .instantHourlyPrice) else {
             throw PriceError.unavailable
         }
-        
-        await MainActor.run { [price, now] in
+
+        await MainActor.run {
             AppStorage.setPrice(price)
             AppStorage.setLastUpdated(now)
         }
+
         WidgetCenter.shared.reloadAllTimelines()
-        return .result(value: price)
+
+        let formattedPrice = price.formatted(.number.precision(.fractionLength(2)))
+
+        return .result(
+            value: price,
+            dialog: IntentDialog(
+                "The current hourly price is \(formattedPrice) cents per kilowatt hour."
+            )
+        )
     }
 }

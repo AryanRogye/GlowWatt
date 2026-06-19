@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import AppIntents
+#if compiler(>=6.4)
+import _AppIntents_SwiftUI
+#endif
 
 struct HistoryCurrentView: View {
     
@@ -125,6 +129,10 @@ struct HistoryListView: View {
     }
 
     var body: some View {
+        listView
+    }
+    
+    private var listView: some View {
         List {
             ForEach(prices) { price in
                 HStack {
@@ -153,6 +161,21 @@ struct HistoryListView: View {
                         Image(systemName: "trash")
                     }
                 }
+                .modify { view in
+#if compiler(>=6.4)
+                    if #available(iOS 18.4, *) {
+                        view
+                            .appEntityIdentifier(EntityIdentifier(
+                                for: PricesStorageEntity.self,
+                                identifier: price.id
+                            ))
+                    } else {
+                        view
+                    }
+#else
+                    view
+#endif
+                }
             }
         }
         .id(uiManager.shadeHistoryRegion)
@@ -161,4 +184,3 @@ struct HistoryListView: View {
         .animation(.spring, value: prices)
     }
 }
-

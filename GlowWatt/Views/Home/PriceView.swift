@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppIntents
 
 struct PriceView: View {
     
@@ -13,6 +14,10 @@ struct PriceView: View {
     @EnvironmentObject private var priceManager: PriceManager
     
     var body: some View {
+        content
+    }
+    
+    private var content: some View {
         VStack {
             if let price = priceManager.price {
                 formattedPriceView(price)
@@ -20,7 +25,7 @@ struct PriceView: View {
                 if let last = priceManager.lastUpdated {
                     formattedLastUpdatedView(last)
                 }
-                   /// Get the time left till next update
+                /// Get the time left till next update
                 if let timeLeft = priceManager.timeLeftTillNextUpdate {
                     formattedTimeLeftTillNextUpdate(timeLeft)
                 }

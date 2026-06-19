@@ -7,40 +7,57 @@
 
 import SwiftUI
 
+@Observable
+@MainActor
+final class AppServices {
+    let priceProvider = PriceManager()
+    let uiManager = UIManager()
+    let liveActivitiesStart = LiveActivitesManager()
+    let onboardingManager = OnboardingManager()
+    
+    init() {
+        if priceProvider.onHaptic == nil {
+           priceProvider.onHaptic = {
+                self.uiManager.hapticStyle.playHaptic()
+            }
+        }
+    }
+}
+
 @main
 struct GlowWattApp: App {
     
-    @StateObject private var priceProvider = PriceManager()
-    @StateObject private var uiManager = UIManager()
-    @StateObject private var liveActivitiesStart = LiveActivitesManager()
-    @State var onboardingManager = OnboardingManager()
+    @State var appServices = AppServices()
     
     init() {
+        GlowWattShortcuts.updateAppShortcutParameters()
+        if #available(iOS 26.0, *) {
+            Task {
+                do {
+                    try await GlowWattPriceIndexer.donatePrices()
+                } catch {
+                    print("Error Donating Prices to Core Spotlight")
+                }
+            }
+        }
     }
     
     var body: some Scene {
         WindowGroup {
-            if onboardingManager.needsOnboarding {
+            if appServices.onboardingManager.needsOnboarding {
                 OnboardingView()
-                    .environment(onboardingManager)
+                    .environment(appServices.onboardingManager)
             } else {
                 NavigationStack {
                     Home()
-                        .environment(onboardingManager)
-                        .environmentObject(priceProvider)
-                        .environmentObject(uiManager)
-                        .environmentObject(liveActivitiesStart)
+                        .environment(appServices.onboardingManager)
+                        .environmentObject(appServices.priceProvider)
+                        .environmentObject(appServices.uiManager)
+                        .environmentObject(appServices.liveActivitiesStart)
                         .onOpenURL { url in
                             if url.scheme == "glowwatt", url.host == "refresh" {
                                 Task {
-                                    await priceProvider.refresh()
-                                }
-                            }
-                        }
-                        .task {
-                            if priceProvider.onHaptic == nil {
-                                priceProvider.onHaptic = { [weak uiManager] in
-                                    uiManager?.hapticStyle.playHaptic()
+                                    await appServices.priceProvider.refresh()
                                 }
                             }
                         }

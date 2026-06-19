@@ -15,7 +15,9 @@ struct GlowWattInfo: TimelineEntry {
     let hideStatusOnTint : Bool
     let hideDate : Bool
 }
+
 struct Provider: AppIntentTimelineProvider {
+    
     func placeholder(in context: Context) -> GlowWattInfo {
         GlowWattInfo(
             date: Date(),
@@ -26,7 +28,10 @@ struct Provider: AppIntentTimelineProvider {
         )
     }
     
-    func snapshot(for configuration: GlowWattAppIntent, in context: Context) async -> GlowWattInfo {
+    func snapshot(
+        for configuration: GlowWattAppIntent,
+        in context: Context
+    ) async -> GlowWattInfo {
         GlowWattInfo(
             date: Date(),
             price: 0.0,
@@ -293,6 +298,7 @@ struct GlowWattWidgetEntryView : View {
     }
 }
 
+// MARK: - Widget
 struct GlowWattWidgetHomeScreen: Widget {
     let kind: String = "GlowWattWidget"
     
@@ -330,7 +336,6 @@ struct GlowWattWidgetHomeScreen: Widget {
     GlowWattInfo(date: .now, price: 5.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
     GlowWattInfo(date: .now, price: 10.0, showingRefreshButton: false, hideStatusOnTint: false, hideDate: false)
 }
-
 
 #Preview(as: .accessoryInline) {
     GlowWattWidgetHomeScreen()
