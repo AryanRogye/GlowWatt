@@ -38,6 +38,10 @@
 		9B328ADE2FE4CB08001EE670 /* GlowWattPriceIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B328ADD2FE4CB08001EE670 /* GlowWattPriceIndexer.swift */; };
 		9B328AE12FE4CB30001EE670 /* PricesStorageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B328AE02FE4CB30001EE670 /* PricesStorageEntity.swift */; };
 		9B328AE42FE4CBE4001EE670 /* DateExtracter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B328AE32FE4CBE3001EE670 /* DateExtracter.swift */; };
+		9B328BBA2FE5ADEA001EE670 /* PriceDateEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B328BB92FE5ADEA001EE670 /* PriceDateEntity.swift */; };
+		9B328BC82FE5B7FA001EE670 /* GlowWattAppIntents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 9B328BBF2FE5B7FA001EE670 /* GlowWattAppIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9B328CD32FE5D700001EE670 /* GlowWattIntentsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9B328CD12FE5D700001EE670 /* GlowWattIntentsKit */; };
+		9B328CD42FE5D700001EE670 /* GlowWattIntentsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9B328CD22FE5D700001EE670 /* GlowWattIntentsKit */; };
 		9B4E05622E942B78001CF411 /* SpatialPressingGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */; };
 		9B4E05642E942B82001CF411 /* RippleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E05632E942B82001CF411 /* RippleEffect.swift */; };
 		9B736CBD2E9454360063C622 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B736CBC2E9454340063C622 /* Graph.swift */; };
@@ -112,6 +116,13 @@
 			remoteGlobalIDString = 9B07AE5B2DE9429700024AFD;
 			remoteInfo = GlowWattWatchOSWidgetExtension;
 		};
+		9B328BC62FE5B7FA001EE670 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BB17B5E2DE148DA00200C38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B328BBE2FE5B7FA001EE670;
+			remoteInfo = GlowWattAppIntents;
+		};
 		9BB17B8F2DE1490400200C38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9BB17B5E2DE148DA00200C38 /* Project object */;
@@ -142,6 +153,17 @@
 				9B07AE692DE9429800024AFD /* GlowWattWatchOSWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B328BCD2FE5B7FA001EE670 /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				9B328BC82FE5B7FA001EE670 /* GlowWattAppIntents.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9BB17B962DE1490400200C38 /* Embed Foundation Extensions */ = {
@@ -179,6 +201,8 @@
 		9B328ADD2FE4CB08001EE670 /* GlowWattPriceIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowWattPriceIndexer.swift; sourceTree = "<group>"; };
 		9B328AE02FE4CB30001EE670 /* PricesStorageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesStorageEntity.swift; sourceTree = "<group>"; };
 		9B328AE32FE4CBE3001EE670 /* DateExtracter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtracter.swift; sourceTree = "<group>"; };
+		9B328BB92FE5ADEA001EE670 /* PriceDateEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDateEntity.swift; sourceTree = "<group>"; };
+		9B328BBF2FE5B7FA001EE670 /* GlowWattAppIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = GlowWattAppIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4E05602E942B78001CF411 /* SpatialPressingGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialPressingGestureModifier.swift; sourceTree = "<group>"; };
 		9B4E05632E942B82001CF411 /* RippleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleEffect.swift; sourceTree = "<group>"; };
 		9B736CBC2E9454340063C622 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -238,6 +262,27 @@
 		9BFDF4772EB18FD4005F3BB0 /* ToolbarCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B328BC92FE5B7FA001EE670 /* Exceptions for "GlowWattAppIntents" folder in "GlowWattAppIntents" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B328BBE2FE5B7FA001EE670 /* GlowWattAppIntents */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B328BC02FE5B7FA001EE670 /* GlowWattAppIntents */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B328BC92FE5B7FA001EE670 /* Exceptions for "GlowWattAppIntents" folder in "GlowWattAppIntents" target */,
+			);
+			path = GlowWattAppIntents;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		9B07AE412DE932A600024AFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -255,10 +300,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B328BBC2FE5B7FA001EE670 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B328CD42FE5D700001EE670 /* GlowWattIntentsKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9BB17B632DE148DA00200C38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B328CD32FE5D700001EE670 /* GlowWattIntentsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +423,7 @@
 		9B328ADF2FE4CB28001EE670 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9B328BB92FE5ADEA001EE670 /* PriceDateEntity.swift */,
 				9B328AE02FE4CB30001EE670 /* PricesStorageEntity.swift */,
 			);
 			path = Models;
@@ -409,6 +464,7 @@
 				9BD4C2762E83553C00278A0D /* GlowWattWidget */,
 				9BB430A12EA6A65200CC81D4 /* GlowWattWatchOS Watch App */,
 				9BB430AB2EA6A65200CC81D4 /* GlowWattWatchOSWidget */,
+				9B328BC02FE5B7FA001EE670 /* GlowWattAppIntents */,
 				9BB17B7C2DE1490200200C38 /* Frameworks */,
 				9BB17B672DE148DA00200C38 /* Products */,
 				9BF95DD92E90B58600776771 /* GlowWatt.icon */,
@@ -422,6 +478,7 @@
 				9BB17B7B2DE1490200200C38 /* GlowWattWidgetExtension.appex */,
 				9B07AE442DE932A600024AFD /* GlowWattWatchOS Watch App.app */,
 				9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */,
+				9B328BBF2FE5B7FA001EE670 /* GlowWattAppIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -657,6 +714,29 @@
 			productReference = 9B07AE5C2DE9429700024AFD /* GlowWattWatchOSWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		9B328BBE2FE5B7FA001EE670 /* GlowWattAppIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B328BCA2FE5B7FA001EE670 /* Build configuration list for PBXNativeTarget "GlowWattAppIntents" */;
+			buildPhases = (
+				9B328BBB2FE5B7FA001EE670 /* Sources */,
+				9B328BBC2FE5B7FA001EE670 /* Frameworks */,
+				9B328BBD2FE5B7FA001EE670 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B328BC02FE5B7FA001EE670 /* GlowWattAppIntents */,
+			);
+			name = GlowWattAppIntents;
+			packageProductDependencies = (
+				9B328CD22FE5D700001EE670 /* GlowWattIntentsKit */,
+			);
+			productName = GlowWattAppIntents;
+			productReference = 9B328BBF2FE5B7FA001EE670 /* GlowWattAppIntents.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
 		9BB17B652DE148DA00200C38 /* GlowWatt */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BB17B742DE148DC00200C38 /* Build configuration list for PBXNativeTarget "GlowWatt" */;
@@ -666,15 +746,18 @@
 				9BB17B642DE148DA00200C38 /* Resources */,
 				9BB17B962DE1490400200C38 /* Embed Foundation Extensions */,
 				9B07AE552DE932A600024AFD /* Embed Watch Content */,
+				9B328BCD2FE5B7FA001EE670 /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				9BB17B902DE1490400200C38 /* PBXTargetDependency */,
 				9B07AE502DE932A600024AFD /* PBXTargetDependency */,
+				9B328BC72FE5B7FA001EE670 /* PBXTargetDependency */,
 			);
 			name = GlowWatt;
 			packageProductDependencies = (
+				9B328CD12FE5D700001EE670 /* GlowWattIntentsKit */,
 			);
 			productName = GlowWatt;
 			productReference = 9BB17B662DE148DA00200C38 /* GlowWatt.app */;
@@ -706,7 +789,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					9B07AE432DE932A600024AFD = {
@@ -714,6 +797,9 @@
 					};
 					9B07AE5B2DE9429700024AFD = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					9B328BBE2FE5B7FA001EE670 = {
+						CreatedOnToolsVersion = 27.0;
 					};
 					9BB17B652DE148DA00200C38 = {
 						CreatedOnToolsVersion = 16.2;
@@ -732,6 +818,9 @@
 			);
 			mainGroup = 9BB17B5D2DE148DA00200C38;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9B328CD02FE5D700001EE670 /* XCLocalSwiftPackageReference "GlowWattIntentsKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9BB17B672DE148DA00200C38 /* Products */;
 			projectDirPath = "";
@@ -741,6 +830,7 @@
 				9BB17B7A2DE1490200200C38 /* GlowWattWidgetExtension */,
 				9B07AE432DE932A600024AFD /* GlowWattWatchOS Watch App */,
 				9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */,
+				9B328BBE2FE5B7FA001EE670 /* GlowWattAppIntents */,
 			);
 		};
 /* End PBXProject section */
@@ -761,6 +851,13 @@
 			files = (
 				9BB430AD2EA6A65200CC81D4 /* Assets.xcassets in Resources */,
 				9BF95DDD2E90B58600776771 /* GlowWatt.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B328BBD2FE5B7FA001EE670 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +912,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B328BBB2FE5B7FA001EE670 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9BB17B622DE148DA00200C38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -848,6 +952,7 @@
 				9B30A18E2EACA49900D640D6 /* IssuesSettings.swift in Sources */,
 				9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */,
 				9B10FC7B2EA715B000A7687D /* OnboardingPageTwo.swift in Sources */,
+				9B328BBA2FE5ADEA001EE670 /* PriceDateEntity.swift in Sources */,
 				9B328AD52FE4C910001EE670 /* Date+finderStyleString.swift in Sources */,
 				9B328ADB2FE4C910001EE670 /* View+modify.swift in Sources */,
 				9B30A1992EAD3DB300D640D6 /* HapticSettings.swift in Sources */,
@@ -898,6 +1003,11 @@
 			isa = PBXTargetDependency;
 			target = 9B07AE5B2DE9429700024AFD /* GlowWattWatchOSWidgetExtension */;
 			targetProxy = 9B07AE672DE9429800024AFD /* PBXContainerItemProxy */;
+		};
+		9B328BC72FE5B7FA001EE670 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B328BBE2FE5B7FA001EE670 /* GlowWattAppIntents */;
+			targetProxy = 9B328BC62FE5B7FA001EE670 /* PBXContainerItemProxy */;
 		};
 		9BB17B902DE1490400200C38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1022,6 +1132,64 @@
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		9B328BCB2FE5B7FA001EE670 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GlowWattAppIntents/GlowWattAppIntents.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 25;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlowWattAppIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GlowWattAppIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.25;
+				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattAppIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B328BCC2FE5B7FA001EE670 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GlowWattAppIntents/GlowWattAppIntents.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 25;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlowWattAppIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GlowWattAppIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.25;
+				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattAppIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1301,6 +1469,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		9B328BCA2FE5B7FA001EE670 /* Build configuration list for PBXNativeTarget "GlowWattAppIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B328BCB2FE5B7FA001EE670 /* Debug */,
+				9B328BCC2FE5B7FA001EE670 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9BB17B612DE148DA00200C38 /* Build configuration list for PBXProject "GlowWatt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1329,6 +1506,26 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		9B328CD02FE5D700001EE670 /* XCLocalSwiftPackageReference "GlowWattIntentsKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = GlowWattIntentsKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9B328CD12FE5D700001EE670 /* GlowWattIntentsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B328CD02FE5D700001EE670 /* XCLocalSwiftPackageReference "GlowWattIntentsKit" */;
+			productName = GlowWattIntentsKit;
+		};
+		9B328CD22FE5D700001EE670 /* GlowWattIntentsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B328CD02FE5D700001EE670 /* XCLocalSwiftPackageReference "GlowWattIntentsKit" */;
+			productName = GlowWattIntentsKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9BB17B5E2DE148DA00200C38 /* Project object */;
 }

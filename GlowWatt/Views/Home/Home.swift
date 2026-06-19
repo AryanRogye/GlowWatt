@@ -173,50 +173,16 @@ struct Home: View {
                         appIntentTask?.cancel()
                         appIntentTask = Task { @MainActor in
                             do {
-                                guard let response = try await DateExtracter.extract(from: criteria.term) else {
-                                    error = "Couldnt Convert Criteria To Date"
-                                    showError = true
-                                    return
-                                }
-
-                                let formatter = ISO8601DateFormatter()
-
-                                guard
-                                    let dateText = response.dateText,
-                                    let date = formatter.date(from: dateText)
-                                else {
-                                    error = "Date String Malformed: \(response.dateText, default: "nil")"
-                                    showError = true
-                                    return
-                                }
-
-                                let prices = UserPricesManager.shared.prices
-                                /// find the data closed to date variable
-
-                                let dates = prices.map(\.date)
-                                let closest = dates.min { a, b in
-                                    abs(a.timeIntervalSince(date)) < abs(b.timeIntervalSince(date))
-                                }
-                                guard let closest else {
-                                    self.error = "Couldnt Find Closest Date"
-                                    self.showError = true
-                                    return
-                                }
-
-                                guard let price = prices.first(where: { $0.date == closest }) else {
-                                    self.error = "Something Went Wrong Finding Date"
-                                    showError = true
-                                    return
-                                }
-
+                                let (price, date, closest) = try await DateExtracter.extract(criteria: criteria)
+                                
                                 priceAlert = """
-                                The closest electricity price I found was \(price.price)¢/kWh.
-
+                                The closest electricity price I found was \(price)¢/kWh.
+                                
                                 Requested: \(date.formatted())
                                 Recorded: \(closest.formatted())
                                 """
                                 showPriceAlert = true
-
+                                
                             } catch {
                                 self.error = error.localizedDescription
                                 self.showError = true

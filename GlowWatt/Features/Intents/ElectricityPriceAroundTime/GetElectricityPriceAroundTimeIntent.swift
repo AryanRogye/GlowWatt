@@ -20,56 +20,17 @@ struct GetElectricityPriceAroundTimeIntent: AppIntent, ShowInAppSearchResultsInt
     
     /// does nothing but is the whole flow
     func perform() async throws -> some IntentResult & ReturnsValue<Double?> & ProvidesDialog {
-        guard let response = try await DateExtracter.extract(from: criteria.term) else {
-            return .result(
-                value: nil,
-                dialog: IntentDialog(
-                    "Something went wrong, please try again later"
-                )
-            )
-        }
+        let (price, date, closest) = try await DateExtracter.extract(criteria: criteria)
         
-        let formatter = ISO8601DateFormatter()
-        
-        guard
-            let dateText = response.dateText,
-            let date = formatter.date(from: dateText)
-        else {
-            return .result(
-                value: nil,
-                dialog: "I couldn't find a valid date in your request."
-            )
-        }
-        
-        let prices = await UserPricesManager.shared.prices
-        /// find the data closed to date variable
-        
-        let dates = prices.map(\.date)
-        let closest = dates.min { a, b in
-            abs(a.timeIntervalSince(date)) < abs(b.timeIntervalSince(date))
-        }
-        guard let closest else {
-            return .result(
-                value: nil,
-                dialog: IntentDialog(
-                    "Something went wrong, please try again later"
-                )
-            )
-        }
-        
-        guard let price = prices.first(where: { $0.date == closest }) else {
-            return .result(
-                value: nil,
-                dialog: IntentDialog(
-                    "Something went wrong, please try again later"
-                )
-            )
-        }
+        unsafe try await IntentDonationManager.shared.donate(
+            intent: self,
+            result: .result(value: "Price Closest To \(date.formatted()) was \(price) on \(closest.formatted())")
+        )
         
         return .result(
-            value: price.price,
+            value: price,
             dialog: IntentDialog(
-                "Price Closest To \(date.formatted()) was \(price.price) on \(closest.formatted())"
+                "Price Closest To \(date.formatted()) was \(price) on \(closest.formatted())"
             )
         )
     }

@@ -6,6 +6,7 @@
 //
 
 import AppIntents
+import GlowWattIntentsKit
 
 struct GlowWattShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
@@ -19,7 +20,7 @@ struct GlowWattShortcuts: AppShortcutsProvider {
             shortTitle: "Current Price",
             systemImageName: "bolt.fill"
         )
-        
+
         if #available(iOS 26, *) {
             AppShortcut(
                 intent: GetElectricityPriceAroundTimeIntent(),
@@ -34,4 +35,3 @@ struct GlowWattShortcuts: AppShortcutsProvider {
         }
     }
 }
-

@@ -161,26 +161,32 @@ struct HistoryListView: View {
                         Image(systemName: "trash")
                     }
                 }
-                .modify { view in
-#if compiler(>=6.4)
-                    if #available(iOS 18.4, *) {
-                        view
-                            .appEntityIdentifier(EntityIdentifier(
-                                for: PricesStorageEntity.self,
-                                identifier: price.id
-                            ))
-                    } else {
-                        view
-                    }
-#else
-                    view
-#endif
-                }
             }
+            .id(uiManager.shadeHistoryRegion)
+            .listStyle(.plain)
+            .animation(
+                .spring(
+                    response: 0.4,
+                    dampingFraction: 0.8
+                ),
+                value: uiManager.shadeHistoryRegion
+            )
+            .animation(.spring, value: prices)
+            .modify { view in
+#if compiler(>=6.4)
+                if #available(iOS 18.4, *) {
+                    view
+                        .appEntityIdentifier(forSelectionType: PricesStorageEntity.ID.self) { priceID in
+                            EntityIdentifier(for: PricesStorageEntity.self, identifier: priceID)
+                        }
+                } else {
+                    view
+                }
+#else
+                view
+#endif
+            }
+
         }
-        .id(uiManager.shadeHistoryRegion)
-        .listStyle(.plain)
-        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: uiManager.shadeHistoryRegion)
-        .animation(.spring, value: prices)
     }
 }

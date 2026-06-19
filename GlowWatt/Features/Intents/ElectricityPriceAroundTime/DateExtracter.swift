@@ -26,7 +26,7 @@ public struct SearchDate: Hashable, Codable, Equatable, Sendable {
 
 @available(iOS 26.0, *)
 final class DateExtracter {
-    public static func extract(criteria: StringSearchCriteria) async throws -> (Double, Date)? {
+    public static func extract(criteria: StringSearchCriteria) async throws -> (Double, Date, Date) {
         
         /// Ask Model to extract date
         guard let response = try await Self.extract(from: criteria.term) else {
@@ -58,10 +58,10 @@ final class DateExtracter {
             throw DateExtracterError.somethingWentWrongFindingDate
         }
         
-        return (price.price, closest)
+        return (price.price, date, closest)
     }
     
-    public static func extract(from query: String) async throws -> SearchDate? {
+    private static func extract(from query: String) async throws -> SearchDate? {
         let session = LanguageModelSession(instructions: """
         Your only job is to take the search criteria and extract the date
         requested in the text, if there is no mention of a date return nil
