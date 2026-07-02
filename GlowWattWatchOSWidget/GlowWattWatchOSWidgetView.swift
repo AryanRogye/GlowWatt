@@ -38,20 +38,21 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: GlowWattAppIntent, in context: Context) async -> Timeline<GlowWattInfo> {
+        let now = Date()
         let fetchedPrice = await API.fetchComEdPrice() ?? 0.0
         await MainActor.run {
             AppStorage.setPrice(fetchedPrice)
-            AppStorage.setLastUpdated()
+            AppStorage.setLastUpdated(now)
+            AppStorage.addPriceToHistory(fetchedPrice, date: now)
         }
         let entry = GlowWattInfo(
-            date: Date(),
+            date: now,
             price: fetchedPrice,
             hideDate: configuration.hideDate
         )
-        let currentDate = Date()
         let timeline = Timeline(
             entries: [entry],
-            policy: .after(currentDate.addingTimeInterval(1800))
+            policy: .after(now.addingTimeInterval(1800))
         )
         
         return timeline

@@ -51,10 +51,12 @@ struct Provider: AppIntentTimelineProvider {
         // 2) fetch only if missing/stale
         let price: Double
         if storedPrice.isNaN || isStale {
+            let now = Date()
             let fetched : Double = await API.fetchComEdPrice() ?? (storedPrice.isNaN ? 0.0 : storedPrice)
-            await MainActor.run { [fetched] in
+            await MainActor.run { [fetched, now] in
                 AppStorage.setPrice(fetched)
-                AppStorage.setLastUpdated()
+                AppStorage.setLastUpdated(now)
+                AppStorage.addPriceToHistory(fetched, date: now)
             }
             price = fetched
         } else {

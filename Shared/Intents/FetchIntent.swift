@@ -45,6 +45,7 @@ struct FetchCurrentInstantHourlyPrice: AppIntent {
         await MainActor.run {
             AppStorage.setPrice(price)
             AppStorage.setLastUpdated(now)
+            AppStorage.addPriceToHistory(price, date: now)
         }
 
         WidgetCenter.shared.reloadAllTimelines()
