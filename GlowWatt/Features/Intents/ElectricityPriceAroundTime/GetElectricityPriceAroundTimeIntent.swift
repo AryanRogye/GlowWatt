@@ -22,7 +22,7 @@ struct GetElectricityPriceAroundTimeIntent: AppIntent, ShowInAppSearchResultsInt
     func perform() async throws -> some IntentResult & ReturnsValue<Double?> & ProvidesDialog {
         let (price, date, closest) = try await DateExtracter.extract(criteria: criteria)
         
-        unsafe try await IntentDonationManager.shared.donate(
+        try await IntentDonationManager.shared.donate(
             intent: self,
             result: .result(value: "Price Closest To \(date.formatted()) was \(price) on \(closest.formatted())")
         )
