@@ -76,7 +76,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B07AE5B2DE9429700024AFD"
             BuildableName = "GlowWattWatchOSWidgetExtension.appex"
-            BlueprintName = "GlowWattWatchOSWidgetExtension"
             ReferencedContainer = "container:GlowWatt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -119,7 +118,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B07AE5B2DE9429700024AFD"
             BuildableName = "GlowWattWatchOSWidgetExtension.appex"
-            BlueprintName = "GlowWattWatchOSWidgetExtension"
             ReferencedContainer = "container:GlowWatt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -1,0 +1,9 @@
+{
+  "id" : "a8c014d3-dfac-440c-bf73-d5c2a574c40e",
+  "targets" : [
+    {
+      "id" : "4ed71eab-bb05-47c5-92ae-c667eeb7d5bd",
+      "name" : "GlowWatt"
+    }
+  ]
+}

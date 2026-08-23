@@ -60,7 +60,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B07AE432DE932A600024AFD"
             BuildableName = "GlowWattWatchOS Watch App.app"
-            BlueprintName = "GlowWattWatchOS Watch App"
             ReferencedContainer = "container:GlowWatt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -77,7 +76,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B07AE432DE932A600024AFD"
             BuildableName = "GlowWattWatchOS Watch App.app"
-            BlueprintName = "GlowWattWatchOS Watch App"
             ReferencedContainer = "container:GlowWatt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
