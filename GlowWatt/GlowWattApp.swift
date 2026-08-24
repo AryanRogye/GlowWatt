@@ -10,6 +10,7 @@ import SwiftUI
 @Observable
 @MainActor
 final class AppServices {
+    let appStoreManager = AppStoreManager()
     let priceProvider = PriceManager()
     let uiManager = UIManager()
     let liveActivitiesStart = LiveActivitesManager()
@@ -50,6 +51,7 @@ struct GlowWattApp: App {
             } else {
                 NavigationStack {
                     Home()
+                        .environment(appServices.appStoreManager)
                         .environment(appServices.onboardingManager)
                         .environmentObject(appServices.priceProvider)
                         .environmentObject(appServices.uiManager)

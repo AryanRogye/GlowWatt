@@ -11,6 +11,7 @@ struct Home: View {
 
     @Environment(\.scenePhase) var scenePhase
     @Environment(OnboardingManager.self) var onboardingManager
+    @Environment(AppStoreManager.self) var appStoreManager
     @EnvironmentObject var priceManager : PriceManager
     @EnvironmentObject var uiManager: UIManager
     @EnvironmentObject var liveActivitesManager: LiveActivitesManager
@@ -74,11 +75,6 @@ struct Home: View {
                         )
                     )
             }
-            .overlay {
-                if uiManager.showPriceOptionOnHome {
-                    priceOptionsOnHome
-                }
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
@@ -130,6 +126,47 @@ struct Home: View {
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(Color.primary)
+                }
+            }
+
+            if uiManager.showPriceOptionOnHome {
+                ToolbarItem(placement: .navigation) {
+                    Menu {
+                        Picker("Price Option", selection: $priceManager.comEdPriceOption) {
+                            ForEach(ComdEdPriceOption.allCases, id: \.self) { option in
+                                Text(option.rawValue)
+                                    .tag(option)
+                            }
+                        }
+                    } label: {
+                        Text(priceManager.comEdPriceOption.rawValue)
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                }
+            }
+
+            if case .nonAppStoreBuild = appStoreManager.appVersionStatus {
+                ToolbarItem {
+                    Button { } label: {
+                        Image(systemName: "wrench.and.screwdriver")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .padding(.leading, 4)
+                            .accessibilityLabel("Pre-release Build")
+                    }
+                    .buttonStyle(.plain)
+                }
+            } else if case .newVersionAvailable(let appInfo) = appStoreManager.appVersionStatus {
+                ToolbarItem {
+                    Menu {
+                        Text("New Upate Available: \(appInfo.version)")
+                        if let url = URL(string: appInfo.trackViewUrl) {
+                            Link("View", destination: url)
+                        }
+                    } label: {
+                        Image(systemName: "arrow.down.circle")
+                    }
                 }
             }
         }
@@ -209,29 +246,12 @@ struct Home: View {
             await priceManager.refresh()
         }
     }
-
-    private var priceOptionsOnHome: some View {
-        VStack {
-            Spacer()
-            HStack {
-                #if DEBUG
-                if priceManager.isPreview {
-                    Text("[Preview]")
-                }
-                #endif
-                Spacer()
-                Text(priceManager.comEdPriceOption.rawValue)
-            }
-            .font(.system(size: 14, design: .monospaced))
-            .bold()
-            .padding(.horizontal)
-        }
-    }
 }
 
 #Preview {
 
     @Previewable @State var onboardingManager = OnboardingManager()
+    @Previewable @State var appStoreManager = AppStoreManager()
     @Previewable @StateObject var priceManager = PriceManager()
     @Previewable @StateObject var uiManager = UIManager()
     @Previewable @StateObject var liveActivitiesStart = LiveActivitesManager()
@@ -239,6 +259,7 @@ struct Home: View {
     NavigationStack {
         NavigationStack {
             Home()
+                .environment(appStoreManager)
                 .environmentObject(priceManager)
                 .environmentObject(uiManager)
                 .environmentObject(liveActivitiesStart)

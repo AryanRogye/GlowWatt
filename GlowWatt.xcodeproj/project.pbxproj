@@ -92,6 +92,11 @@
 		9BD4C27B2E83553C00278A0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BD4C2732E83553C00278A0D /* Assets.xcassets */; };
 		9BD4C2812E8359CE00278A0D /* PriceLimiterModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */; };
 		9BD4C2852E835B2B00278A0D /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4C2842E835B2A00278A0D /* PriceView.swift */; };
+		9BDE862E303CD70600DC5F92 /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE862D303CD70300DC5F92 /* AppStoreManager.swift */; };
+		9BDE8630303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */; };
+		9BDE8631303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */; };
+		9BDE8632303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */; };
+		9BDE8633303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */; };
 		9BF95DDA2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
 		9BF95DDB2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
 		9BF95DDC2E90B58600776771 /* GlowWatt.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9BF95DD92E90B58600776771 /* GlowWatt.icon */; };
@@ -256,6 +261,8 @@
 		9BD4C2752E83553C00278A0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BD4C2802E8359C900278A0D /* PriceLimiterModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLimiterModal.swift; sourceTree = "<group>"; };
 		9BD4C2842E835B2A00278A0D /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
+		9BDE862D303CD70300DC5F92 /* AppStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
+		9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+versionNumber.swift"; sourceTree = "<group>"; };
 		9BF95DD92E90B58600776771 /* GlowWatt.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = GlowWatt.icon; sourceTree = "<group>"; };
 		9BF95EC12E92477700776771 /* HapticStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticStyle.swift; sourceTree = "<group>"; };
 		9BF95EC32E930F5700776771 /* layerEffects.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = layerEffects.metal; sourceTree = "<group>"; };
@@ -406,6 +413,7 @@
 		9B328AD42FE4C910001EE670 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9BDE862F303CD74500DC5F92 /* Bundle+versionNumber.swift */,
 				9B328AD22FE4C910001EE670 /* Date+finderStyleString.swift */,
 				9B328AD32FE4C910001EE670 /* View+modify.swift */,
 			);
@@ -562,6 +570,7 @@
 		9BD4C24E2E83550300278A0D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				9BDE862D303CD70300DC5F92 /* AppStoreManager.swift */,
 				9BD4C24C2E83550300278A0D /* PriceManager.swift */,
 				9BD4C24D2E83550300278A0D /* UIManager.swift */,
 				9B736CC32E9454C90063C622 /* Untitled.swift */,
@@ -887,6 +896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB430B52EA6C6D000CC81D4 /* WatchOSSettingsModel.swift in Sources */,
+				9BDE8630303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */,
 				9BB430B02EA6C52100CC81D4 /* SettingsView.swift in Sources */,
 				9B328AD92FE4C910001EE670 /* Date+finderStyleString.swift in Sources */,
 				9B07AE562DE9365700024AFD /* AppStorage.swift in Sources */,
@@ -903,6 +913,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB430B42EA6C6D000CC81D4 /* WatchOSSettingsModel.swift in Sources */,
+				9BDE8631303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */,
 				9B07AE6F2DE9437100024AFD /* AppStorage.swift in Sources */,
 				9B07AE702DE9437100024AFD /* API.swift in Sources */,
 				9BC16C8E2F366077001601A3 /* GlowWattAppIntent.swift in Sources */,
@@ -943,11 +954,13 @@
 				9B10FC792EA7152500A7687D /* OnboardingPageOne.swift in Sources */,
 				9B30A18B2EACA3EB00D640D6 /* HistorySettings.swift in Sources */,
 				9BB430BE2EA70FB800CC81D4 /* OnboardingView.swift in Sources */,
+				9BDE8632303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */,
 				9B30A1872EAC92F000D640D6 /* AccessibilitySettings.swift in Sources */,
 				9B328AE12FE4CB30001EE670 /* PricesStorageEntity.swift in Sources */,
 				9BD4C2662E83550300278A0D /* HistoryCountSlider.swift in Sources */,
 				9BD4C2672E83550300278A0D /* HistoryChartView.swift in Sources */,
 				9B328AE42FE4CBE4001EE670 /* DateExtracter.swift in Sources */,
+				9BDE862E303CD70600DC5F92 /* AppStoreManager.swift in Sources */,
 				9BD4C2682E83550300278A0D /* HistoryCurrentView.swift in Sources */,
 				9B30A18E2EACA49900D640D6 /* IssuesSettings.swift in Sources */,
 				9BFDF4782EB18FD9005F3BB0 /* ToolbarCancel.swift in Sources */,
@@ -982,6 +995,7 @@
 				9BB430BA2EA6E70500CC81D4 /* FetchIntent.swift in Sources */,
 				9BB17B9A2DE149EB00200C38 /* API.swift in Sources */,
 				9BD4C1DE2E83340800278A0D /* GlowWattAttributes.swift in Sources */,
+				9BDE8633303CD74A00DC5F92 /* Bundle+versionNumber.swift in Sources */,
 				9BD4C2772E83553C00278A0D /* GlowWattLiveActivities.swift in Sources */,
 				9BD4C2782E83553C00278A0D /* GlowWattAppIntent.swift in Sources */,
 				9BD4C2792E83553C00278A0D /* GlowWattWidget.swift in Sources */,
@@ -1024,7 +1038,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
@@ -1034,7 +1048,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1053,7 +1067,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GlowWattWatchOS Watch App/GlowWattWatchOS Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOS;
@@ -1063,7 +1077,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1082,7 +1096,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
@@ -1093,7 +1107,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1112,7 +1126,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWatchOSWidget/GlowWattWatchOSWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWatchOSWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWatchOSWidget;
@@ -1123,7 +1137,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.watchkitapp.GlowWattWatchOSWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1140,7 +1154,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GlowWattAppIntents/GlowWattAppIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattAppIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattAppIntents;
@@ -1151,7 +1165,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattAppIntents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1169,7 +1183,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GlowWattAppIntents/GlowWattAppIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattAppIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattAppIntents;
@@ -1180,7 +1194,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattAppIntents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1323,7 +1337,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
@@ -1339,7 +1353,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1359,7 +1373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GlowWatt/Config/GlowWatt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWatt/Config/Info.plist;
@@ -1375,7 +1389,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1395,7 +1409,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
@@ -1405,7 +1419,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1425,7 +1439,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GlowWattWidget/Config/GlowWattWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowWattWidget/Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowWattWidget;
@@ -1435,7 +1449,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.27;
+				MARKETING_VERSION = 1.28;
 				PRODUCT_BUNDLE_IDENTIFIER = app.aryanrogye.GlowWatt.GlowWattWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
