@@ -67,9 +67,7 @@ final class AppStoreManager {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let decoded = try JSONDecoder().decode(LookupResponse.self, from: data)
-                if let first = decoded.results.first {
-                    self.latestAppStoreInfo = first
-                }
+                self.latestAppStoreInfo = decoded.results.first
             } catch {
                 print("Error Fetching Latest App Store Version: \(error.localizedDescription)")
             }

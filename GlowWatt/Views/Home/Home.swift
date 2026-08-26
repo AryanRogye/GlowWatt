@@ -147,17 +147,7 @@ struct Home: View {
                 }
             }
 
-            if case .nonAppStoreBuild = appStoreManager.appVersionStatus {
-                ToolbarItem {
-                    Button { } label: {
-                        Image(systemName: "wrench.and.screwdriver")
-                            .font(.system(size: 14, weight: .medium, design: .rounded))
-                            .padding(.leading, 4)
-                            .accessibilityLabel("Pre-release Build")
-                    }
-                    .buttonStyle(.plain)
-                }
-            } else if case .newVersionAvailable(let appInfo) = appStoreManager.appVersionStatus {
+            if case .newVersionAvailable(let appInfo) = appStoreManager.appVersionStatus {
                 ToolbarItem {
                     Menu {
                         Text("New Upate Available: \(appInfo.version)")

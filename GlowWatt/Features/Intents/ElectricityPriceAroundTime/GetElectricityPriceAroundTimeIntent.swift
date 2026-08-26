@@ -7,6 +7,8 @@
 
 import AppIntents
 
+/// Ignore Warnings about using .system.searchInApp
+/// because this is only for iOS 27
 @available(iOS 26.0, *)
 @AppIntent(schema: .system.search)
 struct GetElectricityPriceAroundTimeIntent: AppIntent, ShowInAppSearchResultsIntent, TargetContentProvidingIntent {
